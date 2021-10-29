@@ -33,4 +33,11 @@ class App {
             //error page
         }
     }
+
+    public static function config($key)
+    {
+        $config = include BP_APP . 'config.php';
+        return $config[$key];
+    }
+
 }
