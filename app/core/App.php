@@ -19,7 +19,7 @@ class App {
 
         $method = ''; 
         if(!isset($request[2]) || $request[2] == ''){
-            $method='index';
+            $method='home';
         }
         else {
             $method = $request[2];

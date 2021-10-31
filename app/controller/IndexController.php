@@ -11,4 +11,9 @@ class IndexController extends Controller
     {
         $this->view->render('about');
     }
+
+    public function shop()
+    {
+        $this->view->render('shop');
+    }
 }

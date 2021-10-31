@@ -43,10 +43,6 @@
             <div id="navbar_menu">
               <ul class="first-ul">
                 <li> <a class="active" href="<?=App::config('url')?>index/home">Home</a>
-                  <ul>
-                    <li><a href="it_home.html">It Home Page</a></li>
-                    <li><a href="it_home_dark.html">It Dark Home Page</a></li>
-                  </ul>
                 </li>
                 <li><a href="<?=App::config('url')?>index/about">About Us</a></li>
                 <li> <a href="it_service.html">Service</a>
@@ -71,12 +67,11 @@
                     <li><a href="it_error.html">Error 404</a></li>
                   </ul>
                 </li>
-                <li> <a href="it_shop.html">Shop</a>
+                <li> <a href="<?=App::config('url')?>index/shop">Shop</a>
                   <ul>
-                    <li><a href="it_shop.html">Shop List</a></li>
-                    <li><a href="it_shop_detail.html">Shop Detail</a></li>
-                    <li><a href="it_cart.html">Shopping Cart</a></li>
-                    <li><a href="it_checkout.html">Checkout</a></li>
+                    <li><a href="<?=App::config('url')?>index/shop">Shop List</a></li>
+                    <li><a href="<?=App::config('url')?>index/cart">Shopping Cart</a></li>
+                    <li><a href="<?=App::config('url')?>index/checkout">Checkout</a></li>
                   </ul>
                 </li>
                 <li> <a href="it_contact.html">Contact</a>
