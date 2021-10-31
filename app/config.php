@@ -1,6 +1,6 @@
 <?php 
 
 return [
-    'appName' =>'Gaming store',
+    'appName' =>'CyberX Gaming Store',
     'url'=>'http://myapp.hr/'
 ];

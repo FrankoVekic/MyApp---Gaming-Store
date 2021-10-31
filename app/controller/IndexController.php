@@ -2,8 +2,13 @@
 
 class IndexController extends Controller 
 {
-    public function index()
+    public function home()
     {
-        $this->view->render('index');
+        $this->view->render('home');
+    }
+
+    public function about()
+    {
+        $this->view->render('about');
     }
 }
