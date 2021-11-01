@@ -66,7 +66,11 @@
                 </li>
                 <li> <a href="it_contact.html">Contact</a>
                 </li>
-                <li> <a href="<?=App::config('url')?>index/login">Login</a>
+                <?php if(!Request::isAuthorized()): ?>
+                <li> <a href="<?=App::config('url')?>index/login">Log In</a> </li>
+                <?php else:?>
+                  <li> <a href="<?=App::config('url')?>index/logout">Log Out</a> </li>
+                <?php endif;?>
               </ul>
             </div>
             <div class="search_icon">

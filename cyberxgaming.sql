@@ -2,10 +2,6 @@ drop database if exists cyberxgames;
 create database cyberxgames default character set utf8mb4;
 use cyberxgames;
 
-//za online = alter database aurelije_cyberx default character set utf8mb4;
-
-
-
 create table product(
 id int not null primary key auto_increment,
 name varchar(50) not null,
@@ -48,7 +44,7 @@ image varchar(50)
 create table game_order (
 id int not null primary key auto_increment,
 orders int not null,
-games int not null,
+product int not null,
 quantity int
 );
 
@@ -60,7 +56,11 @@ blogtext text,
 author int
 );
 
-alter table game_order add foreign key (games) references games(id);
+alter table game_order add foreign key (product) references product(id);
 alter table game_order add foreign key (orders) references orders(id);
 alter table orders add foreign key (buyer) references users(id);
 alter table blog add foreign key (author) references users(id);
+
+insert into users (email,password,name,surname,role) values 
+('admin@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Admin','Test','admin'),
+('oper@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Operater','Test','oper');

@@ -13,4 +13,9 @@ class Request
         }
         return $path;
     }
+
+    public static function isAuthorized()
+    {
+        return isset($_SESSION['authorized']);
+    }
 }

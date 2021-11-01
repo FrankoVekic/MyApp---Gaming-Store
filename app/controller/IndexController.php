@@ -23,6 +23,13 @@ class IndexController extends Controller
             'message'=>'Enter required information.'
         ]);
     }
+
+    public function logout()
+    {
+        unset($_SESSION['authorized']);
+        session_destroy();
+        $this->home();
+    }
     
     public function error()
     {
@@ -45,9 +52,13 @@ class IndexController extends Controller
         }
         $user = Operator::authorize($_POST['email'],$_POST['password']);
         if($user == null){
-            $this->loginView($_POST['email'],'Incorrect input.');
+            $this->loginView($_POST['email'],'Incorrect data given, try again.');
             return;
         }
+
+        $_SESSION['authorized']=$user;
+        $view = new View();
+        $view->render('home');
     }
     
     private function loginView($email,$message)
