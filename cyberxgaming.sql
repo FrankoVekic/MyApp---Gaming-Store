@@ -21,6 +21,13 @@ surname varchar(50) not null,
 role varchar(10) not null
 );
 
+create table service (
+id int not null primary key auto_increment,
+name varchar(50),
+description text,
+price decimal(18,2)
+);
+
 create table orders (
 id int not null primary key auto_increment,
 buyer int,
@@ -52,7 +59,8 @@ create table blog (
 id int not null primary key auto_increment,
 title varchar(50),
 blogdate date,
-blogtext text,
+blogsmalltext text,
+bloglargetext text,
 author int
 );
 
