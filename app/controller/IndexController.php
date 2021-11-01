@@ -32,6 +32,11 @@ class IndexController extends Controller
         $this->view->render('shop');
     }
 
+    public function checkout()
+    {
+        $this->view->render('checkout');
+    }
+
     public function service()
     {
         $this->view->render('service');

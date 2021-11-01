@@ -1,5 +1,11 @@
-/*------------------------------------------------------------------
-    File Name: custom.css
--------------------------------------------------------------------*/
+.inputcheckout {
+    width: 100%;
+	border: solid #ddd 1px;
+	padding: 5px;
+	font-size: 13px;
+	padding: 8px 15px;
+	margin-top: 0;
+	font-weight: 500;
+	color: #333;
 
-/** ADD YOUR AWESOME CODES HERE **/
+}
