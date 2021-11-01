@@ -4135,6 +4135,15 @@ footer ul.social_icons {
 	padding: 0;
 }
 
+.mediaobject {
+	width: auto;
+	height: 110px;
+	border: solid #ddd 1px;
+	padding: 0;
+	margin-right: 5px;
+}
+
+
 .shopping-cart h4 {
 	font-size: 16px;
 	text-transform: none;
@@ -4217,6 +4226,18 @@ footer ul.social_icons {
 	box-shadow: 10px 10px 25px -20px #000;
 }
 
+.cart-form .button {
+	padding: 10px 20px;
+	border: none;
+	background: #039ee3;
+	color: #fff;
+	margin-left: -1px;
+	transition: ease all 0.5s;
+	float: right;
+	font-size: 13px;
+	cursor: pointer;
+}
+
 .cart-form {
 	width: 100%;
 	background: #f6f6f6;
@@ -4253,9 +4274,18 @@ footer ul.social_icons {
 }
 
 .shopping-cart-cart .button {
-	padding: 9px 16px;
-	margin-left: 0;
-	width: 100%;
+	font-size: 13px;
+	font-weight: 400;
+	min-width: auto;
+	padding: 0px 20px;
+	height: 45px;
+	line-height: 45px;
+	margin: 33px 0 0 30px;
+	background: #039ee3;
+	transition: ease all 0.5s;
+	border: none;
+	color: #fff;
+	cursor: pointer;
 }
 
 .shopping-cart-cart h3 {

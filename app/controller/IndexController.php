@@ -17,6 +17,16 @@ class IndexController extends Controller
         $this->view->render('blog');
     }
 
+    public function contact()
+    {
+        $this->view->render('contact');
+    }
+
+    public function shopping_cart()
+    {
+        $this->view->render('cart');
+    }
+
     public function shop()
     {
         $this->view->render('shop');

@@ -60,11 +60,11 @@
                 <li> <a href="<?=App::config('url')?>index/shop">Shop</a>
                   <ul>
                     <li><a href="<?=App::config('url')?>index/shop">Shop List</a></li>
-                    <li><a href="<?=App::config('url')?>index/cart">Shopping Cart</a></li>
+                    <li><a href="<?=App::config('url')?>index/shopping_cart">Shopping Cart</a></li>
                     <li><a href="<?=App::config('url')?>index/checkout">Checkout</a></li>
                   </ul>
                 </li>
-                <li> <a href="it_contact.html">Contact</a>
+                <li> <a href="<?=App::config('url')?>index/contact">Contact</a>
                 </li>
                 <?php if(!Request::isAuthorized()): ?>
                 <li> <a href="<?=App::config('url')?>index/login">Log In</a> </li>
