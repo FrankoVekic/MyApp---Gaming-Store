@@ -12,9 +12,19 @@ class IndexController extends Controller
         $this->view->render('about');
     }
 
+    public function blog()
+    {
+        $this->view->render('blog');
+    }
+
     public function shop()
     {
         $this->view->render('shop');
+    }
+
+    public function service()
+    {
+        $this->view->render('service');
     }
 
     public function login()
