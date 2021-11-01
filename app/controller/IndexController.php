@@ -28,4 +28,48 @@ class IndexController extends Controller
     {
         $this->view->render('error');
     }
+
+    public function authorization()
+    {
+        if(!isset($_POST['email']) || !isset($_POST['password'])){
+            $this->login();
+            return;
+        }
+        if(strlen(trim($_POST['email'])) ===0){
+            $this->loginView('','Email is required');
+            return;
+        }
+        if(strlen(trim($_POST['password'])) ===0){
+            $this->loginView($_POST['email'],'Password is required');
+            return;
+        }
+        $user = Operator::authorize($_POST['email'],$_POST['password']);
+        if($user == null){
+            $this->loginView($_POST['email'],'Incorrect input.');
+            return;
+        }
+    }
+    
+    private function loginView($email,$message)
+    { 
+        $this->view->render('login',
+        ['email'=>$email,
+         'message'=>$message]);
+    }
+
+    private function registerView($name,$surname,$email,$message)
+    { 
+        $this->view->render('register',
+        ['email'=>$email,
+        'name'=>$name,
+        'surname'=>$surname,
+        'message'=>$message]);
+    }
+
+    public function register()
+    {
+        $this->view->render('register',[
+            'message'=>'Enter required information.'
+        ]);
+    }
 }
