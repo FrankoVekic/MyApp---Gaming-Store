@@ -30,7 +30,8 @@ class App {
             $instance->$method();
         }
         else {
-            //error page
+            $view = new View();
+            $view->render('error');
         }
     }
 

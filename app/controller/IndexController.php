@@ -16,4 +16,16 @@ class IndexController extends Controller
     {
         $this->view->render('shop');
     }
+
+    public function login()
+    {
+        $this->view->render('login',[
+            'message'=>'Enter required information.'
+        ]);
+    }
+    
+    public function error()
+    {
+        $this->view->render('error');
+    }
 }
