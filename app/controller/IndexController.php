@@ -37,6 +37,11 @@ class IndexController extends Controller
         $this->view->render('faq');
     }
 
+    public function privacy_policy()
+    {
+        $this->view->render('privacy_policy');
+    }
+
     public function checkout()
     {
         $this->view->render('checkout');
