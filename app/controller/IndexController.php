@@ -32,6 +32,11 @@ class IndexController extends Controller
         $this->view->render('shop');
     }
 
+    public function faq()
+    {
+        $this->view->render('faq');
+    }
+
     public function checkout()
     {
         $this->view->render('checkout');
@@ -40,6 +45,11 @@ class IndexController extends Controller
     public function career()
     {
         $this->view->render('career');
+    }
+
+    public function price()
+    {
+        $this->view->render('price');
     }
 
     public function service()
