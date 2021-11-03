@@ -18,4 +18,26 @@ class Operator
         unset($users->$password);
         return $users;     
     }
+
+    public static function registration($name,$surname,$email,$password)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM users WHERE email=:email');
+        $query->execute(['email'=>$email]);
+        $users = $query->fetch();
+        
+        if($users!=null){
+            return false;
+        }
+        else {
+        $passwordhash = password_hash($password,PASSWORD_BCRYPT);
+        $query = $conn->prepare("INSERT INTO users (email,password,name,surname,role) VALUES (:email,:password,:name,:surname,'oper');");
+        $query->bindParam(":email",$email);
+        $query->bindParam(":name",$name);
+        $query->bindParam(":surname",$surname);
+        $query->bindParam(":password",$passwordhash);
+        $query->execute();
+        return true;
+        }
+    }
 }

@@ -128,4 +128,45 @@ class IndexController extends Controller
             'message'=>'Enter required information.'
         ]);
     }
+
+    public function registration()
+    {
+        $uppercase = preg_match('@[A-Z]@', $_POST['password']);
+        $number = preg_match('@[0-9]@', $_POST['password']);
+
+        if(strlen(trim($_POST['name'])) ===0){
+            $this->registerView('',$_POST['surname'],$_POST['email'],'Name empty!');
+            return;
+        }
+        if(strlen(trim($_POST['surname'])) ===0){
+            $this->registerView($_POST['name'],'',$_POST['email'],'Surname empty!');
+            return;
+        }
+        if(strlen(trim($_POST['email'])) ===0){
+            $this->registerView($_POST['name'],$_POST['surname'],'','Email empty!');
+            return;
+        }
+        if(strlen(trim($_POST['password'])) ===0){
+            $this->registerView($_POST['name'],$_POST['surname'],$_POST['email'],'Password is required');
+            return;
+        }
+        if(!$uppercase || !$number || strlen($_POST['password']) < 6){
+            $this->registerView($_POST['name'],$_POST['surname'],$_POST['email'],'Password  must contain at least one capital letter, one number and at least 6 characters');
+            return;
+        }
+        if($_POST['password'] != $_POST['passwordrepeat']){
+            $this->registerView($_POST['name'],$_POST['surname'],$_POST['email'],'Passwords must match.');
+            return;
+        }
+
+    $operater = Operator::registration($_POST['name'],$_POST['surname'],$_POST['email'],$_POST['password'],$_POST['passwordrepeat']);
+    if($operater == false){
+        $this->registerView('','','','Incorrect input, try again.');
+        return;
+    }
+    if($operater == true){
+        $this->loginView($_POST['email'],'Registered successfully.');
+        return;
+    } 
+    }
 }
