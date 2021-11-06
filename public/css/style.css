@@ -3478,7 +3478,7 @@ footer ul.social_icons {
 
 .gross_layout::after {
 	position: absolute;
-	background: url(../images/it_service/dark_bg_img.png);
+	background: url(../images/it_service/gaming1.jpg);
 	width: 35%;
 	height: 100%;
 	right: 0;
@@ -3490,7 +3490,6 @@ footer ul.social_icons {
 
 .gross_layout::before {
 	position: absolute;
-	background: rgba(10, 139, 199, 0.8);
 	width: 35%;
 	height: 100%;
 	right: 0;
@@ -3503,7 +3502,7 @@ footer ul.social_icons {
 
 .gross_layout.right_gross_layout::after {
 	position: absolute;
-	background: url(../images/it_service/dark_bg_img2.png);
+	background: url(../images/it_service/gaming2.jpg);
 	width: 35%;
 	height: 100%;
 	left: 0;
@@ -3515,7 +3514,6 @@ footer ul.social_icons {
 
 .gross_layout.right_gross_layout::before {
 	position: absolute;
-	background: rgba(10, 139, 199, 0.8);
 	width: 35%;
 	height: 100%;
 	left: 0;
