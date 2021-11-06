@@ -2,17 +2,16 @@ drop database if exists cyberxgames;
 create database cyberxgames default character set utf8mb4;
 use cyberxgames;
 
-create table product(
+create table equipment(
 id int not null primary key auto_increment,
 name varchar(50) not null,
 price decimal(18,2) not null,
-description varchar(300),
+description text,
 quantity int not null,
-console varchar(50) not null,
 image varchar(50)
 );
 
-create table users (
+create table user (
 id int not null primary key auto_increment,
 email varchar(50) not null,
 password char(60) not null,
@@ -28,7 +27,7 @@ description text,
 price decimal(18,2)
 );
 
-create table orders (
+create table order_details (
 id int not null primary key auto_increment,
 buyer int,
 order_date datetime,
@@ -37,22 +36,24 @@ city varchar(30),
 country varchar(30)
 );
 
-create table preorder(
+create table game (
 id int not null primary key auto_increment,
 name varchar(50) not null,
 price decimal(18,2) not null,
-description varchar(300),
+description text,
 quantity int not null,
 memory_required int not null,
 console varchar(50) not null,
 image varchar(50)
 );
 
-create table game_order (
+create table order_data (
 id int not null primary key auto_increment,
-orders int not null,
-product int not null,
-quantity int
+order_details int not null,
+equipment int,
+game int,
+service int,
+quantity int not null
 );
 
 create table blog (
@@ -64,11 +65,33 @@ bloglargetext text,
 author int
 );
 
-alter table game_order add foreign key (product) references product(id);
-alter table game_order add foreign key (orders) references orders(id);
-alter table orders add foreign key (buyer) references users(id);
-alter table blog add foreign key (author) references users(id);
+alter table order_data add foreign key (equipment) references equipment(id);
+alter table order_data add foreign key (game) references game(id);
+alter table order_data add foreign key (service) references service(id);
+alter table order_data add foreign key (order_details) references order_details(id);
+alter table order_details add foreign key (buyer) references user(id);
+alter table blog add foreign key (author) references user(id);
 
-insert into users (email,password,name,surname,role) values 
+insert into user (email,password,name,surname,role) values 
 ('admin@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Admin','Test','admin'),
 ('oper@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Operater','Test','oper');
+
+insert into equipment (name,price,description,quantity,image) values 
+('Razer Lachesis',79.99,'The Razer Lachesis reigns supreme with a true 5600dpi 3.5G Laser sensor, which 
+enables movement speeds of 7 times that of a standard 800dpi optical sensor. Customize the look of the Razer 
+Lachesis however you want. With the new Tricolor-LED you get a unique look & style on your favourite gaming weapon.',10,'razerlachesis.png'),
+
+('Razer Nari',80,'The wireless gaming headset designed for supreme comfort. Featuring an auto-adjusting headband, with swiveling 
+earcups that include cooling gel-infused ear cushions. THX Spatial Audio provides next-generation surround sound and the game/chat 
+balance allows the perfect mix of game and chat volume.',10,'razernari.jpg'),
+
+('Red CyberX gaming chair',100,'A cyberx gaming chair is a type of chair designed for the comfort of gamers. They differ from most office chairs
+ in having high backrest designed to support the upper back and shoulders. They are also more customizable: the armrests, back, lumbar support 
+and headrest can all be adjusted for comfort and efficiency.',10,'redcyberxchair.jpg');
+
+insert into game (name,price,quantity,memory_required,console,image,description) values 
+('Pokemon',39.99,10,40,'Both','pokemon.jpg','Gotta catch them all!'),
+('Spider-man',59.99,10,65,'PC','spiderman.jpg','Save the city with your favorite superhero!'),
+('Biomutant',39.99,10,50,'PC','biomutant.jpg','Biomutant is an action role-playing game developed 
+by Swedish developer Experiment 101 and published by THQ Nordic. The game was released on 25 May 2021
+ for Microsoft Windows.');

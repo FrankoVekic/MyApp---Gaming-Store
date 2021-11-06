@@ -5,7 +5,7 @@ class Operator
     public static function authorize($email,$password)
     {
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM users WHERE email=:email');
+        $query = $conn->prepare('SELECT * FROM user WHERE email=:email');
         $query->execute(['email'=>$email]);
         $users = $query->fetch();
 

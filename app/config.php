@@ -1,7 +1,7 @@
 <?php 
 
 return [
-    'appName' =>'CyberX Gaming Store',
+    'appName' =>'CyberX gaming store',
     'url'=>'http://myapp.hr/',
     'database'=>[
     'host'=>'localhost',
