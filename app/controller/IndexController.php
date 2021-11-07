@@ -4,7 +4,10 @@ class IndexController extends Controller
 {
     public function home()
     {
-        $this->view->render('home');
+        $this->view->render('home',[
+            'games'=>Games::findGames(),
+            'equipment'=>Equipment::findEquipment()
+        ]);
     }
 
     public function about()

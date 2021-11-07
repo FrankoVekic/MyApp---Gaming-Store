@@ -79,7 +79,7 @@ insert into user (email,password,name,surname,role) values
 insert into equipment (name,price,description,quantity,image) values 
 ('Razer Lachesis',79.99,'The Razer Lachesis reigns supreme with a true 5600dpi 3.5G Laser sensor, which 
 enables movement speeds of 7 times that of a standard 800dpi optical sensor. Customize the look of the Razer 
-Lachesis however you want. With the new Tricolor-LED you get a unique look & style on your favourite gaming weapon.',10,'razerlachesis.png'),
+Lachesis however you want. With the new Tricolor-LED you get a unique look & style on your favourite gaming weapon.',10,'razerlachesis.jpg'),
 
 ('Razer Nari',80,'The wireless gaming headset designed for supreme comfort. Featuring an auto-adjusting headband, with swiveling 
 earcups that include cooling gel-infused ear cushions. THX Spatial Audio provides next-generation surround sound and the game/chat 
