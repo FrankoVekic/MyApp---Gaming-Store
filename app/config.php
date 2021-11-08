@@ -7,5 +7,6 @@ return [
     'host'=>'localhost',
     'dbName'=>'cyberxgames',
     'username'=>'root',
-    'password'=>'']
+    'password'=>''],
+    'epp'=>12
 ];

@@ -88,7 +88,10 @@ balance allows the perfect mix of game and chat volume.',10,'razernari.jpg'),
 
 ('Red CyberX chair',100,'A cyberx gaming chair is a type of chair designed for the comfort of gamers.','A cyberx gaming chair is a type of chair designed for the comfort of gamers. They differ from most office chairs
  in having high backrest designed to support the upper back and shoulders. They are also more customizable: the armrests, back, lumbar support 
-and headrest can all be adjusted for comfort and efficiency.',10,'redcyberxchair.jpg');
+and headrest can all be adjusted for comfort and efficiency.',10,'redcyberxchair.jpg'),
+
+('Razer Black Widow',99.99,'The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma™.','The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma™. 
+It showcases up to 16.8 million colors in varying effects such as Spectrum Cycling, Wave, Breathing, and Ripple, and reacts to in-game events when playing Razer Chroma™ integrated games.',10,'razerblackwidow.jpg')
 
 insert into game (name,price,quantity,memory_required,console,image,description) values 
 ('Pokemon',39.99,10,40,'Both','pokemon.jpg','Gotta catch them all!'),

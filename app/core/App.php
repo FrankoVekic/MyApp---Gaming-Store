@@ -24,10 +24,23 @@ class App {
         else {
             $method = $request[2];
         }
+        
+        $id= 0;
+        $id = ''; 
+        if(!isset($request[3]) || $request[3] == ''){
+            $id=0;
+        }
+        else {
+            $id=$request[3];
+        }
 
         if(class_exists($class) && method_exists($class,$method)){
             $instance = new $class();
-            $instance->$method();
+            if($id==0){
+                $instance->$method();
+            }else {
+                $instance->$method($id);
+            }
         }
         else {
             $view = new View();
