@@ -8,7 +8,7 @@
               <h1 class="page-title">Shop Page</h1>
               <ol class="breadcrumb">
                 <li><a href="<?=App::config('url')?>index/home">Home</a></li>
-                <li class="active">Equipment</li>
+                <li class="active">Games</li>
               </ol>
             </div>
           </div>
@@ -22,28 +22,28 @@
     <div class="row">
       <div class="col-md-9">
         <div class="row">
-        <?php foreach ($equipment as $eq): ?>
-      <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
-        <div class="product_list">
-          <div class="product_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/shop/equipment/<?=$eq->image?>"> </div>
-          <div class="product_detail_btm">
-            <div class="center">
-              <h4><a href="it_shop_detail.html"><?=$eq->name?></a></h4>
-            </div>
-            <div class="starratin">
-              <div class="center"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i> </div>
-            </div>
-            <div class="product_price">
-              <p><span class="new_price">$<?=$eq->price?></span></p>
-              <hr>
-              <p><?=$eq->smalldesc?></p>
+        <?php foreach ($games as $game): ?>
+          <div class="col-md-4 col-sm-6 col-xs-12 margin_bottom_30_all">
+            <div class="product_list">
+              <div class="product_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/shop/games/<?=$game->image?>" alt=""> </div>
+              <div class="product_detail_btm">
+                <div class="center">
+                  <h4><a href="it_shop_detail.html"><?=$game->name?></a></h4>
+                </div>
+                <div class="starratin">
+                  <div class="center"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                </div>
+                <div class="product_price">
+                  <p><span class="new_price">$<?=$game->price?></span></p>
+                  <hr>
+                  <p><?=$game->smalldesc?></p>
+                </div>
+              </div>
             </div>
           </div>
+          <?php endforeach;?>
         </div>
-      </div>
-      <?php endforeach;?>
-        </div>
-        <?php include 'pagingEq.phtml' ?>
+        <?php include 'pagingGa.phtml' ?>
       </div>
       <div class="col-md-3">
         <div class="side_bar">

@@ -1,0 +1,27 @@
+<div class="center">
+<nav aria-label="...">
+  <ul class="pagination justify-content-center">
+    <?php if($page!=1): ?>
+      <li class="page-item">
+      <a class="page-link" href="<?=App::config('url')?>products/games?page=<?php echo $page-1?>" tabindex="-1"><</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>products/games?page=<?php echo $page-1?>"><?=$page-1?></a></li>
+    <?php else : ?>
+      <li class="page-item"><a class="page-link"><</a></li>
+      <li class="page-item"><a class="page-link">...</a></li>
+    <?php endif; ?>
+    <li class="page-item active">
+      <a class="page-link" href="<?=App::config('url')?>products/games?page=<?=$page?>"><?=$page?> <span class="sr-only"></span></a>
+    </li>
+    <?php if($page != $pageCount): ?>
+    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>products/games?page=<?php echo $page+1?>"><?=$page+1?></a></li>
+    <li class="page-item">
+      <a class="page-link" href="<?=App::config('url')?>products/games?page=<?php echo $page+1?>">></a>
+    </li>
+    <?php else : ?>
+      <li class="page-item"><a class="page-link">...</a></li>
+      <li class="page-item"><a class="page-link">></a></li>
+    <?php endif; ?>
+  </ul>
+ </nav>
+</div>

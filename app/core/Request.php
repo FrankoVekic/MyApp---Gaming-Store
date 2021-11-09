@@ -18,4 +18,12 @@ class Request
     {
         return isset($_SESSION['authorized']);
     }
+
+    public static function isAdmin()
+    {
+        if(isset($_SESSION['authorized'])){
+            return $_SESSION['authorized']->role === 'admin';
+        }
+        else return;  
+    }
 }

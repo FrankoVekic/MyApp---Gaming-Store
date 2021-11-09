@@ -41,6 +41,7 @@ create table game (
 id int not null primary key auto_increment,
 name varchar(50) not null,
 price decimal(18,2) not null,
+smalldesc varchar(250),
 description text,
 quantity int not null,
 memory_required int not null,
@@ -90,12 +91,12 @@ balance allows the perfect mix of game and chat volume.',10,'razernari.jpg'),
  in having high backrest designed to support the upper back and shoulders. They are also more customizable: the armrests, back, lumbar support 
 and headrest can all be adjusted for comfort and efficiency.',10,'redcyberxchair.jpg'),
 
-('Razer Black Widow',99.99,'The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma™.','The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma™. 
-It showcases up to 16.8 million colors in varying effects such as Spectrum Cycling, Wave, Breathing, and Ripple, and reacts to in-game events when playing Razer Chroma™ integrated games.',10,'razerblackwidow.jpg')
+('Razer Black Widow',99.99,'The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma.','The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma. 
+It showcases up to 16.8 million colors in varying effects such as Spectrum Cycling, Wave, Breathing, and Ripple, and reacts to in-game events when playing Razer Chroma integrated games.',10,'razerblackwidow.jpg');
 
-insert into game (name,price,quantity,memory_required,console,image,description) values 
-('Pokemon',39.99,10,40,'Both','pokemon.jpg','Gotta catch them all!'),
-('Spider-man',59.99,10,65,'PC','spiderman.jpg','Save the city with your favorite superhero!'),
-('Biomutant',39.99,10,50,'PC','biomutant.jpg','Biomutant is an action role-playing game developed 
+insert into game (name,price,smalldesc,quantity,memory_required,console,image,description) values 
+('Pokemon',39.99,'Pokémon is a role-playing game based around building a small team of monsters to battle other monsters in a quest to become the best.',10,40,'Both','pokemon.jpg','Gotta catch them all!'),
+('Spider-man',59.99,'Spider-Man is an open-world third-person action-adventure game, in which the player controls Peter Parker.',10,65,'PC','spiderman.jpg','Save the city with your favorite superhero!'),
+('Biomutant',39.99,'BIOMUTANT is an open-world, post-apocalyptic Kung-Fu fable RPG, with a unique martial arts styled combat system.',10,50,'PC','biomutant.jpg','Biomutant is an action role-playing game developed 
 by Swedish developer Experiment 101 and published by THQ Nordic. The game was released on 25 May 2021
  for Microsoft Windows.');

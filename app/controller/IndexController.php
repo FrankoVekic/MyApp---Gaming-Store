@@ -5,7 +5,6 @@ class IndexController extends Controller
     public function home()
     {
         $this->view->render('home',[
-            'games'=>Games::findGames(),
             'equipment'=>Equipment::newEquipment()
         ]);
     }
@@ -28,11 +27,6 @@ class IndexController extends Controller
     public function shopping_cart()
     {
         $this->view->render('cart');
-    }
-
-    public function games()
-    {
-        $this->view->render('games');
     }
 
     public function faq()
