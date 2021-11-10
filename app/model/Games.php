@@ -2,6 +2,14 @@
 
 class Games 
 {
+    public static function latestGames()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM game order by id desc limit 3;');
+        $query->execute();
+        return $query->fetchAll();
+    }
+
     public static function findGames($page)
     {
         $epp = App::config('epp');
@@ -26,5 +34,32 @@ class Games
             $query->execute();
             return $query->fetchColumn();
         }
+    }
+
+    public static function gameDetail($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM game WHERE id = $id;"
+        );
+
+        $query->execute();
+
+        return $query->fetch();
+    }
+
+    public static function gameExists($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM game WHERE id = $id"
+        );
+        $query->execute();
+        $gameExists = $query->fetch();
+
+        if($gameExists==null){
+            return null;
+        }
+        return $gameExists;
     }
 }

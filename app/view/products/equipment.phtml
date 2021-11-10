@@ -28,7 +28,7 @@
           <div class="product_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/shop/equipment/<?=$eq->image?>"> </div>
           <div class="product_detail_btm">
             <div class="center">
-              <h4><a href="it_shop_detail.html"><?=$eq->name?></a></h4>
+              <h4><a href="<?=App::config('url')?>products/equipment_detail?id=<?=$eq->id?>"><?=$eq->name?></a></h4>
             </div>
             <div class="starratin">
               <div class="center"> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star" aria-hidden="true"></i> <i class="fa fa-star-o" aria-hidden="true"></i> </div>

@@ -55,4 +55,41 @@ class ProductsController  extends Controller
             'pageCount'=>$pageCount
         ]);
     }
+
+    public function game_detail()
+    {
+        if(!isset($_GET['id'])){
+            $this->games();
+        }
+
+        $id = $_GET['id'];
+        $gameExists = Games::gameExists($id);
+        if($gameExists == null){
+            $this->games();
+        }
+        else {
+            $this->view->render($this->viewDir . 'game_detail',[
+                'game'=>Games::gameDetail($id),
+                'newGames'=>Games::latestGames()
+            ]);
+        }
+    }
+
+    public function equipment_detail()
+    {
+        if(!isset($_GET['id'])){
+            $this->equipment();
+        }
+        $id = $_GET['id'];
+        $equipmentExists = Equipment::equipmentExists($id);
+        if($equipmentExists == null){
+            $this->equipment();
+        }
+        else {
+            $this->view->render($this->viewDir . 'equipment_detail',[
+                'equipment'=>Equipment::equipmentDetail($id),
+                'newEquipment'=>Equipment::latestEquipment()
+            ]);
+        }
+    }
 }
