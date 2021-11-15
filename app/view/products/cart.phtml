@@ -33,18 +33,22 @@
               </tr>
             </thead>
             <tbody>
+              <?php if(!empty($_SESSION['cart'])): ?>
+              <?php foreach($_SESSION['cart'] as $product): ?>
               <tr>
-                <td class="col-sm-8 col-md-6"><div class="media"> <a class="thumbnail pull-left" href="#"> <img class="mediaobject" src="<?=App::config('url')?>public/images/it_service/1.jpg" alt="#"></a>
+                <td class="col-sm-8 col-md-6"><div class="media"> <a class="thumbnail pull-left" href="#"> <img class="mediaobject" src="<?=App::config('url')?>public/images/shop/<?=$product['image'];?>" alt="#"></a>
                     <div class="media-body">
-                      <h4 class="media-heading"><a href="#">Norton Internet Security</a></h4>
-                      <span>Status: </span><span class="text-success">In Stock</span> </div>
+                      <h4 class="media-heading"><a href="#"><?=$product['name']?></a></h4>
+                      <span>Status: </span><span class="text-success"><?php if($product['quantity'] !=0){ echo 'In Stock';} else { echo 'Out Of Stock';}?></span> </div>
                   </div></td>
                 <td class="col-sm-1 col-md-1" style="text-align: center"><input class="form-control" value="3" type="email">
                 </td>
-                <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$25.00</p></td>
-                <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$25.00</p></td>
-                <td class="col-sm-1 col-md-1"><button type="button" class="bt_main"><i class="fa fa-trash"></i> Remove</button></td>
+                <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?=$product['price']?></p></td>
+                <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?php echo $product['quantity'] * $product['price']; ?></p></td>
+                <td class="col-sm-1 col-md-1"><a type="button" class="bt_main" href="<?=App::config('url')?>products/shopping_cart?remove=<?=$product['id'];?>"><i class="fa fa-trash"></i> Remove</a></td>
               </tr>
+              <?php endforeach;?>
+              <?php endif; ?>
             </tbody>
           </table>
           <table class="table">

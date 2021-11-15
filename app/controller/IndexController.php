@@ -24,11 +24,6 @@ class IndexController extends Controller
         $this->view->render('contact');
     }
 
-    public function shopping_cart()
-    {
-        $this->view->render('cart');
-    }
-
     public function faq()
     {
         $this->view->render('faq');

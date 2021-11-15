@@ -37,11 +37,12 @@
             <div class="detail-contant">
               <p><?=$game->smalldesc?><br>
                 <span class="stock"><?=$game->quantity?> in stock</span> </p>
-              <form class="cart" method="post" action="it_cart.html">
+              <form class="cart" method="post" action="<?=App::config('url')?>products/shopping_cart?add&game=<?php echo strtolower($game->name); ?>">
                 <div class="quantity">
                   <input step="1" min="1" max="<?=$game->quantity?>" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" type="number">
+                  <input type="hidden" value="<?=$game->id?>" name="id">
                 </div>
-                <button type="submit" class="btn sqaure_bt">Add to cart</button>
+                <button type="submit" name="add" class="btn sqaure_bt">Add to cart</button>
               </form>
             </div>
             <div class="share-post"> <a href="#" class="share-text">Share</a>
