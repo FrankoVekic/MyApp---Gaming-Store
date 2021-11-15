@@ -94,12 +94,11 @@ class ProductsController  extends Controller
     }
 
     public function shopping_cart()
-        {
-            {
+    {
             
                 if(isset($_POST['id'])){
-        
-                    $game = Games::gameExists($_POST['id']);
+                    if(isset($_GET['game'])){
+                        $product = Games::gameExists($_POST['id']);
                     
                     if(isset($_SESSION['cart'])){
                 
@@ -110,47 +109,100 @@ class ProductsController  extends Controller
         
                             $_SESSION['cart'][$count] = [
                                 'id'=>$_POST['id'],
-                                'name'=>$game->name,
-                                'price'=>$game->price,
-                                'description'=>$game->description,
+                                'name'=>$product->name,
+                                'price'=>$product->price,
+                                'description'=>$product->description,
                                 'quantity'=> $_POST['quantity'],
-                                'maxquan'=>$game->quantity,
-                                'console'=>$game->console,
-                                'image'=>$game->image
+                                'maxquan'=>$product->quantity,
+                                'console'=>$product->console,
+                                'image'=>$product->image
                             ];
-                        $this->view->render($this->viewDir . 'cart',[
-                            'message'=>'Your Shopping Cart'
-                        ]);
+                        $this->view->render($this->viewDir . 'cart');
                     }else {
                         for($i=0;$i<count($game_id); $i++){
                             if($game_id[$i] == $_POST['id']){
                                 $_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
                             }
-                            $this->view->render($this->viewDir . 'cart',[
-                                'message'=>'Your Shopping Cart'
-                            ]);
+                            $this->view->render($this->viewDir . 'cart');
                         }
                     }
                 }
                 else {
                     $game_array = [
                         'id'=>$_POST['id'],
-                        'name'=>$game->name,
-                        'price'=>$game->price,
-                        'description'=>$game->description,
+                        'name'=>$product->name,
+                        'price'=>$product->price,
+                        'description'=>$product->description,
                         'quantity'=> $_POST['quantity'],
-                        'maxquan'=>$game->quantity,
-                        'console'=>$game->console,
-                        'image'=>$game->image
+                        'maxquan'=>$product->quantity,
+                        'console'=>$product->console,
+                        'image'=>$product->image
                     ];
                     $_SESSION['cart'][0] = $game_array;
         
                     $this->view->render($this->viewDir . 'cart');
                 }
             }
+                    else if(isset($_GET['equipment'])){
+                        $product = Equipment::equipmentExists($_POST['id']);
+                    
+                    if(isset($_SESSION['cart'])){
+                
+                    $game_id = array_column($_SESSION['cart'],'id');
+                
+                        if(!in_array($_POST['id'],$game_id)){
+                            $count = count($_SESSION['cart']);
+        
+                            $_SESSION['cart'][$count] = [
+                                'id'=>$_POST['id'],
+                                'name'=>$product->name,
+                                'price'=>$product->price,
+                                'description'=>$product->description,
+                                'quantity'=> $_POST['quantity'],
+                                'maxquan'=>$product->quantity,
+                                'image'=>$product->image
+                            ];
+                        $this->view->render($this->viewDir . 'cart');
+                    }else {
+                        for($i=0;$i<count($game_id); $i++){
+                            if($game_id[$i] == $_POST['id']){
+                                $_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
+                            }
+                            $this->view->render($this->viewDir . 'cart');
+                        }
+                    }
+                }
+                else {
+                    $game_array = [
+                        'id'=>$_POST['id'],
+                        'name'=>$product->name,
+                        'price'=>$product->price,
+                        'description'=>$product->description,
+                        'quantity'=> $_POST['quantity'],
+                        'maxquan'=>$product->quantity,
+                        'image'=>$product->image
+                    ];
+                    $_SESSION['cart'][0] = $game_array;
+        
+                    $this->view->render($this->viewDir . 'cart');
+                }
+
+                    }
+                    
+            }else if(isset($_GET['remove']))
+            {
+                foreach($_SESSION['cart'] as $product=>$value){
+                    if($value['name'] == $_GET['remove']){
+                        unset($_SESSION['cart'][$product]);
+                    } else {
+                        $this->view->render($this->viewDir . 'cart');
+                    }
+                 }
+                 $_SESSION['cart'] = array_values($_SESSION['cart']);
+                 $this->view->render($this->viewDir . 'cart');
+            }
             else {
                 $this->view->render($this->viewDir . 'cart');
-            }
         }
     }
 }

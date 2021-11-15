@@ -37,9 +37,10 @@
             <div class="detail-contant">
               <p><?=$equipment->smalldesc?><br>
                 <span class="stock"><?=$equipment->quantity?> in stock</span> </p>
-              <form class="cart" method="post" action="it_cart.html">
+              <form class="cart" method="post" action="<?=App::config('url')?>products/shopping_cart?add&equipment=<?=$equipment->name; ?>">
                 <div class="quantity">
                   <input step="1" min="1" max="<?=$equipment->quantity?>" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" type="number">
+                  <input type="hidden" value="<?=$equipment->id?>" name="id">
                 </div>
                 <button type="submit" class="btn sqaure_bt">Add to cart</button>
               </form>

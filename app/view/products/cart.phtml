@@ -39,15 +39,21 @@
                 <td class="col-sm-8 col-md-6"><div class="media"> <a class="thumbnail pull-left" href="#"> <img class="mediaobject" src="<?=App::config('url')?>public/images/shop/<?=$product['image'];?>" alt="#"></a>
                     <div class="media-body">
                       <h4 class="media-heading"><a href="#"><?=$product['name']?></a></h4>
-                      <span>Status: </span><span class="text-success"><?php if($product['quantity'] !=0){ echo 'In Stock';} else { echo 'Out Of Stock';}?></span> </div>
+                      <span>Status: </span><?php if($product['quantity'] !=0 && $product['quantity'] <= $product['maxquan']){ echo '<span class="text-success"> In Stock </span>';}else if($product['quantity'] > $product['maxquan']){echo '<span class="text-danger"> Max: ' . $product['maxquan'] .'.  </span>'; } else { echo '<span class="text-danger"> Out Of Stock. </span>';}?> </div>
                   </div></td>
-                <td class="col-sm-1 col-md-1" style="text-align: center"><input class="form-control" value="3" type="email">
+                <td class="col-sm-1 col-md-1" style="text-align: center"><input step="1" min="1" max="<?=$product['maxquan'];?>" name="quantity" value="<?=$product['quantity'];?>" title="Qty" class="input-text qty text" size="4" type="number">
                 </td>
                 <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?=$product['price']?></p></td>
                 <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?php echo $product['quantity'] * $product['price']; ?></p></td>
-                <td class="col-sm-1 col-md-1"><a type="button" class="bt_main" href="<?=App::config('url')?>products/shopping_cart?remove=<?=$product['id'];?>"><i class="fa fa-trash"></i> Remove</a></td>
+                <td class="col-sm-1 col-md-1"><a onclick="return confirm('Are you sure you want to remove &#34;<?=$product['name']?>&#34; from the cart?');" type="button" class="bt_main" href="<?=App::config('url')?>products/shopping_cart?remove=<?=$product['name'];?>"><i class="fa fa-trash"></i> Remove</a></td>
               </tr>
               <?php endforeach;?>
+              <?php else: ?>
+                <tr>
+                  <td>
+                <?php echo 'You currently have 0 products in your cart.'; ?>
+              </td>
+              </tr>
               <?php endif; ?>
             </tbody>
           </table>
