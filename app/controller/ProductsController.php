@@ -102,13 +102,12 @@ class ProductsController  extends Controller
                     
                     if(isset($_SESSION['cart'])){
                 
-                    $game_id = array_column($_SESSION['cart'],'id');
+                    $game_name = array_column($_SESSION['cart'],'name');
                 
-                        if(!in_array($_POST['id'],$game_id)){
+                        if(!in_array($product->name,$game_name)){
                             $count = count($_SESSION['cart']);
         
                             $_SESSION['cart'][$count] = [
-                                'id'=>$_POST['id'],
                                 'name'=>$product->name,
                                 'price'=>$product->price,
                                 'description'=>$product->description,
@@ -119,8 +118,8 @@ class ProductsController  extends Controller
                             ];
                         $this->view->render($this->viewDir . 'cart');
                     }else {
-                        for($i=0;$i<count($game_id); $i++){
-                            if($game_id[$i] == $_POST['id']){
+                        for($i=0;$i<count($game_name); $i++){
+                            if($game_name[$i] == $product->name){
                                 $_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
                             }
                             $this->view->render($this->viewDir . 'cart');
@@ -129,7 +128,6 @@ class ProductsController  extends Controller
                 }
                 else {
                     $game_array = [
-                        'id'=>$_POST['id'],
                         'name'=>$product->name,
                         'price'=>$product->price,
                         'description'=>$product->description,
@@ -148,9 +146,9 @@ class ProductsController  extends Controller
                     
                     if(isset($_SESSION['cart'])){
                 
-                    $game_id = array_column($_SESSION['cart'],'id');
+                    $equipment_name = array_column($_SESSION['cart'],'name');
                 
-                        if(!in_array($_POST['id'],$game_id)){
+                        if(!in_array($product->name,$equipment_name)){
                             $count = count($_SESSION['cart']);
         
                             $_SESSION['cart'][$count] = [
@@ -164,8 +162,8 @@ class ProductsController  extends Controller
                             ];
                         $this->view->render($this->viewDir . 'cart');
                     }else {
-                        for($i=0;$i<count($game_id); $i++){
-                            if($game_id[$i] == $_POST['id']){
+                        for($i=0;$i<count($equipment_name); $i++){
+                            if($equipment_name[$i] == $product->name){
                                 $_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
                             }
                             $this->view->render($this->viewDir . 'cart');
@@ -174,7 +172,6 @@ class ProductsController  extends Controller
                 }
                 else {
                     $game_array = [
-                        'id'=>$_POST['id'],
                         'name'=>$product->name,
                         'price'=>$product->price,
                         'description'=>$product->description,
@@ -194,12 +191,9 @@ class ProductsController  extends Controller
                 foreach($_SESSION['cart'] as $product=>$value){
                     if($value['name'] == $_GET['remove']){
                         unset($_SESSION['cart'][$product]);
-                    } else {
                         $this->view->render($this->viewDir . 'cart');
-                    }
+                    } 
                  }
-                 $_SESSION['cart'] = array_values($_SESSION['cart']);
-                 $this->view->render($this->viewDir . 'cart');
             }
             else {
                 $this->view->render($this->viewDir . 'cart');
