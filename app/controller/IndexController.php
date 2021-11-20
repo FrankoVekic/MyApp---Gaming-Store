@@ -33,12 +33,7 @@ class IndexController extends Controller
     {
         $this->view->render('privacy_policy');
     }
-
-    public function checkout()
-    {
-        $this->view->render('checkout');
-    }
-
+    
     public function career()
     {
         $this->view->render('career');

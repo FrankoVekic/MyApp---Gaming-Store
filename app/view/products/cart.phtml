@@ -41,10 +41,12 @@
                       <h4 class="media-heading"><a href="#"><?=$product['name']?></a></h4>
                       <span>Status: </span><?php if($product['quantity'] !=0 && $product['quantity'] <= $product['maxquan']){ echo '<span class="text-success"> In Stock </span>';}else if($product['quantity'] > $product['maxquan']){echo '<span class="text-danger"> Max: ' . $product['maxquan'] .'.  </span>'; } else { echo '<span class="text-danger"> Out Of Stock. </span>';}?> </div>
                   </div></td>
-                <td class="col-sm-1 col-md-1" style="text-align: center"><input step="1" min="1" max="<?=$product['maxquan'];?>" name="quantity" value="<?=$product['quantity'];?>" title="Qty" class="input-text qty text" size="4" type="number">
-                </td>
+                  <form method="POST" action="<?=App::config('url')?>products/action">
+                <td class="col-sm-1 col-md-1" style="text-align: center"><input step="1" min="1" max="<?=$product['maxquan'];?>" name="newquantity" value="<?=$product['quantity'];?>" title="Qty" class="input-text qty text" type="number">
+               <input type="hidden" name="hiddenname" value="<?=$product['name'];?>">
+              </td>
                 <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?=$product['price']?></p></td>
-                <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?php echo $product['quantity'] * $product['price']; ?></p></td>
+                <td class="col-sm-1 col-md-1 text-center"><p class="price_table">$<?php echo number_format($product['quantity'] * $product['price'],2); ?></p></td>
                 <td class="col-sm-1 col-md-1"><a onclick="return confirm('Are you sure you want to remove &#34;<?=$product['name']?>&#34; from the cart?');" type="button" class="bt_main" href="<?=App::config('url')?>products/shopping_cart?remove=<?=$product['name'];?>"><i class="fa fa-trash"></i> Remove</a></td>
               </tr>
               <?php endforeach;?>
@@ -61,10 +63,15 @@
             <tbody>
               <tr class="cart-form">
                 <td class="actions"><div class="coupon">
-                    <input name="coupon_code" class="input-text" id="coupon_code" placeholder="Coupon code" type="text">
-                    <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
+                    <input name="couponcode" class="input-text" id="coupon_code" placeholder="Coupon code" type="text">
+                    <input class="button" name="applycoupon" value="Apply coupon" type="submit">
+                    <p>Free Coupon Code: cyberx</p>
+                    <?php if(isset($message)): ?>
+                    <p><?=$message?></p>
+                    <?php endif; ?>
                   </div>
-                  <input class="button" name="update_cart" value="Update cart" disabled="" type="submit">
+                  <input class="button" name="update_cart" value="Update cart" type="submit">
+                    </form>
                 </td>
               </tr>
             </tbody>
@@ -78,20 +85,18 @@
                 <td class="text-right"></td>
               </tr>
               <tr>
-                <td><h4>Subtotal</h4></td>
-                <td class="text-right"><h4>$50.00</h4></td>
-              </tr>
-              <tr>
                 <td><h5>Estimated shipping</h5></td>
-                <td class="text-right"><h4>$5.00</h4></td>
+                <td class="text-right"><h4><?php if(!empty($_SESSION['cart'])){ echo '$5.00';}else { echo '$0.00';} ?></h4></td>
               </tr>
               <tr>
                 <td><h3>Total</h3></td>
-                <td class="text-right"><h4>$55.00</h4></td>
+                <td class="text-right"><h4>$<?php echo number_format($total,2);?></h4></td>
               </tr>
               <tr>
                 <td><button type="button" class="button">Continue</button></td>
+                <form method="POST" action="<?=App::config('url')?>products/checkout">
                 <td><button class="button">Checkout</button></td>
+                </form>
               </tr>
             </tbody>
           </table>

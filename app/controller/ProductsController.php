@@ -116,13 +116,17 @@ class ProductsController  extends Controller
                                 'console'=>$product->console,
                                 'image'=>$product->image
                             ];
-                        $this->view->render($this->viewDir . 'cart');
+                        $this->view->render($this->viewDir . 'cart',[
+                            'total'=>$this->total()
+                        ]);
                     }else {
                         for($i=0;$i<count($game_name); $i++){
                             if($game_name[$i] == $product->name){
                                 $_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
                             }
-                            $this->view->render($this->viewDir . 'cart');
+                            $this->view->render($this->viewDir . 'cart',[
+                                'total'=>$this->total()
+                            ]);
                         }
                     }
                 }
@@ -138,7 +142,9 @@ class ProductsController  extends Controller
                     ];
                     $_SESSION['cart'][0] = $game_array;
         
-                    $this->view->render($this->viewDir . 'cart');
+                    $this->view->render($this->viewDir . 'cart',[
+                        'total'=>$this->total()
+                    ]);
                 }
             }
                     else if(isset($_GET['equipment'])){
@@ -160,13 +166,17 @@ class ProductsController  extends Controller
                                 'maxquan'=>$product->quantity,
                                 'image'=>$product->image
                             ];
-                        $this->view->render($this->viewDir . 'cart');
+                        $this->view->render($this->viewDir . 'cart',[
+                            'total'=>$this->total()
+                        ]);
                     }else {
                         for($i=0;$i<count($equipment_name); $i++){
                             if($equipment_name[$i] == $product->name){
                                 $_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
                             }
-                            $this->view->render($this->viewDir . 'cart');
+                            $this->view->render($this->viewDir . 'cart',[
+                                'total'=>$this->total()
+                            ]);
                         }
                     }
                 }
@@ -181,7 +191,9 @@ class ProductsController  extends Controller
                     ];
                     $_SESSION['cart'][0] = $game_array;
         
-                    $this->view->render($this->viewDir . 'cart');
+                    $this->view->render($this->viewDir . 'cart',[
+                        'total'=>$this->total()
+                    ]);
                 }
 
                     }
@@ -191,12 +203,56 @@ class ProductsController  extends Controller
                 foreach($_SESSION['cart'] as $product=>$value){
                     if($value['name'] == $_GET['remove']){
                         unset($_SESSION['cart'][$product]);
-                        $this->view->render($this->viewDir . 'cart');
+                        $this->view->render($this->viewDir . 'cart',[
+                            'total'=>$this->total()
+                        ]);
                     } 
                  }
             }
             else {
-                $this->view->render($this->viewDir . 'cart');
+                $this->view->render($this->viewDir . 'cart',[
+                    'total'=> $this->total()
+                ]);
+        }
+    }
+
+    public static function total ()
+    {
+      $total = 0;
+      foreach($_SESSION['cart'] as $product=>$value){
+       $total = $total + $value['quantity'] * $value['price']; 
+      }
+      return $total;
+    }
+
+    public function checkout()
+    {
+        $this->view->render($this->viewDir . 'checkout');
+    }
+
+    public function action ()
+    {
+        if(isset($_POST['applycoupon'])){
+            if(empty($_POST['couponcode'])){
+                $this->view->render($this->viewDir . 'cart',[
+                    'message'=>"Enter coupon code.",
+                    'total'=>$this->total()
+                ]);
+            }
+            else {
+                if($_POST['couponcode'] == '' || strlen(trim($_POST['couponcode'])) == 0 || trim($_POST['couponcode'] != 'cyberx')){
+                    $this->view->render($this->viewDir . 'cart',[
+                        'message'=>"Enter coupon code.",
+                        'total'=>$this->total()
+                    ]);
+                }
+                else if(trim($_POST['couponcode'] == 'cyberx')) {
+
+                }
+            }
+        }
+        else {
+            $this->shopping_cart();
         }
     }
 }
