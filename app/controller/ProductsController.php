@@ -215,6 +215,20 @@ class ProductsController  extends Controller
                 ]);
         }
     }
+    
+    public static function shopCount()
+    {
+       $count = 0;
+       if(empty($_SESSION['cart']) || !isset($_SESSION['cart']))
+       {
+         $count = 0;
+         return $count;
+    }
+       else { 
+           $count = count($_SESSION['cart']);
+           return $count;
+       } 
+    }
 
     public static function total ()
     {
@@ -233,8 +247,25 @@ class ProductsController  extends Controller
 
     public function checkout()
     {
-        $this->view->render($this->viewDir . 'checkout');
+        if(empty($_SESSION['cart'])){
+            $this->view->render($this->viewDir . 'cart',[
+                'message'=>"Enter coupon code.",
+                'total'=>$this->total()
+            ]);
+        }
+        else {
+        if(isset($_SESSION['couponcode'])){
+            $this->view->render($this->viewDir . 'checkout',[
+                'total'=>$this->total() - ($this->total() / 100) * 20
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'checkout',[
+                'total'=>$this->total()
+            ]);
+        }
     }
+}
 
     public function action ()
     {
@@ -253,6 +284,7 @@ class ProductsController  extends Controller
                     ]);
                 }
                 else if(trim($_POST['couponcode'] == 'cyberx')) {
+                    $_SESSION['couponcode'] = 1;
                     $this->view->render($this->viewDir . 'cart',[
                         'message'=>"Coupon activated!",
                         'total'=>$this->total() - ($this->total() / 100) * 20
