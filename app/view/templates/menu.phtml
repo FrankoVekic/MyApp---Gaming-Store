@@ -68,7 +68,12 @@
                 <li> <a href="<?=App::config('url')?>index/contact">Contact</a>
                 </li>
                 <?php if(Request::isAdmin()):?>
-                  <li> <a href="<?=App::config('url')?>index/organization">Organize</a>
+                  <li> <a href="<?=App::config('url')?>index/organization">Manage</a>
+                  <ul>
+                  <li><a href="<?=App::config('url')?>manage/equipment">Manage Equipment</a></li>
+                  <li><a href="<?=App::config('url')?>manage/games">Manage Games</a></li>
+                  <li><a href="<?=App::config('url')?>manage/services">Manage Services</a></li>
+                  </ul>
                 </li>
                   <?php endif;?>
                 <?php if(!Request::isAuthorized()): ?>

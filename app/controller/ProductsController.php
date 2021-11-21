@@ -218,10 +218,16 @@ class ProductsController  extends Controller
 
     public static function total ()
     {
+    if(isset($_SESSION['cart'])){
       $total = 0;
       foreach($_SESSION['cart'] as $product=>$value){
-       $total = $total + $value['quantity'] * $value['price']; 
-      }
+      $total = $total + $value['quantity'] * $value['price']; 
+    }
+    }
+    else {
+        $total = 0;
+        return $total;
+}
       return $total;
     }
 
@@ -240,15 +246,34 @@ class ProductsController  extends Controller
                 ]);
             }
             else {
-                if($_POST['couponcode'] == '' || strlen(trim($_POST['couponcode'])) == 0 || trim($_POST['couponcode'] != 'cyberx')){
+                if($_POST['couponcode'] == '' || strlen(trim($_POST['couponcode'])) == 0){
                     $this->view->render($this->viewDir . 'cart',[
                         'message'=>"Enter coupon code.",
                         'total'=>$this->total()
                     ]);
                 }
                 else if(trim($_POST['couponcode'] == 'cyberx')) {
-
+                    $this->view->render($this->viewDir . 'cart',[
+                        'message'=>"Coupon activated!",
+                        'total'=>$this->total() - ($this->total() / 100) * 20
+                    ]);
                 }
+            }
+        }
+        else {
+            $this->shopping_cart();
+        }
+    }
+
+    public function clear ()
+    {
+        if(isset($_POST['clear'])){
+            if(!empty($_SESSION['cart'])){
+                unset($_SESSION['cart']);
+                $this->shopping_cart();
+            }
+            else {
+                $this->shopping_cart();
             }
         }
         else {

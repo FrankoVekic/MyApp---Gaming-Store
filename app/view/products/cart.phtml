@@ -65,7 +65,6 @@
                 <td class="actions"><div class="coupon">
                     <input name="couponcode" class="input-text" id="coupon_code" placeholder="Coupon code" type="text">
                     <input class="button" name="applycoupon" value="Apply coupon" type="submit">
-                    <p>Free Coupon Code: cyberx</p>
                     <?php if(isset($message)): ?>
                     <p><?=$message?></p>
                     <?php endif; ?>
@@ -93,7 +92,9 @@
                 <td class="text-right"><h4>$<?php echo number_format($total,2);?></h4></td>
               </tr>
               <tr>
-                <td><button type="button" class="button">Continue</button></td>
+                <form method="POST" action="<?=App::config('url')?>products/clear">
+                <td><button type="submit" onclick="return confirm('Are you sure you want to clear your cart?');" name="clear" class="button">Clear</button></td>
+                </form>
                 <form method="POST" action="<?=App::config('url')?>products/checkout">
                 <td><button class="button">Checkout</button></td>
                 </form>
