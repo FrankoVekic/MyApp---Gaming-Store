@@ -49,6 +49,10 @@ class IndexController extends Controller
         $this->view->render('service');
     }
 
+    public function service_detail()
+    {
+        $this->view->render('service_detail');
+    }
     public function login()
     {
         $this->view->render('login',[
