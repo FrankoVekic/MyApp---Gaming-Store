@@ -24,6 +24,7 @@ role varchar(10) not null
 create table service (
 id int not null primary key auto_increment,
 name varchar(50),
+smalldesc varchar(250) not null,
 description text,
 price decimal(18,2)
 );
@@ -41,7 +42,7 @@ create table game (
 id int not null primary key auto_increment,
 name varchar(50) not null,
 price decimal(18,2) not null,
-smalldesc varchar(250),
+smalldesc varchar(250) not null,
 description text,
 quantity int not null,
 memory_required int not null,
