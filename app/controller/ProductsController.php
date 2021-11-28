@@ -222,11 +222,11 @@ class ProductsController  extends Controller
        if(empty($_SESSION['cart']) || !isset($_SESSION['cart']))
        {
          $count = 0;
-         return $count;
+         return;
     }
        else { 
            $count = count($_SESSION['cart']);
-           return $count;
+           echo '(' . $count .')';
        } 
     }
 
