@@ -25,8 +25,7 @@ create table service (
 id int not null primary key auto_increment,
 name varchar(50),
 smalldesc varchar(250) not null,
-description text,
-price decimal(18,2)
+description text
 );
 
 create table order_details (
@@ -75,10 +74,12 @@ alter table order_data add foreign key (order_details) references order_details(
 alter table order_details add foreign key (buyer) references user(id);
 alter table blog add foreign key (author) references user(id);
 
+# USER INSERT
 insert into user (email,password,name,surname,role) values 
 ('admin@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Admin','Test','admin'),
 ('oper@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Operater','Test','oper');
 
+# EQUIPMENT INSERT
 insert into equipment (name,price,smalldesc,description,quantity,image) values 
 ('Razer Lachesis',79.99,'The Razer Lachesis reigns supreme with a true 5600dpi 3.5G Laser sensor.','The Razer Lachesis reigns supreme with a true 5600dpi 3.5G Laser sensor, which 
 enables movement speeds of 7 times that of a standard 800dpi optical sensor. Customize the look of the Razer 
@@ -95,6 +96,7 @@ and headrest can all be adjusted for comfort and efficiency.',10,'redcyberxchair
 ('Razer Black Widow',99.99,'The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma.','The Razer BlackWidow lets you experience full gaming immersion with Razer Chroma. 
 It showcases up to 16.8 million colors in varying effects such as Spectrum Cycling, Wave, Breathing, and Ripple, and reacts to in-game events when playing Razer Chroma integrated games.',10,'razerblackwidow.jpg');
 
+# GAME INSERT
 insert into game (name,price,smalldesc,quantity,memory_required,console,image,description) values 
 ('Pokemon',39.99,'Pokémon is a role-playing game based around building a small team of monsters to battle other monsters in a quest to become the best.',10,40,'Both','pokemon.jpg','Gotta catch them all!'),
 
@@ -103,3 +105,17 @@ insert into game (name,price,smalldesc,quantity,memory_required,console,image,de
 ('Biomutant',39.99,'BIOMUTANT is an open-world, post-apocalyptic Kung-Fu fable RPG, with a unique martial arts styled combat system.',10,50,'PC','biomutant.jpg','Biomutant is an action role-playing game developed 
 by Swedish developer Experiment 101 and published by THQ Nordic. The game was released on 25 May 2021
  for Microsoft Windows.');
+ 
+# SERVICE INSERT 
+insert into service (name,description,smalldesc) values 
+('Computer Assembly','CyberX offers you fast and secure assembly of your computer. All of our workers are some of the most 
+experienced people when it comes to computers. There is no reason to worry. The computer is returned to you assembled the same day. 
+In the event of a computer connection failure, the amount paid will be refunded.','We assemble your computer in the safest and most confidential way in the fastest possible time.'),
+
+('Console Repairs','Our console repair service has been 100% successful so far. There are no problems that our workers cannot solve. The service is very fast and efficient. 
+Even the most difficult problems were solved. So if you have ANY problem with your console, feel free to contact us to resolve it!','Is something wrong with your computer? 
+Or with your play station? Contact us because the problem you have can be solved very quickly.'),
+
+('Software Installation','When we say "Software Installation", we refer to the particular configuration of a software or hardware with a view to making it usable with the computer.
+ A soft or digital copy of the piece of software (program) is needed to install it. Installation may be part of a larger software deployment process. So don’t try something if you don’t
+ know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.');
