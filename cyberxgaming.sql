@@ -2,6 +2,7 @@ drop database if exists cyberxgames;
 create database cyberxgames default character set utf8mb4;
 use cyberxgames;
 
+# EQUIPMENT TABLE
 create table equipment(
 id int not null primary key auto_increment,
 name varchar(50) not null,
@@ -12,6 +13,7 @@ quantity int not null,
 image varchar(50)
 );
 
+# USER TABLE
 create table user (
 id int not null primary key auto_increment,
 email varchar(50) not null,
@@ -21,13 +23,16 @@ surname varchar(50) not null,
 role varchar(10) not null
 );
 
+# SERVICE TABLE
 create table service (
 id int not null primary key auto_increment,
 name varchar(50),
 smalldesc varchar(250) not null,
-description text
+description text,
+image varchar(50)
 );
 
+# ORDER DETAILS TABLE
 create table order_details (
 id int not null primary key auto_increment,
 buyer int,
@@ -37,6 +42,7 @@ city varchar(30),
 country varchar(30)
 );
 
+# GAME TABLE
 create table game (
 id int not null primary key auto_increment,
 name varchar(50) not null,
@@ -49,6 +55,7 @@ console varchar(50) not null,
 image varchar(50)
 );
 
+# ORDER DATA TABLE
 create table order_data (
 id int not null primary key auto_increment,
 order_details int not null,
@@ -58,6 +65,7 @@ service int,
 quantity int not null
 );
 
+# BLOG TABLE
 create table blog (
 id int not null primary key auto_increment,
 title varchar(50),
