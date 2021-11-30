@@ -115,15 +115,37 @@ by Swedish developer Experiment 101 and published by THQ Nordic. The game was re
  for Microsoft Windows.');
  
 # SERVICE INSERT 
-insert into service (name,description,smalldesc) values 
+insert into service (name,description,smalldesc,image) values 
 ('Computer Assembly','CyberX offers you fast and secure assembly of your computer. All of our workers are some of the most 
 experienced people when it comes to computers. There is no reason to worry. The computer is returned to you assembled the same day. 
-In the event of a computer connection failure, the amount paid will be refunded.','We assemble your computer in the safest and most confidential way in the fastest possible time.'),
+In the event of a computer connection failure, the amount paid will be refunded.','We assemble your computer in the safest and most confidential way in the fastest possible time.','pcmake.jpg'),
 
 ('Console Repairs','Our console repair service has been 100% successful so far. There are no problems that our workers cannot solve. The service is very fast and efficient. 
 Even the most difficult problems were solved. So if you have ANY problem with your console, feel free to contact us to resolve it!','Is something wrong with your computer? 
-Or with your play station? Contact us because the problem you have can be solved very quickly.'),
+Or with your play station? Contact us because the problem you have can be solved very quickly.','crepair.jpg'),
 
 ('Software Installation','When we say "Software Installation", we refer to the particular configuration of a software or hardware with a view to making it usable with the computer.
  A soft or digital copy of the piece of software (program) is needed to install it. Installation may be part of a larger software deployment process. So don’t try something if you don’t
- know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.');
+ know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.','sfin.jpg'),
+ ('Computer Assembly','CyberX offers you fast and secure assembly of your computer. All of our workers are some of the most 
+experienced people when it comes to computers. There is no reason to worry. The computer is returned to you assembled the same day. 
+In the event of a computer connection failure, the amount paid will be refunded.','We assemble your computer in the safest and most confidential way in the fastest possible time.','pcmake.jpg'),
+
+('Console Repairs','Our console repair service has been 100% successful so far. There are no problems that our workers cannot solve. The service is very fast and efficient. 
+Even the most difficult problems were solved. So if you have ANY problem with your console, feel free to contact us to resolve it!','Is something wrong with your computer? 
+Or with your play station? Contact us because the problem you have can be solved very quickly.','crepair.jpg'),
+
+('Software Installation','When we say "Software Installation", we refer to the particular configuration of a software or hardware with a view to making it usable with the computer.
+ A soft or digital copy of the piece of software (program) is needed to install it. Installation may be part of a larger software deployment process. So don’t try something if you don’t
+ know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.','sfin.jpg'),
+ ('Computer Assembly','CyberX offers you fast and secure assembly of your computer. All of our workers are some of the most 
+experienced people when it comes to computers. There is no reason to worry. The computer is returned to you assembled the same day. 
+In the event of a computer connection failure, the amount paid will be refunded.','We assemble your computer in the safest and most confidential way in the fastest possible time.','pcmake.jpg'),
+
+('Console Repairs','Our console repair service has been 100% successful so far. There are no problems that our workers cannot solve. The service is very fast and efficient. 
+Even the most difficult problems were solved. So if you have ANY problem with your console, feel free to contact us to resolve it!','Is something wrong with your computer? 
+Or with your play station? Contact us because the problem you have can be solved very quickly.','crepair.jpg'),
+
+('Software Installation','When we say "Software Installation", we refer to the particular configuration of a software or hardware with a view to making it usable with the computer.
+ A soft or digital copy of the piece of software (program) is needed to install it. Installation may be part of a larger software deployment process. So don’t try something if you don’t
+ know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.','sfin.jpg');
