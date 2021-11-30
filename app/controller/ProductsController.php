@@ -1,6 +1,6 @@
 <?php 
 
-class ProductsController  extends Controller
+class ProductsController extends Controller
 {
     private $viewDir = 'products' . DIRECTORY_SEPARATOR;
 
@@ -42,7 +42,7 @@ class ProductsController  extends Controller
             $page=1;
         }
 
-        $gameCount = Equipment::equipmentCount();
+        $gameCount = Games::gameCount();
         $pageCount = ceil($gameCount/App::config('epp'));
 
         if($page>$pageCount){

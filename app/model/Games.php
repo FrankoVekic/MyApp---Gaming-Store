@@ -24,7 +24,7 @@ class Games
         return $query->fetchAll();
     }
 
-    public function gameCount()
+    public static function gameCount()
     {
         {
             $conn = DB::connect();

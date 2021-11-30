@@ -6,8 +6,27 @@ class ServicesController extends Controller
 
     public function service_list()
     {
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        if($page===0){
+            $page=1;
+        }
+
+        $serviceCount = Service::serviceCount();
+        $pageCount = ceil($serviceCount/App::config('spp'));
+
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        
         $this->view->render($this->viewDir . 'service_list',[
-            'service'=>Service::getService()
+            'service'=>Service::getService($page),
+            'page'=>$page,
+            'pageCount'=>$pageCount
         ]);
     }
 

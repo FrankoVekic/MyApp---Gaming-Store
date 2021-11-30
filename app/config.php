@@ -8,5 +8,6 @@ return [
     'dbName'=>'cyberxgames',
     'username'=>'root',
     'password'=>''],
-    'epp'=>12
+    'epp'=>12,
+    'spp'=>6
 ];
