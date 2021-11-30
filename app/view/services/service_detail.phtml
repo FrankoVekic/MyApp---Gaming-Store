@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <?php foreach($newservice as $ns):?>
+          <?php foreach($newservice as $ns): ?>
           <div class="col-md-6 service_blog margin_bottom_50">
             <div class="full">
               <div class="service_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/<?=$ns->image?>" alt="#" /> </div>
@@ -43,62 +43,14 @@
               </div>
             </div>
           </div>
-      <?php endforeach?>
+        <?php endforeach; ?>
+        </div>
         <div class="row" style="margin-bottom: 30px;">
           <div class="col-md-12">
             <div class="full margin_bottom_30">
               <div class="accordion border_circle">
                 <div class="bs-example">
-                  <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fa fa-bar-chart" aria-hidden="true"></i> Complete Recovery from Local & External Drive<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseOne" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><i class="fa fa-plane"></i> Recovery Photo, Image, Video and Audio<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><i class="fa fa-star"></i> Mobile Phone Recovery<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><i class="fa fa-bar-chart" aria-hidden="true"></i> Complete Recovery from Local & External Drive<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseFour" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    <hr>
                 </div>
               </div>
             </div>
@@ -106,27 +58,27 @@
           <div class="col-md-4">
             <div class="full">
               <div class="service_blog_inner">
-                <div class="icon text_align_left"><img src="images/services/si1.png" alt="#"></div>
+                <div class="icon text_align_left"><img src="<?=App::config('url')?>public/images/services/clock.png" alt="#"></div>
                 <h4 class="service-heading">Fast service</h4>
-                <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
+                <p>Fast execution of your services.</p>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="full">
               <div class="service_blog_inner">
-                <div class="icon text_align_left"><img src="images/services/si2.png" alt="#"></div>
+                <div class="icon text_align_left"><img src="<?=App::config('url')?>public/images/services/payment.png" alt="#"></div>
                 <h4 class="service-heading">Secure payments</h4>
-                <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
+                <p>All payment methods are provided for you in every way.</p>
               </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="full">
               <div class="service_blog_inner">
-                <div class="icon text_align_left"><img src="images/services/si3.png" alt="#"></div>
+                <div class="icon text_align_left"><img src="<?=App::config('url')?>public/images/services/teamwork.png" alt="#"></div>
                 <h4 class="service-heading">Expert team</h4>
-                <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
+                <p>All our employees are experts in this category of work.</p>
               </div>
             </div>
           </div>
@@ -144,7 +96,7 @@
         <div class="row">
           <div class="col-md-4 col-sm-6">
             <div class="full team_blog_colum">
-              <div class="it_team_img"> <img class="img-responsive" src="images/services/team-member-1.jpg" alt="#"> </div>
+              <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-1.jpg" alt="#"> </div>
               <div class="team_feature_head">
                 <h4>Dean Michael</h4>
               </div>
@@ -163,7 +115,7 @@
           </div>
           <div class="col-md-4">
             <div class="full team_blog_colum">
-              <div class="it_team_img"> <img class="img-responsive" src="images/services/team-member-2.jpg" alt="#"> </div>
+              <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-2.jpg" alt="#"> </div>
               <div class="team_feature_head">
                 <h4>Ruby Jake</h4>
               </div>
@@ -182,7 +134,7 @@
           </div>
           <div class="col-md-4">
             <div class="full team_blog_colum">
-              <div class="it_team_img"> <img class="img-responsive" src="images/services/team-member-3.jpg" alt="#"> </div>
+              <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-3.jpg" alt="#"> </div>
               <div class="team_feature_head">
                 <h4>David Hussay</h4>
               </div>
