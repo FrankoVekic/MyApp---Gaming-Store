@@ -42,6 +42,12 @@ class ProductsController extends Controller
             $page=1;
         }
 
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
         $gameCount = Games::gameCount();
         $pageCount = ceil($gameCount/App::config('epp'));
 
@@ -52,8 +58,56 @@ class ProductsController extends Controller
         $this->view->render($this->viewDir . 'games',[
             'games'=>Games::findGames($page),
             'page'=>$page,
-            'pageCount'=>$pageCount
+            'pageCount'=>$pageCount,
+            'search'=>$search,
+            'message'=>''
         ]);
+    }
+
+    public function request()
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $gameCount = Games::gameCountSearch($search);
+        $pageCount = ceil($gameCount/App::config('epp'));
+        
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        if($page==0){
+            $page=1;
+        }
+        if(Games::findGamesSearch($page,$search) == null)
+        {
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGamesSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"No results for: " . '\'' . $search . '\'',
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGamesSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"Search results for: " . '\'' . $search . '\''
+            ]);
+        }
     }
 
     public function game_detail()

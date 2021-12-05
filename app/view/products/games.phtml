@@ -21,7 +21,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-9">
+          <div>
+            <h3><?=$message?></h3>
+          </div>
         <div class="row">
+        <?php if($games != null): ?>
         <?php foreach ($games as $game): ?>
           <div class="col-md-4 col-sm-6 col-xs-12 margin_bottom_30_all">
             <div class="product_list">
@@ -42,19 +46,25 @@
             </div>
           </div>
           <?php endforeach;?>
+          <?php include 'pagingGa.phtml' ?>
+          <?php else: ?>
+            <div style="margin-left:20px;" class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>products/games">Back</a> </div>
+          <?php endif; ?>
         </div>
-        <?php include 'pagingGa.phtml' ?>
+        
       </div>
       <div class="col-md-3">
         <div class="side_bar">
           <div class="side_bar_blog">
             <h4>SEARCH</h4>
             <div class="side_bar_search">
+              <form action="<?=App::config('url')?>products/request">
               <div class="input-group stylish-input-group">
-                <input class="form-control" placeholder="Search" type="text">
+                <input class="form-control" name="search" value="<?=$search?>" placeholder="Search" type="text">
                 <span class="input-group-addon">
                 <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </span> </div>
+        </form>
             </div>
           </div>
           <div class="side_bar_blog">

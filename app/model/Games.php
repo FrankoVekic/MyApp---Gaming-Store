@@ -24,6 +24,22 @@ class Games
         return $query->fetchAll();
     }
 
+    public static function findGamesSearch($page,$search)
+    {
+        $epp = App::config('epp');
+        $from = $page * $epp - $epp;
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM game where name like :search limit :from,:epp;');
+        $search = '%' . $search . '%';
+
+        $query->bindValue('from',$from, PDO::PARAM_INT);
+        $query->bindValue('epp',$epp, PDO::PARAM_INT);
+        $query->bindParam('search',$search);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
     public static function gameCount()
     {
         {
@@ -31,6 +47,20 @@ class Games
             $query = $conn->prepare(
                 'SELECT count(id) from game;'
             );
+            $query->execute();
+            return $query->fetchColumn();
+        }
+    }
+
+    public static function gameCountSearch($search)
+    {
+        {
+            $conn = DB::connect();
+            $query = $conn->prepare(
+                'SELECT count(a.id) from game a where name like :search;'
+            );
+            $search = '%' . $search . '%';
+            $query->bindParam('search',$search);
             $query->execute();
             return $query->fetchColumn();
         }
