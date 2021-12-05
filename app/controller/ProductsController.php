@@ -148,8 +148,7 @@ class ProductsController extends Controller
     }
 
     public function shopping_cart()
-    {
-            
+    {   
                 if(isset($_POST['id'])){
                     if(isset($_GET['game'])){
                         $product = Games::gameExists($_POST['id']);
