@@ -15,6 +15,11 @@ class ProductsController extends Controller
         if($page===0){
             $page=1;
         }
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
         
         $equipmentCount = Equipment::equipmentCount();
         $pageCount = ceil($equipmentCount/App::config('epp'));
@@ -26,7 +31,9 @@ class ProductsController extends Controller
         $this->view->render($this->viewDir . 'equipment',[
             'equipment'=>Equipment::readEquipment($page),
             'page'=>$page,
-            'pageCount'=>$pageCount
+            'pageCount'=>$pageCount,
+            'search'=>$search,
+            'message'=>''
         ]);
     }
 
@@ -64,7 +71,7 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function request()
+    public function request_game()
     {
         if(!isset($_GET['page'])){
             $page=1;
@@ -102,6 +109,52 @@ class ProductsController extends Controller
         else {
             $this->view->render($this->viewDir . 'games',[
                 'games'=>Games::findGamesSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"Search results for: " . '\'' . $search . '\''
+            ]);
+        }
+    }
+
+    public function request_equipment()
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $gameCount = Equipment::equipmentCountSearch($search);
+        $pageCount = ceil($gameCount/App::config('epp'));
+        
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        if($page==0){
+            $page=1;
+        }
+        if(Games::findGamesSearch($page,$search) == null)
+        {
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::findEquipmentSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"No results for: " . '\'' . $search . '\'',
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::findEquipmentSearch($page,$search),
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
