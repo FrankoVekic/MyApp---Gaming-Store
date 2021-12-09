@@ -36,7 +36,8 @@ class NewsController Extends Controller
             'page'=>$page,
             'search'=>$search,
             'pageCount'=>$pageCount,
-            'message'=>''
+            'message'=>'',
+            'random'=>Service::randomService()
         ]);
     }
 
@@ -72,7 +73,8 @@ class NewsController Extends Controller
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
-                'message'=>"No results for: " . '\'' . $search . '\''
+                'message'=>"No results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService()
             ]);
         }
         else {
@@ -81,7 +83,8 @@ class NewsController Extends Controller
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
-                'message'=>"Search results for: " . '\'' . $search . '\''
+                'message'=>"Search results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService()
             ]);
         }
     }

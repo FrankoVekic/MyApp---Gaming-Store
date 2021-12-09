@@ -67,9 +67,9 @@
             </div>
           </div>
           <div class="side_bar_blog">
-            <h4>GET A QUOTE</h4>
-            <p>An duo lorem altera gloriatur. No imperdiet adver sarium pro. No sit sumo lorem. Mei ea eius elitr consequ unturimperdiet.</p>
-            <a class="btn sqaure_bt" href="it_service.html">View Service</a> </div>
+            <h4><?=strtoupper($random->name)?></h4>
+            <p><?=$random->smalldesc?></p>
+            <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a> </div>
           <div class="side_bar_blog">
             <h4>OUR SERVICE</h4>
             <div class="categary">

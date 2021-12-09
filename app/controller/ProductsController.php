@@ -33,7 +33,8 @@ class ProductsController extends Controller
             'page'=>$page,
             'pageCount'=>$pageCount,
             'search'=>$search,
-            'message'=>''
+            'message'=>'',
+            'random'=>Service::randomService()
         ]);
     }
 
@@ -67,7 +68,8 @@ class ProductsController extends Controller
             'page'=>$page,
             'pageCount'=>$pageCount,
             'search'=>$search,
-            'message'=>''
+            'message'=>'',
+            'random'=>Service::randomService()
         ]);
     }
 
@@ -104,6 +106,7 @@ class ProductsController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService()
             ]);
         }
         else {
@@ -112,7 +115,8 @@ class ProductsController extends Controller
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
-                'message'=>"Search results for: " . '\'' . $search . '\''
+                'message'=>"Search results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService()
             ]);
         }
     }
@@ -150,6 +154,7 @@ class ProductsController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService()
             ]);
         }
         else {
@@ -158,7 +163,8 @@ class ProductsController extends Controller
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
-                'message'=>"Search results for: " . '\'' . $search . '\''
+                'message'=>"Search results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService()
             ]);
         }
     }
@@ -177,7 +183,8 @@ class ProductsController extends Controller
         else {
             $this->view->render($this->viewDir . 'game_detail',[
                 'game'=>Games::gameDetail($id),
-                'newGames'=>Games::latestGames()
+                'newGames'=>Games::latestGames(),
+                'random'=>Service::randomService()
             ]);
         }
     }
@@ -195,7 +202,8 @@ class ProductsController extends Controller
         else {
             $this->view->render($this->viewDir . 'equipment_detail',[
                 'equipment'=>Equipment::equipmentDetail($id),
-                'newEquipment'=>Equipment::latestEquipment()
+                'newEquipment'=>Equipment::latestEquipment(),
+                'random'=>Service::randomService()
             ]);
         }
     }

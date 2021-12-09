@@ -26,7 +26,8 @@ class ServicesController extends Controller
         $this->view->render($this->viewDir . 'service_list',[
             'service'=>Service::getService($page),
             'page'=>$page,
-            'pageCount'=>$pageCount
+            'pageCount'=>$pageCount,
+            'random'=>Service::randomService()
         ]);
     }
 
@@ -35,10 +36,14 @@ class ServicesController extends Controller
         if(!isset($_GET['id'])){
             $this->service_list();
         }
+        else if(!Service::findService($_GET['id'])){
+            $this->service_list();
+        }
         else {
             $this->view->render($this->viewDir . 'service_detail',[
                 'service'=>Service::findService($_GET['id']),
-                'newservice'=>Service::latestService()
+                'newservice'=>Service::latestService(),
+                'random'=>Service::randomService()
             ]);
         }   
     }
