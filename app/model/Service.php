@@ -41,4 +41,12 @@ class Service
         $query->execute();
         return $query->fetchColumn();
     }
+
+    public static function randomService()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM service order by RAND() limit 1;");
+        $query->execute();
+        return $query->fetch();
+    }
 }
