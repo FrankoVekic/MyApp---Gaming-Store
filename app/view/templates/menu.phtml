@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="float-right">
-            <div class="make_appo"> <a class="btn white_btn" href="make_appointment.html">Make Appointment</a> </div>
+            <div class="make_appo"> <a class="btn white_btn" href="<?=App::config('url')?>index/contact">Contact Us</a> </div>
           </div>
         </div>
       </div>
@@ -44,19 +44,17 @@
               <ul class="first-ul">
                 <li> <a class="active" href="<?=App::config('url')?>index/home">Home</a>
                 </li>
-                <li><a href="<?=App::config('url')?>index/about">About Us</a></li>
-                <li> <a href="<?=App::config('url')?>services/service_list">Service</a>
-                </li>
-                <li> <a href="<?=App::config('url')?>index/blog">Blog</a>
-                </li>
+                <li><a href="<?=App::config('url')?>news/index">News</a></li>
                 <li> <a href="#">Pages</a>
                   <ul>
-                    <li><a href="<?=App::config('url')?>index/career">Career</a></li>
+                  <li> <a href="<?=App::config('url')?>index/blog">Blog</a>
                     <li><a href="<?=App::config('url')?>index/price">Pricing</a></li>
                     <li><a href="<?=App::config('url')?>index/faq">Faq</a></li>
                     <li><a href="<?=App::config('url')?>index/privacy_policy">Privacy Policy</a></li>
                   </ul>
                 </li>
+                <li> <a href="<?=App::config('url')?>services/service_list">Service</a>
+                </li>                
                 <li> <a href="<?=App::config('url')?>products/shopping_cart">Shop</a>
                   <ul>
                     <li><a href="<?=App::config('url')?>products/shopping_cart">Shopping Cart <?=ProductsController::shopCount() ?></a></li>
@@ -64,8 +62,7 @@
                     <li><a href="<?=App::config('url')?>products/games">Games</a></li>
                   </ul>
                 </li>
-                <li> <a href="<?=App::config('url')?>index/contact">Contact</a>
-                </li>
+                <li><a href="<?=App::config('url')?>index/about">About Us</a></li>
                 <?php if(Request::isAdmin()):?>
                   <li> <a href="<?=App::config('url')?>index/organization">Manage</a>
                   <ul>

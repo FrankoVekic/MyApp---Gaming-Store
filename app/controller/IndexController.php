@@ -2,6 +2,7 @@
 
 class IndexController extends Controller 
 {
+
     public function home()
     {
         $this->view->render('home',[
@@ -34,11 +35,6 @@ class IndexController extends Controller
         $this->view->render('privacy_policy');
     }
     
-    public function career()
-    {
-        $this->view->render('career');
-    }
-
     public function price()
     {
         $this->view->render('price');
@@ -159,5 +155,5 @@ class IndexController extends Controller
         $this->loginView($_POST['email'],'Registered successfully.');
         return;
     } 
-    }
+}
 }
