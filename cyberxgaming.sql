@@ -75,12 +75,24 @@ bloglargetext text,
 author int
 );
 
+#NEWS TABLE 
+create table news(
+id int not null primary key auto_increment,
+headline varchar(250) not null,
+`text` text not null,
+publishDate datetime not null default now(),
+state varchar(30),
+image varchar(50) not null,
+author int not null
+);
+
 alter table order_data add foreign key (equipment) references equipment(id);
 alter table order_data add foreign key (game) references game(id);
 alter table order_data add foreign key (service) references service(id);
 alter table order_data add foreign key (order_details) references order_details(id);
 alter table order_details add foreign key (buyer) references user(id);
 alter table blog add foreign key (author) references user(id);
+alter table news add foreign key (author) references user(id);
 
 # USER INSERT
 insert into user (email,password,name,surname,role) values 
