@@ -30,13 +30,13 @@ class News
 
     public static function findNews($page)
     {
-        $spp = App::config('spp');
-        $from = $page * $spp - $spp;
+        $npp = App::config('npp');
+        $from = $page * $npp - $npp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM news limit :from,:spp;');
+        $query = $conn->prepare('SELECT * FROM news limit :from,:npp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
-        $query->bindValue('spp',$spp, PDO::PARAM_INT);
+        $query->bindValue('npp',$npp, PDO::PARAM_INT);
         $query->execute();
 
         return $query->fetchAll();
@@ -44,14 +44,14 @@ class News
 
     public static function findNewsSearch($page,$search)
     {
-        $spp = App::config('spp');
-        $from = $page * $spp - $spp;
+        $npp = App::config('npp');
+        $from = $page * $npp - $npp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM news where headline like :search limit :from,:spp;');
+        $query = $conn->prepare('SELECT * FROM news where headline like :search limit :from,:npp;');
         $search = '%' . $search . '%';
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
-        $query->bindValue('spp',$spp, PDO::PARAM_INT);
+        $query->bindValue('npp',$npp, PDO::PARAM_INT);
         $query->bindParam('search',$search);
         $query->execute();
 

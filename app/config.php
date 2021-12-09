@@ -9,5 +9,6 @@ return [
     'username'=>'root',
     'password'=>''],
     'epp'=>12,
-    'spp'=>6
+    'spp'=>6,
+    'npp'=>4
 ];

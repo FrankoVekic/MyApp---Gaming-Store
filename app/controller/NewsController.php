@@ -22,7 +22,7 @@ class NewsController Extends Controller
         }
 
         $newsCount = News::newsCountSearch($search);
-        $pageCount = ceil($newsCount/App::config('spp'));
+        $pageCount = ceil($newsCount/App::config('npp'));
         
         if($page>$pageCount){
             $page=$pageCount;
@@ -57,7 +57,7 @@ class NewsController Extends Controller
         }
 
         $newsCount = News::newsCountSearch($search);
-        $pageCount = ceil($newsCount/App::config('spp'));
+        $pageCount = ceil($newsCount/App::config('npp'));
         
         if($page>$pageCount){
             $page=$pageCount;
