@@ -72,7 +72,7 @@ class NewsController Extends Controller
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
-                'message'=>"No results for: " . '\'' . $search . '\'',
+                'message'=>"No results for: " . '\'' . $search . '\''
             ]);
         }
         else {

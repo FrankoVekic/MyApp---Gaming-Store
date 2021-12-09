@@ -69,4 +69,17 @@ class News
 
         return $query->fetch();
     }
+
+    public static function findAuthor($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT  concat(b.name,' ',b.surname)
+            FROM news a inner join user b on b.id = a.author where a.id = $id;"
+        );
+
+        $query->execute();
+
+        return $query->fetchColumn();
+    }
 }
