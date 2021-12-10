@@ -101,7 +101,7 @@ class News
     public static function latestNews()
     {
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM news order by id desc limit 3;');
+        $query = $conn->prepare('SELECT * FROM news order by id desc limit 2;');
         $query->execute();
         return $query->fetchAll();
     }

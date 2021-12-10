@@ -137,8 +137,8 @@ class ProductsController extends Controller
             $search = $_GET['search'];
         }
 
-        $gameCount = Equipment::equipmentCountSearch($search);
-        $pageCount = ceil($gameCount/App::config('epp'));
+        $equipmentCount = Equipment::equipmentCountSearch($search);
+        $pageCount = ceil($equipmentCount/App::config('epp'));
         
         if($page>$pageCount){
             $page=$pageCount;
@@ -171,6 +171,13 @@ class ProductsController extends Controller
 
     public function game_detail()
     {
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
         if(!isset($_GET['id'])){
             $this->games();
         }
@@ -184,13 +191,21 @@ class ProductsController extends Controller
             $this->view->render($this->viewDir . 'game_detail',[
                 'game'=>Games::gameDetail($id),
                 'newGames'=>Games::latestGames(),
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'search'=>$search
             ]);
         }
     }
 
     public function equipment_detail()
     {
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
         if(!isset($_GET['id'])){
             $this->equipment();
         }
@@ -203,7 +218,8 @@ class ProductsController extends Controller
             $this->view->render($this->viewDir . 'equipment_detail',[
                 'equipment'=>Equipment::equipmentDetail($id),
                 'newEquipment'=>Equipment::latestEquipment(),
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'search'=>$search
             ]);
         }
     }

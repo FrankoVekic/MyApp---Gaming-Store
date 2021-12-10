@@ -15,6 +15,22 @@ class Service
         return $query->fetchAll();
     }
 
+    public static function getServiceSearch($page,$search)
+    {
+        $npp = App::config('npp');
+        $from = $page * $npp - $npp;
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM service where name like :search limit :from,:npp;');
+        $search = '%' . $search . '%';
+
+        $query->bindValue('from',$from, PDO::PARAM_INT);
+        $query->bindValue('npp',$npp, PDO::PARAM_INT);
+        $query->bindParam('search',$search);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
     public static function findService($id)
     {
         $conn = DB::connect();
@@ -40,6 +56,20 @@ class Service
         
         $query->execute();
         return $query->fetchColumn();
+    }
+
+    public static function serviceCountSearch($search)
+    {
+        {
+            $conn = DB::connect();
+            $query = $conn->prepare(
+                'SELECT count(a.id) from service a where name like :search;'
+            );
+            $search = '%' . $search . '%';
+            $query->bindParam('search',$search);
+            $query->execute();
+            return $query->fetchColumn();
+        }
     }
 
     public static function randomService()
