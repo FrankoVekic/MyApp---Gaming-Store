@@ -91,6 +91,13 @@ class NewsController Extends Controller
 
     public function news_detail()
     {
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
         if(!isset($_GET['id'])){
             $this->index();
         }
@@ -103,7 +110,8 @@ class NewsController Extends Controller
             $this->view->render($this->viewDir . 'news_detail',[
                 'news'=>News::newsDetail($id),
                 'newNews'=>News::latestNews(),
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'search'=>$search
             ]);
         }
     }
