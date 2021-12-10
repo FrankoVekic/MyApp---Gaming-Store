@@ -82,4 +82,27 @@ class News
 
         return $query->fetchColumn();
     }
+
+    public static function newsExists($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM news WHERE id = $id"
+        );
+        $query->execute();
+        $newsExists = $query->fetch();
+
+        if($newsExists==null){
+            return null;
+        }
+        return $newsExists;
+    }
+
+    public static function latestNews()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM news order by id desc limit 3;');
+        $query->execute();
+        return $query->fetchAll();
+    }
 }

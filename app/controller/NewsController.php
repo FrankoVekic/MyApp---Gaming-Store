@@ -88,4 +88,23 @@ class NewsController Extends Controller
             ]);
         }
     }
+
+    public function news_detail()
+    {
+        if(!isset($_GET['id'])){
+            $this->index();
+        }
+        $id = $_GET['id'];
+        $newsExists = News::newsExists($id);
+        if($newsExists == null){
+            $this->index();
+        }
+        else {
+            $this->view->render($this->viewDir . 'news_detail',[
+                'news'=>News::newsDetail($id),
+                'newNews'=>News::latestNews(),
+                'random'=>Service::randomService()
+            ]);
+        }
+    }
 }
