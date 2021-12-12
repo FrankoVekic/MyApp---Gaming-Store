@@ -319,6 +319,11 @@ a.btn.white_btn {
 	max-width: 100%;
 }
 
+.img-responsiveNews {
+	max-width: 410px;
+	max-height: 300px;
+}
+
 .color_black p,
 .color_black ul,
 .color_black ul li {
