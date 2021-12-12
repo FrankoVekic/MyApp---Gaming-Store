@@ -99,6 +99,7 @@ insert into user (email,password,name,surname,role) values
 ('admin@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Admin','Test','admin'),
 ('oper@gmail.com','$2y$10$WHV1bOXJTbMzrtZEIWO97.2ycbapSP0JweaAC1iP5luFC9wosSsk2','Operater','Test','oper');
 
+
 # EQUIPMENT INSERT
 insert into equipment (name,price,smalldesc,description,quantity,image) values 
 ('Razer Lachesis',79.99,'The Razer Lachesis reigns supreme with a true 5600dpi 3.5G Laser sensor.','The Razer Lachesis reigns supreme with a true 5600dpi 3.5G Laser sensor, which 
@@ -162,7 +163,23 @@ Or with your play station? Contact us because the problem you have can be solved
  A soft or digital copy of the piece of software (program) is needed to install it. Installation may be part of a larger software deployment process. So don’t try something if you don’t
  know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.','sfin.jpg');
  
-insert into news (headline,text,image,author) values ('Test','TESTTESTTESTTEST','sfin.jpg',1);
-insert into news (headline,text,image,author) values ('Test','TESTTESTTESTTEST','sfin.jpg',1);
-insert into news (headline,text,image,author) values ('Test','TESTTESTTESTTEST','sfin.jpg',1);
-insert into news (headline,text,image,author) values ('Test','TESTTESTTESTTEST','sfin.jpg',1);
+#NEWS INSERT
+insert into news (headline,text,image,author) values ('WE ARE OPEN!','For the past year, cyberx games have only worked through online sales. But after the decision of Franko Vekić, the 
+founder of the company itself, we are glad to inform you that we are opening our first store! From 6.2.2021 you will be able to come to our store in person, watch, play or buy games with your friends. 
+Cyberx stores will have a gaming room where you will be able to spend time with your loved ones and play all possible games indefinitely. In addition to computers, we will have a gaming room with play stations.
+ The store opens at 1 Pere Perića Street, Osijek. We expect you in as many numbers as possible with a large number of top games, computer equipment and good fun.','open.jpg',1);
+
+insert into news (headline,text,image,author) values ('The arrival of new quality equipment.','In the past half year, we have been doing better than in the whole of 2020. Our result could not go unnoticed. 
+So we got a couple of good offers to work with one of the best companies selling computer equipment. Some of them are: Razer, Logitech and SteelSeries. Of course we have accepted the cooperation, so we are very 
+glad to inform you that from now on we have a lot of new equipment waiting for you in our store. In the next few weeks we will come up with another good announcement that has to do with games. We will just tell 
+you that the problem of lack of games will no longer be a problem!','pship.jpg',1);
+
+insert into news (headline,text,image,author) values ('New games have arrived.','As we announced to you, that day has arrived. Exactly two weeks ago we got a very attractive offer for 100 new games, 70 for PC and 
+30 for play station consoles. We knew the offer was good but we knew we could get a lot more games for a little more money. So we offered that, and of course they accepted the offer. We have just received about two hundred
+ new games for the PC and about a hundred for the play station console. The vast majority of these games were produced a year and a half ago. But we didn’t just want to take the new ones but we also took some old ones that 
+you probably remember.','newgames.png',1);
+
+insert into news (headline,text,image,author) values ('New stores are opening!','First of all, I would like to thank you for the great response to purchases in our store over the past year and more. We exploded.
+ There are so many of you that you made us open our stores in other cities as well. I am pleased to announce that we are opening stores in: Zagreb, Varaždin, Vukovar, Slavonski Brod, Split, Dubrovnik, Rijeka and Zadar. 
+The first open store will be in Zagreb on July 22, 2021. After that, July 24, 2021 in Split. By the end of the year, we will open all the stores listed. Thank you for everything and I look forward to your visit to our
+ stores.','nstore.jpg',1);
