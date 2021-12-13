@@ -65,4 +65,17 @@ class Blog
         $query->execute();
         return $query->fetchAll();
     }
+
+    public static function findAuthor($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT  concat(b.name,' ',b.surname)
+            FROM blog a inner join user b on b.id = a.author where a.id = $id;"
+        );
+
+        $query->execute();
+
+        return $query->fetchColumn();
+    }
 }

@@ -27,11 +27,11 @@
           <div class="blog_section">            
           <div class="full testimonial_simple_say margin_bottom_30_all" style="margin-top:0;">
               <p class="blog_head_index"><?=$blog->title?></p>
-              <p><?=substr($blog->text,0,70)?>...</p>
+              <p style="font-size:16px;"><?=substr($blog->text,0,70)?>...</p>
               <div class="blog_feature_cantant">
               <div class="post_info">
                 <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Gaming</li>
+                  <li><i class="fa fa-user" aria-hidden="true"></i> <?php $id = Blog::findAuthor($blog->id); echo $id;?></li>
                   <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
                   <li><i class="fa fa-calendar" aria-hidden="true"></i> <?=$blog->blogdate?></li>
                 </ul>
