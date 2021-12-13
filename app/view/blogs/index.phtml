@@ -24,33 +24,23 @@
         <div class="full">
           <!--BLOG SELECTION START -->
           <?php foreach($blog as $blog): ?>
-          <div class="blog_section">
-            <div class="blog_feature_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/home_01.png" alt="#"> </div>
-            <div class="blog_feature_cantant">
-              <p class="blog_head"><?=$blog->title?></p>
+          <div class="blog_section">            
+          <div class="full testimonial_simple_say margin_bottom_30_all" style="margin-top:0;">
+              <p class="blog_head_index"><?=$blog->title?></p>
+              <p><?=substr($blog->text,0,70)?>...</p>
+              <div class="blog_feature_cantant">
               <div class="post_info">
                 <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
+                  <li><i class="fa fa-user" aria-hidden="true"></i> Gaming</li>
                   <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
                   <li><i class="fa fa-calendar" aria-hidden="true"></i> <?=$blog->blogdate?></li>
                 </ul>
               </div>
-              <p><?=substr($blog->text,0,70)?>...</p>
-              <div class="bottom_info">
-                <div class="pull-left"><a class="btn sqaure_bt" href="it_blog_detail.html">Read More<i class="fa fa-angle-right"></i></a></div>
-                <div class="pull-right">
-                  <div class="shr">Share: </div>
-                  <div class="social_icon">
-                    <ul>
-                      <li class="fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="twi"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                      <li class="pint"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
               </div>
-            </div>
+              <div class="bottom_info">
+                <div class="center"><a class="btn sqaure_bt" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>">Read More<i class="fa fa-angle-right"></i></a></div>
+              </div>
+          </div>
           </div>
           <?php endforeach; ?>
           <!-- BLOG SELECTION END -->

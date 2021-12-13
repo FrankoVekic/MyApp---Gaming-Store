@@ -40,4 +40,32 @@ class BlogController extends Controller
             'latestBlog'=>Blog::latestBlog()
         ]);
     }
+
+    public function blog_detail()
+    {
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        if(!isset($_GET['id'])){
+            $this->index();
+        }
+        $id = $_GET['id'];
+        $newsExists = News::newsExists($id);
+        if($newsExists == null){
+            $this->index();
+        }
+        else {
+            $this->view->render($this->viewDir . 'blog_detail',[
+                'blog'=>Blog::blogDetail($id),
+                'search'=>$search,
+                'message'=>'',
+                'random'=>Service::randomService(),
+                'latestBlog'=>Blog::latestBlog()
+            ]);
+        }
+    }
 }

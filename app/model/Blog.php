@@ -4,13 +4,13 @@ class Blog
 {
     public static function findBlog($page)
     {
-        $npp = App::config('npp');
-        $from = $page * $npp - $npp;
+        $bpp = App::config('bpp');
+        $from = $page * $bpp - $bpp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM blog limit :from,:npp;');
+        $query = $conn->prepare('SELECT * FROM blog limit :from,:bpp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
-        $query->bindValue('npp',$npp, PDO::PARAM_INT);
+        $query->bindValue('bpp',$bpp, PDO::PARAM_INT);
         $query->execute();
 
         return $query->fetchAll();
@@ -18,14 +18,14 @@ class Blog
 
     public static function findBlogSearch($page,$search)
     {
-        $npp = App::config('npp');
-        $from = $page * $npp - $npp;
+        $bpp = App::config('bpp');
+        $from = $page * $bpp - $bpp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM blog where title like :search limit :from,:npp;');
+        $query = $conn->prepare('SELECT * FROM blog where title like :search limit :from,:bpp;');
         $search = '%' . $search . '%';
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
-        $query->bindValue('npp',$npp, PDO::PARAM_INT);
+        $query->bindValue('bpp',$bpp, PDO::PARAM_INT);
         $query->bindParam('search',$search);
         $query->execute();
 

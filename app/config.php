@@ -10,5 +10,6 @@ return [
     'password'=>''],
     'epp'=>12,
     'spp'=>6,
-    'npp'=>4
+    'npp'=>4,
+    'bpp'=>3
 ];
