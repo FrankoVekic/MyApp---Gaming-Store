@@ -32,7 +32,7 @@
                 <ul>
                   <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
                   <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
-                  <li><i class="fa fa-calendar" aria-hidden="true"></i><?=$blog->blogdate?></li>
+                  <li><i class="fa fa-calendar" aria-hidden="true"></i> <?=$blog->blogdate?></li>
                 </ul>
               </div>
               <p><?=substr($blog->text,0,70)?>...</p>
@@ -60,36 +60,31 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pull-left">
         <div class="side_bar">
           <div class="side_bar_blog">
-            <h4>SEARCH</h4>
+          <h4>SEARCH</h4>
             <div class="side_bar_search">
+              <form action="<?=App::config('url')?>blog/request_blog">
               <div class="input-group stylish-input-group">
-                <input class="form-control" placeholder="Search" type="text">
+                <input class="form-control" name="search" value="<?=$search?>" placeholder="Search" type="text">
                 <span class="input-group-addon">
                 <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </span> </div>
+              </form>
             </div>
           </div>
           <div class="side_bar_blog">
-            <h4>ABOUT AUTHOR</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. sed do eiusmod tempor.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
+          <h4><?=strtoupper($random->title)?></h4>
+            <p><?=$random->smalldesc?></p>
+            <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a></div>
           <div class="side_bar_blog">
-            <h4>RECENT POST</h4>
+            <h4>RECENT POSTS</h4>
             <div class="recent_post">
-              <ul>
+              <ul>       
+              <?php foreach($latestBlog as $lb): ?>
                 <li>
-                  <p class="post_head"><a href="#">How To Look Up</a></p>
-                  <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> Aug 20, 2017</p>
+                  <p class="post_head"><a href="#"><?=$lb->title?></a></p>
+                  <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> <?=$lb->blogdate;?></p>
                 </li>
-                <li>
-                  <p class="post_head"><a href="#">Compatible Inkjet Cartridge</a></p>
-                  <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> Aug 20, 2017</p>
-                </li>
-                <li>
-                  <p class="post_head"><a href="#">Treat That Oral Thrush Now</a></p>
-                  <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> Aug 20, 2017</p>
-                </li>
+              <?php endforeach; ?>
               </ul>
             </div>
           </div>

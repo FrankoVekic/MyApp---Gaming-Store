@@ -36,7 +36,8 @@ class BlogController extends Controller
             'search'=>$search,
             'pageCount'=>$pageCount,
             'message'=>'',
-            'random'=>Service::randomService()
+            'random'=>Service::randomService(),
+            'latestBlog'=>Blog::latestBlog()
         ]);
     }
 }

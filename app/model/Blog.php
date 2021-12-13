@@ -57,4 +57,12 @@ class Blog
 
         return $query->fetch();
     }
+
+    public static function latestBlog()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM blog order by id desc limit 3;');
+        $query->execute();
+        return $query->fetchAll();
+    }
 }
