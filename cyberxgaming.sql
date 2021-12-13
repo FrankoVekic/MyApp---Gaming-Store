@@ -20,15 +20,16 @@ email varchar(50) not null,
 password char(60) not null,
 name varchar(50) not null,
 surname varchar(50) not null,
-role varchar(10) not null
+role varchar(10) not null,
+profile_picture varchar(50)
 );
 
 # SERVICE TABLE
 create table service (
 id int not null primary key auto_increment,
-name varchar(50),
+title varchar(50) not null,
 smalldesc varchar(250) not null,
-description text,
+description text not null,
 image varchar(50)
 );
 
@@ -61,21 +62,20 @@ id int not null primary key auto_increment,
 order_details int not null,
 equipment int,
 game int,
-service int,
 quantity int not null
 );
 
 # BLOG TABLE
 create table blog (
 id int not null primary key auto_increment,
-title varchar(50),
-blogdate date,
-blogsmalltext text,
-bloglargetext text,
-author int
+title varchar(50) not null,
+blogdate date not null default now(),
+`text` text not null,
+author int not null,
+image varchar(50)
 );
 
-#NEWS TABLE 
+# NEWS TABLE 
 create table news(
 id int not null primary key auto_increment,
 headline varchar(250) not null,
@@ -86,13 +86,24 @@ image varchar(50) not null,
 author int not null
 );
 
+# COMENT TABLE
+create table comment(
+id int not null primary key auto_increment,
+writer int not null,
+comment text not null,
+commentDate datetime not null default now(),
+post int not null
+);
+
+# ALTERS
 alter table order_data add foreign key (equipment) references equipment(id);
 alter table order_data add foreign key (game) references game(id);
-alter table order_data add foreign key (service) references service(id);
 alter table order_data add foreign key (order_details) references order_details(id);
 alter table order_details add foreign key (buyer) references user(id);
 alter table blog add foreign key (author) references user(id);
 alter table news add foreign key (author) references user(id);
+alter table comment add foreign key (writer) references user(id);
+alter table comment add foreign key (post) references blog(id);
 
 # USER INSERT
 insert into user (email,password,name,surname,role) values 
@@ -128,7 +139,7 @@ by Swedish developer Experiment 101 and published by THQ Nordic. The game was re
  for Microsoft Windows.');
  
 # SERVICE INSERT 
-insert into service (name,description,smalldesc,image) values 
+insert into service (title,description,smalldesc,image) values 
 ('Computer Assembly','CyberX offers you fast and secure assembly of your computer. All of our workers are some of the most 
 experienced people when it comes to computers. There is no reason to worry. The computer is returned to you assembled the same day. 
 In the event of a computer connection failure, the amount paid will be refunded.','We assemble your computer in the safest and most confidential way in the fastest possible time.','pcmake.jpg'),
@@ -163,7 +174,7 @@ Or with your play station? Contact us because the problem you have can be solved
  A soft or digital copy of the piece of software (program) is needed to install it. Installation may be part of a larger software deployment process. So don’t try something if you don’t
  know or aren’t sure, let our experts do it for you!','If you don’t know, you’re not sure how, or you don’t want to do something wrong while installing new softwares. Contact us.','sfin.jpg');
  
-#NEWS INSERT
+# NEWS INSERT
 insert into news (headline,text,image,author,publishDate) values ('WE ARE OPEN!','For the past year, cyberx games have only worked through online sales. But after the decision of Franko Vekić, the 
 founder of the company itself, we are glad to inform you that we are opening our first store! From 6.2.2021 you will be able to come to our store in person, watch, play or buy games with your friends. 
 Cyberx stores will have a gaming room where you will be able to spend time with your loved ones and play all possible games indefinitely. In addition to computers, we will have a gaming room with play stations.
@@ -183,3 +194,17 @@ insert into news (headline,text,image,author,publishDate) values ('New stores ar
  There are so many of you that you made us open our stores in other cities as well. I am pleased to announce that we are opening stores in: Zagreb, Varaždin, Vukovar, Slavonski Brod, Split, Dubrovnik, Rijeka and Zadar. 
 The first open store will be in Zagreb on July 22, 2021. After that, July 24, 2021 in Split. By the end of the year, we will open all the stores listed. Thank you for everything and I look forward to your visit to our
  stores.','nstore.jpg',1,'2021-07-15');
+ 
+
+# BLOG INSERT
+insert into blog (title,`text`,author,image) values
+
+('How do i change the color of my gaming mouse?','How can I make my colors change constantly on razer lachesis. At the moment, red is constantly shining on me, 
+and I would like it to change all the time. Can someone please help me?',2,null),
+
+('CoD Warzone ALL BUNKERS','Hello everyone, after a couple of hours of searching, I found all the bunkers in the warzon. I am sending you a picture attached. Have fun!',1,'bunkers.jpg'),
+
+('How do i change the color of my gaming mouse?','How can I make my colors change constantly on razer lachesis. At the moment, red is constantly shining on me, 
+and I would like it to change all the time. Can someone please help me?',2,null),
+
+('CoD Warzone ALL BUNKERS','Hello everyone, after a couple of hours of searching, I found all the bunkers in the warzon. I am sending you a picture attached. Have fun!',1,'bunkers.jpg');
