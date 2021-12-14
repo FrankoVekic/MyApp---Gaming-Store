@@ -54,8 +54,8 @@ class BlogController extends Controller
             $this->index();
         }
         $id = $_GET['id'];
-        $newsExists = News::newsExists($id);
-        if($newsExists == null){
+        $blogExists = Blog::blogExists($id);
+        if($blogExists == null){
             $this->index();
         }
         else {
@@ -64,7 +64,8 @@ class BlogController extends Controller
                 'search'=>$search,
                 'message'=>'',
                 'random'=>Service::randomService(),
-                'latestBlog'=>Blog::latestBlog()
+                'latestBlog'=>Blog::latestBlog(),
+                'comment'=>Blog::getCommentWriter($id)
             ]);
         }
     }

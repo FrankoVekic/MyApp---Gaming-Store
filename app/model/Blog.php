@@ -78,4 +78,36 @@ class Blog
 
         return $query->fetchColumn();
     }
+
+    public static function blogExists($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM blog WHERE id = $id"
+        );
+        $query->execute();
+        $blogExists = $query->fetch();
+
+        if($blogExists==null){
+            return null;
+        }
+        return $blogExists;
+    }
+
+    public static function getCommentWriter($id)
+    {
+       
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT concat(a.name,' ', a.surname) as writer, b.comment as comment, b.commentDate as date
+            from user a 
+            inner join comment b on b.writer = a.id 
+            inner join blog c on c.id = b.post 
+            where b.post =$id;"
+        );
+
+        $query->execute();
+
+        return $query->fetchAll();
+    }
 }
