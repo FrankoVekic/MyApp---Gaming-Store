@@ -94,6 +94,34 @@ class Blog
         return $blogExists;
     }
 
+    public static function commentCount($id)
+    {
+          $conn = DB::connect();
+            $query = $conn->prepare(
+                "SELECT count(id) from comment where post = $id;"
+            );
+            $query->execute();
+            return $query->fetchColumn();
+    }
+
+    public static function findComment($id,$page)
+    {
+        $npp = App::config('npp');
+        $from = $page * $npp - $npp;
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT concat(a.name,' ', a.surname) as writer, b.comment as comment, b.commentDate as date
+        from user a 
+        inner join comment b on b.writer = a.id 
+        inner join blog c on c.id = b.post 
+        where b.post =$id limit :from,:npp;");
+
+        $query->bindValue('from',$from, PDO::PARAM_INT);
+        $query->bindValue('npp',$npp, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
     public static function getCommentWriter($id)
     {
        
@@ -109,5 +137,18 @@ class Blog
         $query->execute();
 
         return $query->fetchAll();
+    }
+
+    public static function insertComment($writer,$comment,$post)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "INSERT INTO comment (writer,comment,post)
+            VALUES (:writer, :comment, :post); "
+        );
+        $query->bindParam(":writer",$writer);
+        $query->bindParam(":comment",$comment);
+        $query->bindParam(":post",$post);
+        $query->execute();
     }
 }

@@ -95,6 +95,7 @@ commentDate datetime not null default now(),
 post int not null
 );
 
+
 # ALTERS
 alter table order_data add foreign key (equipment) references equipment(id);
 alter table order_data add foreign key (game) references game(id);
@@ -208,3 +209,7 @@ and I would like it to change all the time. Can someone please help me?',2,null)
 and I would like it to change all the time. Can someone please help me?',2,null),
 
 ('CoD Warzone ALL BUNKERS','Hello everyone, after a couple of hours of searching, I found all the bunkers in the warzon. I am sending you a picture attached. Have fun!',1,'bunkers.jpg');
+
+# COMMENT INSERT 
+insert into comment (writer,comment,post) values (2,'Thank you very much! I play alot of Warzone. This will help me alot.',2);
+insert into comment (writer,comment,post) values (2,'Thank you very much! I play alot of Warzone. This will help me alot.',2);

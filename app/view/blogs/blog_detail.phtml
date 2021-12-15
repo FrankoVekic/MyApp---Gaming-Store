@@ -28,12 +28,10 @@
                 <?php foreach($comment as $com): ?>
                   <div class="full theme_bg white_fonts command_cont">
                     <p class="comm_head"><?=$com->writer?><span><?=$com->date?></span><a class="rply" href="it_blog_detail.html">Reply</a></p>
-                    <p>magine you are 10 years into the future but this time it’s different. Why? Because starting today you actually 
-                      begin making changes in your life. Specific intentional changes are not easy. They are intentional because these 
-                      changes are changes that you are choosing and they are the changes that will cause you to live the life you want 
-                      to live and dream. </p>
+                    <p> <?=$com->comment?></p>
                   </div>
                   <?php endforeach; ?>
+                  <?php include 'pagingCom.phtml'; ?>
                   <?php else :?>
                     <div class="full theme_bg white_fonts command_cont">
                       <h3>This post has no comments yet.</h3>
@@ -42,30 +40,29 @@
                 </div>
               </div>
             </div>
+            <?php if(Request::isAuthorized()): ?>
             <div class="post_commt_form">
               <h4>POST YOUR COMMENT</h4>
               <div class="form_section">
-                <form class="form_contant" action="index.html">
+                <form class="form_contant" method="POST" action="<?=App::config('url')?>blog/request">
                   <fieldset class="row">
-                  <div class="field col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input class="field_custom" placeholder="Email" type="email" required>
-                  </div>
-                  <div class="field col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input class="field_custom" placeholder="Phone" type="text" required>
-                  </div>
-                  <div class="field col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <input class="field_custom" placeholder="Password" type="password" required>
-                  </div>
                   <div class="field col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="field_custom" placeholder="Comment" required></textarea>
+                    <textarea class="field_custom" name="comment" placeholder="Comment" required></textarea>
+                    <input type="hidden" name="postId" value="<?=$blog->id?>">
+                    <input type="hidden" name="writer" value="<?php echo $_SESSION['authorized']->id;?>">
                   </div>
                   <div class="center">
-                    <button class="btn main_bt">SUBMIT NOW</button>
+                    <button class="btn main_bt" type="submit">SUBMIT NOW</button>
                   </div>
                   </fieldset>
                 </form>
               </div>
             </div>
+            <?php else: ?>
+              <div class="post_commt_form">
+                <h4 class="text-center">You must be logged in to comment.</h4>
+              </div>
+              <?php endif;?>
           </div>
         </div>
       </div>
