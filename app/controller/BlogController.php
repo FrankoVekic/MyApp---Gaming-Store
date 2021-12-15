@@ -125,12 +125,12 @@ class BlogController extends Controller
             $this->view->render($this->viewDir . 'blog_detail',[
                 'blog'=>Blog::blogDetail($nid),
                 'search'=>$search,
+                'page'=>$pageCount,
+                'pageCount'=>$pageCount,
                 'message'=>'',
                 'random'=>Service::randomService(),
                 'latestBlog'=>Blog::latestBlog(),
-                'comment'=>Blog::findComment($nid,$page),
-                'page'=>$pageCount,
-                'pageCount'=>$pageCount
+                'comment'=>Blog::findComment($nid,$pageCount)
             ]);
         }
     }
