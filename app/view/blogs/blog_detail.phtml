@@ -60,7 +60,8 @@
             </div>
             <?php else: ?>
               <div class="post_commt_form">
-                <h4 class="text-center">You must be logged in to comment.</h4>
+                <h4 class="text-center">You must be logged in to comment.<a href=""> Log in</a></h4>
+                <a href="<?=App::config('url')?>index/login" class="btn main_bt center" type="submit">Log In</a>
               </div>
               <?php endif;?>
           </div>
