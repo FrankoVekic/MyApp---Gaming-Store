@@ -32,7 +32,7 @@
               <div class="post_info">
                 <ul>
                   <li><i class="fa fa-user" aria-hidden="true"></i> <?php $id = Blog::findAuthor($blog->id); echo $id;?></li>
-                  <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
+                  <li><i class="fa fa-comment" aria-hidden="true"></i> <?=Blog::commentCount($blog->id); ?></li>
                   <li><i class="fa fa-calendar" aria-hidden="true"></i> <?=$blog->blogdate?></li>
                 </ul>
               </div>
@@ -71,7 +71,7 @@
               <ul>       
               <?php foreach($latestBlog as $lb): ?>
                 <li>
-                  <p class="post_head"><a href="#"><?=$lb->title?></a></p>
+                  <p class="post_head"><a href="<?=App::config('url')?>blog/blog_detail?id=<?=$lb->id?>"><?=$lb->title?></a></p>
                   <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> <?=$lb->blogdate;?></p>
                 </li>
               <?php endforeach; ?>

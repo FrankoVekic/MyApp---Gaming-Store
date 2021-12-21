@@ -1,3 +1,23 @@
+<div id="inner_banner" class="section inner_banner_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="full">
+          <div class="title-holder">
+            <div class="title-holder-cell text-left">
+              <h1 class="page-title">Blog Detail</h1>
+              <ol class="breadcrumb">
+                <li><a href="<?=App::config('url')?>index/home">Home</a></li>
+                <li><a href="<?=App::config('url')?>blog/index">Blog List</a></li>
+                <li class="active">Blog Detail</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="section padding_layout_1 blog_grid">
   <div class="container">
     <div class="row">
@@ -24,10 +44,26 @@
                 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
                 </div>
                 <div class="col-lg-12 col-md-10 col-sm-9 col-xs-12">
-                <?php if($comment != null): ?>
+                <?php if($comment != null && !isset($_SESSION['authorized'])): ?>
                 <?php foreach($comment as $com): ?>
                   <div class="full theme_bg white_fonts command_cont">
-                    <p class="comm_head"><?=$com->writer?><span><?=$com->date?></span><a class="rply" href="it_blog_detail.html">Reply</a></p>
+                    <p class="comm_head">
+                      <?=$com->writer?><span><?=$com->date?></span>
+                  </p>
+                    <p> <?=$com->comment?></p>
+                  </div>
+                  <?php endforeach; ?>
+                  <?php include 'pagingCom.phtml'; ?>
+                  <?php elseif($comment != null && isset($_SESSION['authorized'])): ?>
+                    <?php foreach($comment as $com): ?>
+                  <div class="full theme_bg white_fonts command_cont">
+                    <p class="comm_head">
+                      <?=$com->writer?><span><?=$com->date?></span>
+                    <?php if(Blog::myComment($com->id,$userId)): ?>
+                    <a class="rply" href="<?=App::config('url')?>blog/delete_comment?comment=<?=$com->id?>&uid=<?=$userId?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    <a class="rply" style="margin-right:10px;" href="<?=App::config('url')?>blog/update_comment?comment=<?=$com->id?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <?php endif; ?>
+                  </p>
                     <p> <?=$com->comment?></p>
                   </div>
                   <?php endforeach; ?>
@@ -60,7 +96,7 @@
             </div>
             <?php else: ?>
               <div class="post_commt_form">
-                <h4 class="text-center">You must be logged in to comment.<a href=""> Log in</a></h4>
+                <h4 class="text-center">You must be logged in to comment.</h4>
                 <a href="<?=App::config('url')?>index/login" class="btn main_bt center" type="submit">Log In</a>
               </div>
               <?php endif;?>

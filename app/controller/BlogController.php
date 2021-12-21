@@ -77,6 +77,14 @@ class BlogController extends Controller
                 $page=1;
             }
 
+            if(isset($_SESSION['authorized'])){
+                $userId = $_SESSION['authorized']->id;
+                
+            }
+            else{
+                $userId = '';
+            }
+
             $this->view->render($this->viewDir . 'blog_detail',[
                 'blog'=>Blog::blogDetail($id),
                 'search'=>$search,
@@ -85,7 +93,8 @@ class BlogController extends Controller
                 'latestBlog'=>Blog::latestBlog(),
                 'comment'=>Blog::findComment($id,$page),
                 'page'=>$page,
-                'pageCount'=>$pageCount
+                'pageCount'=>$pageCount,
+                'userId'=>$userId
             ]);
         }
     }
@@ -116,6 +125,14 @@ class BlogController extends Controller
             $page=1;
         }
 
+        if(isset($_SESSION['authorized'])){
+            $userId = $_SESSION['authorized']->id;
+            
+        }
+        else{
+            $userId = '';
+        }
+
         $nid = $id;
         $blogExists = Blog::blogExists($nid);
         if($blogExists == null){
@@ -130,7 +147,8 @@ class BlogController extends Controller
                 'message'=>'',
                 'random'=>Service::randomService(),
                 'latestBlog'=>Blog::latestBlog(),
-                'comment'=>Blog::findComment($nid,$pageCount)
+                'comment'=>Blog::findComment($nid,$pageCount),
+                'userId'=>$userId
             ]);
         }
     }

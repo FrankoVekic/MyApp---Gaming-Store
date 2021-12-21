@@ -109,7 +109,7 @@ class Blog
         $npp = App::config('npp');
         $from = $page * $npp - $npp;
         $conn = DB::connect();
-        $query = $conn->prepare("SELECT concat(a.name,' ', a.surname) as writer, b.comment as comment, b.commentDate as date
+        $query = $conn->prepare("SELECT concat(a.name,' ', a.surname) as writer,b.id as id, b.comment as comment, b.commentDate as date
         from user a 
         inner join comment b on b.writer = a.id 
         inner join blog c on c.id = b.post 
@@ -150,5 +150,22 @@ class Blog
         $query->bindParam(":comment",$comment);
         $query->bindParam(":post",$post);
         $query->execute();
+    }
+
+    public static function myComment($commentId,$userId)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        select * from comment where writer = $userId and id=$commentId;
+        ");
+        $query->execute();
+        $user = $query->fetch();
+
+        if($user==null){
+            return null;
+        }
+        else {
+            return $user;
+        }
     }
 }
