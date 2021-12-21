@@ -7,7 +7,7 @@ class Blog
         $bpp = App::config('bpp');
         $from = $page * $bpp - $bpp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM blog limit :from,:bpp;');
+        $query = $conn->prepare('SELECT * FROM blog order by blogdate asc limit :from,:bpp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('bpp',$bpp, PDO::PARAM_INT);
@@ -21,7 +21,7 @@ class Blog
         $bpp = App::config('bpp');
         $from = $page * $bpp - $bpp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM blog where title like :search limit :from,:bpp;');
+        $query = $conn->prepare('SELECT * FROM blog where title like :search order by blogdate asc limit :from,:bpp;');
         $search = '%' . $search . '%';
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
@@ -37,7 +37,7 @@ class Blog
         {
             $conn = DB::connect();
             $query = $conn->prepare(
-                'SELECT count(a.id) from blog a where title like :search;'
+                'SELECT count(a.id) from blog a where title like :search order by blogdate asc;'
             );
             $search = '%' . $search . '%';
             $query->bindParam('search',$search);
@@ -113,7 +113,7 @@ class Blog
         from user a 
         inner join comment b on b.writer = a.id 
         inner join blog c on c.id = b.post 
-        where b.post =$id limit :from,:npp;");
+        where b.post =$id order by b.commentDate asc limit :from,:npp;");
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('npp',$npp, PDO::PARAM_INT);
