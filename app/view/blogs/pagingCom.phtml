@@ -1,12 +1,12 @@
 <div class="center">
 <nav aria-label="...">
   <ul class="pagination justify-content-center">
-    <?php if($page!=1 && $pageCount<=3): ?>
+    <?php if($page!=1 && $pageCount<3): ?>
       <li class="page-item">
       <a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $page-1?>" tabindex="-1"><</a>
     </li>
     <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $page-1?>"><?=$page-1?></a></li>
-    <?php elseif($pageCount>3 && $page > 2): ?>
+    <?php elseif($pageCount>=3 && $page > 2): ?>
       <li class="page-item">
       <a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=1" tabindex="-1"><<</a>
     </li>
@@ -27,6 +27,14 @@
     </li>
     <?php if($page != $pageCount && $pageCount>3): ?>
     <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $page+1?>"><?=$page+1?></a></li>
+    <li class="page-item">
+      <a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $page+1?>">></a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $pageCount?>">>></a>
+    </li>
+    <?php elseif($page == 1 && $pageCount>=3):?>
+      <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $page+1?>"><?=$page+1?></a></li>
     <li class="page-item">
       <a class="page-link" href="<?=App::config('url')?>blog/blog_detail?id=<?=$blog->id?>&page=<?php echo $page+1?>">></a>
     </li>
