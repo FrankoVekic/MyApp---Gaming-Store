@@ -92,4 +92,14 @@ class Games
         }
         return $gameExists;
     }
+
+    public static function getAllGames()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        SELECT * FROM game;");
+        $query->execute();
+
+        return $query->fetchAll();
+    }
 }
