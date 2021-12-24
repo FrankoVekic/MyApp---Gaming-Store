@@ -40,7 +40,7 @@ class Equipment
         $epp = App::config('epp');
         $from = $page * $epp - $epp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM equipment limit :from,:epp;');
+        $query = $conn->prepare('SELECT * FROM equipment order by id desc limit :from,:epp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('epp',$epp, PDO::PARAM_INT);

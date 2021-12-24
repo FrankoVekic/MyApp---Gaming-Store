@@ -15,7 +15,7 @@ class Games
         $epp = App::config('epp');
         $from = $page * $epp - $epp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM game limit :from,:epp;');
+        $query = $conn->prepare('SELECT * FROM game order by id desc limit :from,:epp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('epp',$epp, PDO::PARAM_INT);
@@ -91,15 +91,5 @@ class Games
             return null;
         }
         return $gameExists;
-    }
-
-    public static function getAllGames()
-    {
-        $conn = DB::connect();
-        $query = $conn->prepare("
-        SELECT * FROM game;");
-        $query->execute();
-
-        return $query->fetchAll();
     }
 }

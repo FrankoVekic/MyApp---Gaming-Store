@@ -4,6 +4,22 @@ class ManageController extends AdminController
 {
     private $viewDir = 'manage' . DIRECTORY_SEPARATOR;
 
+    private $game;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->game = new stdClass();
+        $this->game->name="";
+        $this->game->price="0,00";
+        $this->game->smalldesc ="";
+        $this->game->description = "";
+        $this->game->quantity="0";
+        $this->game->memory_required="0";
+        $this->game->console="1";
+        $this->game->image="";
+    }
+
     public function games()
     {
         if(!isset($_GET['page'])){
@@ -35,7 +51,7 @@ class ManageController extends AdminController
           <div class="service_cont">
             <h3 class="service_head">Add New Game</h3>
             <p>Add a new game. You must fill in the appropriate information in order to enter the game in the shop.</p>
-            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt" href="new_game">Add</a> </div>
+            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt btn-lg btn-block" href="new_game">Add</a> </div>
           </div>
         </div>
       </div>';
@@ -128,6 +144,14 @@ class ManageController extends AdminController
                 'message'=>"Search results for: " . '\'' . $search . '\''
             ]);
         }
+    }
+
+    public function new_game()
+    {
+        $this->view->render($this->viewDir . 'new_game',[
+            'game'=>$this->game,
+            'message'=>'Enter required information.'
+        ]);
     }
 
     public function equipment()
