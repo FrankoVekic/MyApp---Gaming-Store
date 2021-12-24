@@ -416,9 +416,17 @@ class ProductsController extends Controller
                 else if(trim($_POST['couponcode'] == 'cyberx')) {
                     $_SESSION['couponcode'] = 1;
                     $this->view->render($this->viewDir . 'cart',[
-                        'message'=>"Coupon activated!",
+                        'message'=>"Coupon activated! You have 20% off!",
                         'total'=>$this->total() - ($this->total() / 100) * 20
                     ]);
+                }
+                else {
+                    if(trim($_POST['couponcode'] != 'cyberx')){
+                        $this->view->render($this->viewDir . 'cart',[
+                            'message'=>"Invalid coupon code.",
+                            'total'=>$this->total()
+                        ]);
+                    }
                 }
             }
         }
