@@ -4,9 +4,130 @@ class ManageController extends AdminController
 {
     private $viewDir = 'manage' . DIRECTORY_SEPARATOR;
 
-    public function games ()
+    public function games()
     {
-        $this->view->render($this->viewDir . 'games');
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        if($page===0){
+            $page=1;
+        }
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $gameCount = Games::gameCount();
+        $pageCount = ceil($gameCount/App::config('epp'));
+
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+
+        $newGame = '<div class="col-md-4 service_blog margin_bottom_50">
+        <div class="full">
+          <div class="service_img"> <img class="img-responsive" src="/public/images/shop/new.jpg" alt="#" /> </div>
+          <div class="service_cont">
+            <h3 class="service_head">Add New Game</h3>
+            <p>Add a new game. You must fill in the appropriate information in order to enter the game in the shop.</p>
+            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt" href="new_game">Add</a> </div>
+          </div>
+        </div>
+      </div>';
+        
+        if(trim($search)=='' || strlen(trim($search))==0 || empty($_GET['search'])){
+
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGames($page),
+                'page'=>$page,
+                'pageCount'=>$pageCount,
+                'search'=>$search,
+                'message'=>'',
+                'newGame'=>$newGame
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGames($page),
+                'page'=>$page,
+                'pageCount'=>$pageCount,
+                'search'=>$search,
+                'message'=>''
+            ]);
+        }
+    }
+
+    public function request_game()
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $gameCount = Games::gameCountSearch($search);
+        $pageCount = ceil($gameCount/App::config('epp'));
+        
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        if($page==0){
+            $page=1;
+        }
+
+        $newGame = '<div class="col-md-4 service_blog margin_bottom_50">
+        <div class="full">
+          <div class="service_img"> <img class="img-responsive" src="/public/images/shop/new.jpg" alt="#" /> </div>
+          <div class="service_cont">
+            <h3 class="service_head">Add New Game</h3>
+            <p>Add a new game. You must fill in the appropriate information in order to enter the game in the shop.</p>
+            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt" href="new_game">Add</a> </div>
+          </div>
+        </div>
+      </div>';
+
+        if(Games::findGamesSearch($page,$search) == null)
+        {
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGamesSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"No results for: " . '\'' . $search . '\''
+            ]);
+        }
+        else if(strlen(trim($search))==0 || trim($search)==''){
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGamesSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"Search results for: " . '\'' . $search . '\'',
+                'newGame'=>$newGame
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'games',[
+                'games'=>Games::findGamesSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"Search results for: " . '\'' . $search . '\''
+            ]);
+        }
     }
 
     public function equipment()
