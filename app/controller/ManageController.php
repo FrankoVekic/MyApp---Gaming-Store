@@ -5,6 +5,7 @@ class ManageController extends AdminController
     private $viewDir = 'manage' . DIRECTORY_SEPARATOR;
 
     private $game;
+    private $message;
 
     public function __construct()
     {
@@ -38,8 +39,15 @@ class ManageController extends AdminController
             $search = $_GET['search'];
         }
 
-        $gameCount = Games::gameCount();
-        $pageCount = ceil($gameCount/App::config('epp'));
+        if(Games::gameCount() != 0){
+            $gameCount = Games::gameCount();
+            $pageCount = ceil($gameCount/App::config('spp'));
+        }
+        else {
+            $pageCount = 1;
+        }
+
+        
 
         if($page>$pageCount){
             $page=$pageCount;
@@ -59,7 +67,7 @@ class ManageController extends AdminController
         if(trim($search)=='' || strlen(trim($search))==0 || empty($_GET['search'])){
 
             $this->view->render($this->viewDir . 'games',[
-                'games'=>Games::findGames($page),
+                'games'=>Games::findGamesAdmin($page),
                 'page'=>$page,
                 'pageCount'=>$pageCount,
                 'search'=>$search,
@@ -115,6 +123,10 @@ class ManageController extends AdminController
         </div>
       </div>';
 
+      $backButton = '<div class="row">      
+      <div style="margin-left:50px;" class="bt_cont"><a class="btn sqaure_bt" href="games">Back</a></div>
+      </div>';
+
         if(Games::findGamesSearch($page,$search) == null)
         {
             $this->view->render($this->viewDir . 'games',[
@@ -122,7 +134,8 @@ class ManageController extends AdminController
                 'page'=>$page,
                 'search'=>$search,
                 'pageCount'=>$pageCount,
-                'message'=>"No results for: " . '\'' . $search . '\''
+                'message'=>"No results for: " . '\'' . $search . '\'',
+                'backButton'=>$backButton
             ]);
         }
         else if(strlen(trim($search))==0 || trim($search)==''){
@@ -152,6 +165,28 @@ class ManageController extends AdminController
             'game'=>$this->game,
             'message'=>'Enter required information.'
         ]);
+    }
+
+    public function add_game()
+    {
+        if(!$_POST){
+            $this->new_game();
+            return;
+        }
+
+        $this->game=(object)$_POST;
+
+        if(true){
+            $this->game->price = str_replace(array('.', ','), array('', '.'), 
+            $this->game->price);
+            Games::create((array)($this->game));
+            $this->games();
+        }
+        else {
+            $this->view->render($this->viewDir . 'new_game',[
+                'message'=>$this->message
+            ]);
+        }
     }
 
     public function equipment()

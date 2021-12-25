@@ -5,10 +5,11 @@
         <div class="full">
           <div class="title-holder">
             <div class="title-holder-cell text-left">
-              <h1 class="page-title">Checkout</h1>
+              <h1 class="page-title">Add Game</h1>
               <ol class="breadcrumb">
                 <li><a href="<?=App::config('url')?>index/home">Home</a></li>
-                <li class="active">Checkout</li>
+                <li><a href="<?=App::config('url')?>manage/games">Manage Games</a></li>
+                <li class="active">Add Game</li>
               </ol>
             </div>
           </div>
@@ -25,27 +26,11 @@
           <div class="tab-info coupon-section">
             <p><?=$message?></p>
           </div>
-          <div id="cupon" class="collapse">
-            <div class="coupen-form">
-              <form action="#">
-                <fieldset>
-                <div class="row">
-                  <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input class="input-text" name="coupon" placeholder="Coupon code" id="coupon" required="" type="text">
-                  </div>
-                  <div class="col-md-4 col-sm-4 col-xs-12">
-                    <button class="bt_main">Login</button>
-                  </div>
-                </div>
-                </fieldset>
-              </form>
-            </div>
-          </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="checkout-form">
           <form action="<?=App::config('url')?>manage/add_game" method="POST" enctype="multipart/form-data">
             <fieldset>
@@ -71,7 +56,7 @@
               <div class="col-md-12">
                 <div class="form-field">
                   <label>Description <span class="red">*</span></label>
-                  <textarea class="inputcheckout" placeholder="Enter game description." name="description"></textarea>
+                  <input class="inputcheckout" placeholder="Enter game description." name="description"></input>
                 </div>
               </div>
               <div class="col-md-12">
@@ -89,25 +74,25 @@
               <div class="col-md-6">
                 <div class="form-field">
                   <label>Console<span class="red">*</span></label>
-                  <input class="inputcheckout" value="<?=$game->console?>" name="console" type="text">
+                 <div>
+                 <select name="console" class="form-select">
+                  <option selected>Select console</option>
+                  <option value="PC">PC</option>
+                  <option value="PS5">PS5</option>
+                  <option value="Xbox">Xbox</option>
+                </select>
+                 </div>
                 </div>
               </div>
-
-              <div class="col-md-12">
-                <div class="form-field">
-                  <label>Image <span class="red">*</span></label>
-                  <input class="inputcheckout" name="image" type="file">
-                </div>
-              </div>
-              <button class="btn main_bt center" type="submit">Add</button>
+              <div class="center">
+              <button class="btn main_bt" type="submit">Add</button>
+            </div>
             </div>
             </fieldset>
           </form>
         </div>
       </div>
     <!-- SIDE BAR HERE -->
-
-
     </div>
   </div>
 </div>

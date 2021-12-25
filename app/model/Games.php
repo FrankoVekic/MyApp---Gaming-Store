@@ -15,10 +15,29 @@ class Games
         $epp = App::config('epp');
         $from = $page * $epp - $epp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM game order by id desc limit :from,:epp;');
+        $query = $conn->prepare('SELECT * FROM game limit :from,:epp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('epp',$epp, PDO::PARAM_INT);
+        $query->execute();
+        
+        $gameExists = $query->fetchAll();
+
+        if($gameExists==null){
+            return null;
+        }
+        return $gameExists;
+    }
+
+    public static function findGamesAdmin($page)
+    {
+        $spp = App::config('spp');
+        $from = $page * $spp - $spp;
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM game limit :from,:spp;');
+
+        $query->bindValue('from',$from, PDO::PARAM_INT);
+        $query->bindValue('spp',$spp, PDO::PARAM_INT);
         $query->execute();
 
         return $query->fetchAll();
@@ -48,6 +67,7 @@ class Games
                 'SELECT count(id) from game;'
             );
             $query->execute();
+            
             return $query->fetchColumn();
         }
     }
@@ -91,5 +111,16 @@ class Games
             return null;
         }
         return $gameExists;
+    }
+
+    public static function create($params)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        INSERT INTO game(name,price,smalldesc,description,
+        quantity,memory_required,console,image) VALUES (:name,:price,:smalldesc,:description,
+        :quantity,:memory_required,:console,'test.jpg');
+        ");
+        $query->execute($params);
     }
 }

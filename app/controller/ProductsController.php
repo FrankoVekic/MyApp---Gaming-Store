@@ -20,9 +20,14 @@ class ProductsController extends Controller
         }else {
             $search = $_GET['search'];
         }
-        
-        $equipmentCount = Equipment::equipmentCount();
-        $pageCount = ceil($equipmentCount/App::config('epp'));
+
+        if(Equipment::equipmentCount()!=0){
+            $equipmentCount = Equipment::equipmentCount();
+            $pageCount = ceil($equipmentCount/App::config('epp'));
+        }
+        else {
+            $pageCount = 1;
+        }
 
         if($page>$pageCount){
             $page=$pageCount;
@@ -56,8 +61,13 @@ class ProductsController extends Controller
             $search = $_GET['search'];
         }
 
-        $gameCount = Games::gameCount();
-        $pageCount = ceil($gameCount/App::config('epp'));
+        if(Games::gameCount()!=0){
+            $gameCount = Games::gameCount();
+            $pageCount = ceil($gameCount/App::config('epp'));
+        }
+        else {
+            $pageCount = 1;
+        }
 
         if($page>$pageCount){
             $page=$pageCount;
@@ -146,6 +156,7 @@ class ProductsController extends Controller
         if($page==0){
             $page=1;
         }
+        
         if(Games::findGamesSearch($page,$search) == null)
         {
             $this->view->render($this->viewDir . 'equipment',[

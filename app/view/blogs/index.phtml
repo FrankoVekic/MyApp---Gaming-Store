@@ -23,6 +23,7 @@
       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pull-right">
         <div class="full">
           <!--BLOG SELECTION START -->
+          <?php if($blog !=null): ?>
           <?php foreach($blog as $blog): ?>
           <div class="blog_section">            
           <div class="full testimonial_simple_say margin_bottom_30_all" style="margin-top:0;">
@@ -45,6 +46,9 @@
           <?php endforeach; ?>
           <!-- BLOG SELECTION END -->
             <?php include 'pagingBl.phtml'; ?>
+            <?php else :?>
+              <div class="blog_section">No blog posts yet.</div>
+            <?php endif;?>
         </div>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pull-left">
@@ -62,19 +66,21 @@
             </div>
           </div>
           <div class="side_bar_blog">
+            <?php if($random !=null && $latestBlog != null):?>
           <h4><?=strtoupper($random->title)?></h4>
             <p><?=$random->smalldesc?></p>
             <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a></div>
           <div class="side_bar_blog">
             <h4>RECENT POSTS</h4>
             <div class="recent_post">
-              <ul>       
+              <ul>      
               <?php foreach($latestBlog as $lb): ?>
                 <li>
                   <p class="post_head"><a href="<?=App::config('url')?>blog/blog_detail?id=<?=$lb->id?>"><?=$lb->title?></a></p>
                   <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> <?=$lb->blogdate;?></p>
                 </li>
               <?php endforeach; ?>
+              <?php endif;?>
               </ul>
             </div>
           </div>

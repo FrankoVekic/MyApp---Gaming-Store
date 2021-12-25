@@ -54,9 +54,8 @@
     </div>
     <?php include 'pagingGa.phtml'; ?>
     <?php else: ?>
-      <div class="row">      
-        <div style="margin-left:50px;" class="bt_cont"><a class="btn sqaure_bt" href="<?=App::config('url')?>manage/games">Back</a></div>
-    </div>
+      <?php if(isset($newGame)){echo $newGame;}?>
+      <?php if(isset($backButton)){echo $backButton;} ?>
     <?php endif;?>
   </div>
 </div>
