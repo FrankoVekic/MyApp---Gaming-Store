@@ -113,6 +113,21 @@ class Games
         return $gameExists;
     }
 
+    public static function gameExistsByName($name)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM game WHERE name = '$name';"
+        );
+        $query->execute();
+        $gameExists = $query->fetch();
+
+        if($gameExists==null){
+            return null;
+        }
+        return $gameExists;
+    }
+
     public static function create($params)
     {
         $conn = DB::connect();
@@ -122,5 +137,14 @@ class Games
         :quantity,:memory_required,:console,'test.jpg');
         ");
         $query->execute($params);
+    }
+
+    public static function delete($name)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        DELETE FROM game WHERE name ='$name';
+        ");
+        $query->execute();
     }
 }

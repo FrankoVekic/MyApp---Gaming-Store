@@ -189,6 +189,23 @@ class ManageController extends AdminController
         }
     }
 
+    public function delete()
+    {
+        if(!isset($_GET['game'])){
+            $this->games();
+        }
+        else {
+            $name = $_GET['game'];
+            if(Games::gameExistsByName($name) == null){
+                $this->games();
+            }
+            else {
+                Games::delete($name);
+                $this->games();
+            }
+        }
+    }
+
     public function equipment()
     {
         $this->view->render($this->viewDir . 'equipment');
