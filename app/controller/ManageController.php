@@ -17,7 +17,7 @@ class ManageController extends AdminController
         $this->game->description = "";
         $this->game->quantity="0";
         $this->game->memory_required="0";
-        $this->game->console="1";
+        $this->game->console="Select Console";
         $this->game->image="";
     }
 
@@ -176,7 +176,14 @@ class ManageController extends AdminController
 
         $this->game=(object)$_POST;
 
-        if(true){
+        if($this->verify_name() && 
+           $this->verify_price() &&
+           $this->verify_smalldesc() && 
+           $this->verify_description() && 
+           $this->verify_quantity() && 
+           $this->verify_memoryRequired() &&
+           $this->verify_console()        
+        ){
             $this->game->price = str_replace(array('.', ','), array('', '.'), 
             $this->game->price);
             Games::create((array)($this->game));
@@ -184,6 +191,7 @@ class ManageController extends AdminController
         }
         else {
             $this->view->render($this->viewDir . 'new_game',[
+                'game'=>$this->game,
                 'message'=>$this->message
             ]);
         }
@@ -204,6 +212,162 @@ class ManageController extends AdminController
                 $this->games();
             }
         }
+    }
+
+    private function verify_name()
+    {
+        if(!isset($this->game->name)){
+            $this->message = "Name is required";
+            return false;
+        }
+        if(strlen(trim($this->game->name)) === 0){
+            $this->message="Name is required.";
+            return false;
+        }
+        if(strlen(trim($this->game->name))<3){
+            $this->message="Name is too short (atleast 3 letters).";
+            return false;
+        }
+        if(strlen(trim($this->game->name))>50){
+            $this->message="Max number of letters is 50.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\+=\{\}\[\]\|;"\<\>,\?\\\]/', $this->game->name)){
+            $this->message="You can only write letters and numbers.";
+            return false;
+        }
+        if(!preg_match("/[a-z0-9.]/i", $this->game->name)){
+            $this->message="You didn't enter any letters or numbers.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_price()
+    {
+        if(!isset($this->game->price)){
+            $this->message="Price is required";
+            return false;
+        }
+        if(strlen(trim($this->game->price))===0){
+            $this->message="Price is required";
+            return false;
+        }
+        $num=(float) str_replace(array('.', ','), array('', '.'), 
+        $this->game->price);
+        
+        if($num<=0){
+            $this->message="Price must be a possitive number";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_smalldesc()
+    {
+        if(!isset($this->game->smalldesc)){
+            $this->message = "Short Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->game->smalldesc)) === 0){
+            $this->message="Short Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->game->smalldesc))<10){
+            $this->message="Short Description is too short.";
+            return false;
+        }
+        if(strlen(trim($this->game->smalldesc))>60){
+            $this->message="Max number of letters is 60.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\#\%\^\*\(\)_\+=\{\}\[\]\|;"\<\>\?\\\]/', $this->game->smalldesc)){
+            $this->message="Some of the characters you wrote are not allowed to be in the Short Description.";
+            return false;
+        }
+        if(!preg_match("/[a-z.]/i", $this->game->smalldesc)){
+            $this->message="You didn't write any letters.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_description()
+    {
+        if(!isset($this->game->description)){
+            $this->message = "Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->game->description)) === 0){
+            $this->message="Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->game->description))<60){
+            $this->message="Description is too short.";
+            return false;
+        }
+        if(strlen(trim($this->game->description))>3000){
+            $this->message="Description is too big.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\#\%\^\*\(\)_\+=\{\}\[\]\|;"\<\>\\\\]/', $this->game->description)){
+            $this->message="Some of the characters you wrote are not allowed to be in the Description.";
+            return false;
+        }
+        if(!preg_match("/[a-z.]/i", $this->game->description)){
+            $this->message="You didn't write any letters.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_quantity(){
+       
+        if(!isset($this->game->quantity)){
+            $this->message="Quantity is required";
+            return false;
+        }
+        if(strlen(trim($this->game->quantity))===0){
+            $this->message="Quantity is required";
+            return false;
+        }
+        $num=(float) str_replace(array('.', ','), array('', '.'), 
+        $this->game->quantity);
+        
+        if($num<=0){
+            $this->message="Quantity must be a possitive number";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_memoryRequired()
+    {
+        if(!isset($this->game->memory_required)){
+            $this->message="Required Memory is required.";
+            return false;
+        }
+        if(strlen(trim($this->game->memory_required))===0){
+            $this->message="You didin't enter the required memory";
+            return false;
+        }
+        $num=(float) str_replace(array('.', ','), array('', '.'), 
+        $this->game->memory_required);
+        
+        if($num<=0){
+            $this->message="Memory required must be a possitive number";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_console()
+    {
+        if($_POST['console'] != 'PC' && $_POST['console'] !='PS5' && $_POST['console'] != 'Xbox'){
+            $this->message="Console is required.";
+            return false;
+        }
+        return true;
     }
 
     public function equipment()

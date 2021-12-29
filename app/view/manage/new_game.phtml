@@ -56,7 +56,7 @@
               <div class="col-md-12">
                 <div class="form-field">
                   <label>Description <span class="red">*</span></label>
-                  <input class="inputcheckout" placeholder="Enter game description." name="description"></input>
+                  <input class="inputcheckout" value="<?=$game->description?>" placeholder="Enter game description." name="description"></input>
                 </div>
               </div>
               <div class="col-md-12">
@@ -75,11 +75,11 @@
                 <div class="form-field">
                   <label>Console<span class="red">*</span></label>
                  <div>
-                 <select name="console" class="form-select">
-                  <option selected>Select console</option>
-                  <option value="PC">PC</option>
-                  <option value="PS5">PS5</option>
-                  <option value="Xbox">Xbox</option>
+                 <select name="console" value="<?=$game->console?>" class="form-select">
+                  <option selected>Select Console</option>
+                  <option name="PC" value="PC">PC</option>
+                  <option name="PS5" value="PS5">PS5</option>
+                  <option name="Xbox" value="Xbox">Xbox</option>
                 </select>
                  </div>
                 </div>
