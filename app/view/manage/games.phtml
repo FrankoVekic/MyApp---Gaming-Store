@@ -32,6 +32,11 @@
           </form>
         </div>
     </div>
+    <?php if($games != null && Games::gameCount() >=3): ?>
+      <div class="center">
+        <a href="<?=App::config('url')?>manage/new_game" class="btn main_bt" type="submit">Add New</a>
+    </div>
+    <?php endif;?>
     <div class="container">
     <div class="col-md-4">
          <h3><?=$message?></h3>
@@ -45,12 +50,23 @@
           <div class="service_cont">
             <h3 class="service_head"><?=$game->name?></h3>
             <p><?=$game->smalldesc?></p>
-            <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit?game=<?=$game->name?>">Edit</a><a class="btn sqaure_bt" style="background-color:indianred" href="<?=App::config('url')?>manage/edit?game=<?=$game->name?>">Delete</a> </div>
+            <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit?game=<?=$game->name?>">Edit</a><a onclick="return confirm('Are you sure you want to delete &#34;<?=$game->name?>&#34; from the store?');" class="btn sqaure_bt" style="background-color:indianred" href="<?=App::config('url')?>manage/delete?game=<?=$game->name?>">Delete</a> </div>
           </div>
         </div>
       </div>
      <?php endforeach;?>
-     <?php if(isset($newGame)){echo $newGame;}?>
+     <?php if(Games::gameCount()<=2): ?>
+      <div class="col-md-4 service_blog margin_bottom_50">
+        <div class="full">
+          <div class="service_img"> <img class="img-responsive" src="/public/images/shop/new.jpg" alt="#" /> </div>
+          <div class="service_cont">
+            <h3 class="service_head">Add New Game</h3>
+            <p>Add a new game. You must fill in the appropriate information in order to enter the game in the shop.</p>
+            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt btn-lg btn-block" href="new_game">Add</a> </div>
+          </div>
+        </div>
+      </div>
+      <?php endif;?>
     </div>
     <?php include 'pagingGa.phtml'; ?>
     <?php else: ?>
