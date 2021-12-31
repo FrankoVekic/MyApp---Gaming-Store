@@ -60,10 +60,12 @@
               </form>
             </div>
           </div>
+          <?php if($random !=null): ?>
           <div class="side_bar_blog">
           <h4><?=strtoupper($random->title)?></h4>
             <p><?=$random->smalldesc?></p>
             <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a></div>
+            <?php endif; ?>
           <div class="side_bar_blog">
             <h4>OUR SERVICE</h4>
             <div class="categary">

@@ -21,7 +21,7 @@ class BlogController extends Controller
         }
 
         $blogCount = Blog::blogCountSearch($search);
-        $pageCount = ceil($blogCount/App::config('npp'));
+        $pageCount = ceil($blogCount/App::config('bpp'));
         
         if($page>$pageCount){
             $page=$pageCount;
@@ -158,6 +158,56 @@ class BlogController extends Controller
         if(!empty($_POST['comment'])){
             Blog::insertComment($_POST['writer'],$_POST['comment'],$_POST['postId']);
             $this->returnDetail($_POST['postId']);
+        }
+    }
+
+    public function request_blog()
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $blogCount = Blog::blogCountSearch($search);
+        $pageCount = ceil($blogCount/App::config('npp'));
+        
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        if($page==0){
+            $page=1;
+        }
+        if(Blog::findBlogSearch($page,$search) == null)
+        {
+            $this->view->render($this->viewDir . 'index',[
+                'blog'=>Blog::findBlogSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"No results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService(),
+                'latestBlog'=>Blog::latestBlog()
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'index',[
+                'blog'=>Blog::findBlogSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"Search results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService(),
+                'latestBlog'=>Blog::latestBlog()
+            ]);
         }
     }
 }
