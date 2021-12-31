@@ -115,4 +115,17 @@ class NewsController Extends Controller
             ]);
         }
     }
+
+    public static function checkSearch()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'index';
+        }
+        else 
+        {
+            $url = 'request_news';
+        }
+        return $url;
+    }
 }

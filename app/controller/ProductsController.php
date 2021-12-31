@@ -461,4 +461,30 @@ class ProductsController extends Controller
             $this->shopping_cart();
         }
     }
+
+    public static function checkSearchEquipment()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'equipment';
+        }
+        else 
+        {
+            $url = 'request_equipment';
+        }
+        return $url;
+    }
+
+    public static function checkSearchGames()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'games';
+        }
+        else 
+        {
+            $url = 'request_game';
+        }
+        return $url;
+    }
 }

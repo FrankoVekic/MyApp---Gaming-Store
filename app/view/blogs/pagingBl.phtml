@@ -3,40 +3,40 @@
   <ul class="pagination justify-content-center">
     <?php if($page!=1 && $pageCount<=3): ?>
       <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
     </li>
-    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
+    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
     <?php elseif($pageCount>3 && $page > 2): ?>
       <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=1" tabindex="-1"><<</a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=1" tabindex="-1"><<</a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
     </li>
-    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
+    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
     <?php elseif($page!=1): ?>
       <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
     </li>
-    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
+    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
     <?php else : ?>
       <li class="page-item"><a class="page-link"><</a></li>
     <?php endif; ?>
     <li class="page-item active">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?=$page?>"><?=$page?> <span class="sr-only"></span></a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?=$page?>"><?=$page?> <span class="sr-only"></span></a>
     </li>
     <?php if($page != $pageCount && $pageCount>3): ?>
-    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page+1?>"><?=$page+1?><?php if(!empty($search)){echo '&search=' . $search;}?></a></li>
+    <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page+1?>"><?=$page+1?><?php if(!empty($search)){echo '&search=' . $search;}?></a></li>
     <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>">></a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>">></a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $pageCount?>">>></a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $pageCount?>">>></a>
     </li>
     <?php elseif($page != $pageCount && $pageCount<=3):?>
-      <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page+1?></a></li>
+      <li class="page-item"><a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page+1?></a></li>
     <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>blog/index?page=<?php echo $page+1?>">></a>
+      <a class="page-link" href="<?=App::config('url')?>blog/<?=BlogController::checkSearch()?>?page=<?php echo $page+1?>">></a>
     </li>
     <?php else : ?>
       <li class="page-item"><a class="page-link">></a></li>
