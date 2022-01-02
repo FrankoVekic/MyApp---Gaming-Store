@@ -103,4 +103,17 @@ class ServicesController extends Controller
             ]);
         }
     }
+
+    public static function checkSearch()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'service_list';
+        }
+        else 
+        {
+            $url = 'request_service';
+        }
+        return $url;
+    }
 }
