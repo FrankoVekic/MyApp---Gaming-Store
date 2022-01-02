@@ -379,4 +379,17 @@ class ManageController extends AdminController
     {
         $this->view->render($this->viewDir . 'services');
     }
+
+    public static function checkSearchGames()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'games';
+        }
+        else 
+        {
+            $url = 'request_game';
+        }
+        return $url;
+    }
 }

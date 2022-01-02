@@ -159,6 +159,7 @@ class BlogController extends Controller
             Blog::insertComment($_POST['writer'],$_POST['comment'],$_POST['postId']);
             $this->returnDetail($_POST['postId']);
         }
+        $this->blog_detail();
     }
 
     public function request_blog()

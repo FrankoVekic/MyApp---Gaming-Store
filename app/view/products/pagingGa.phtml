@@ -8,7 +8,7 @@
     <li class="page-item"><a class="page-link" href="<?=ProductsController::checkSearchGames()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page-1?></a></li>
     <?php elseif($pageCount>3 && $page > 2): ?>
       <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=1" tabindex="-1"><<</a>
+      <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=1<?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><<</a>
     </li>
     <li class="page-item">
       <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $page-1?><?php if(!empty($search)){echo '&search=' . $search;}?>" tabindex="-1"><</a>
@@ -31,12 +31,12 @@
       <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>">></a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $pageCount?>">>></a>
+      <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $pageCount?><?php if(!empty($search)){echo '&search=' . $search;}?>">>></a>
     </li>
     <?php elseif($page != $pageCount && $pageCount<=3):?>
       <li class="page-item"><a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>"><?=$page+1?></a></li>
     <li class="page-item">
-      <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $page+1?>">></a>
+      <a class="page-link" href="<?=App::config('url')?>products/<?=ProductsController::checkSearchGames()?>?page=<?php echo $page+1?><?php if(!empty($search)){echo '&search=' . $search;}?>">></a>
     </li>
     <?php else : ?>
       <li class="page-item"><a class="page-link">></a></li>
