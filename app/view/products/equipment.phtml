@@ -72,15 +72,13 @@
             <p><?=$random->smalldesc?></p>
             <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a></div>
             <?php endif; ?>
-          <div class="side_bar_blog">
+            <div class="side_bar_blog">
             <h4>OUR SERVICE</h4>
             <div class="categary">
               <ul>
-                <li><a href="it_data_recovery.html"><i class="fa fa-angle-right"></i> Data recovery</a></li>
-                <li><a href="it_computer_repair.html"><i class="fa fa-angle-right"></i> Computer repair</a></li>
-                <li><a href="it_mobile_service.html"><i class="fa fa-angle-right"></i> Mobile service</a></li>
-                <li><a href="it_network_solution.html"><i class="fa fa-angle-right"></i> Network solutions</a></li>
-                <li><a href="it_techn_support.html"><i class="fa fa-angle-right"></i> Technical support</a></li>
+                <?php foreach($sideService as $sideService): ?>
+                <li><a href="<?=App::config('url')?>services/service_detail?id=<?=$sideService->id?>"><i class="fa fa-angle-right"></i> <?=$sideService->title?></a></li>
+                <?php endforeach;?>
               </ul>
             </div>
           </div>
@@ -88,10 +86,9 @@
             <h4>RECENT NEWS</h4>
             <div class="categary">
               <ul>
-                <li><a href="it_data_recovery.html"><i class="fa fa-angle-right"></i> Land lights let be divided</a></li>
-                <li><a href="it_computer_repair.html"><i class="fa fa-angle-right"></i> Seasons over bearing air</a></li>
-                <li><a href="it_mobile_service.html"><i class="fa fa-angle-right"></i> Greater open after grass</a></li>
-                <li><a href="it_network_solution.html"><i class="fa fa-angle-right"></i> Gathered was divide second</a></li>
+              <?php foreach($sideNews as $sideNews): ?>
+                <li><a href="<?=App::config('url')?>news/news_detail?id=<?=$sideNews->id?>"><i class="fa fa-angle-right"></i> <?=$sideNews->headline?></a></li>
+              <?php endforeach;?>
               </ul>
             </div>
           </div>

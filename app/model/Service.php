@@ -79,4 +79,12 @@ class Service
         $query->execute();
         return $query->fetch();
     }
+
+    public static function sideBarServices()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM service order by RAND() limit 5;");
+        $query->execute();
+        return $query->fetchAll();
+    }
 }

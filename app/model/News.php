@@ -105,4 +105,12 @@ class News
         $query->execute();
         return $query->fetchAll();
     }
+
+    public static function sideBarNews()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM news order by id desc limit 4;");
+        $query->execute();
+        return $query->fetchAll();
+    }
 }

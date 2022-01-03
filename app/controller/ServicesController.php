@@ -51,7 +51,9 @@ class ServicesController extends Controller
                 'service'=>Service::findService($_GET['id']),
                 'newservice'=>Service::latestService(),
                 'random'=>Service::randomService(),
-                'search'=>$search
+                'search'=>$search,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }   
     }
@@ -89,7 +91,9 @@ class ServicesController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
         else {
@@ -99,7 +103,9 @@ class ServicesController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"Search results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }

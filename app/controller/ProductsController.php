@@ -39,7 +39,9 @@ class ProductsController extends Controller
             'pageCount'=>$pageCount,
             'search'=>$search,
             'message'=>'',
-            'random'=>Service::randomService()
+            'random'=>Service::randomService(),
+            'sideService'=>Service::sideBarServices(),
+            'sideNews'=>News::sideBarNews()
         ]);
     }
 
@@ -79,7 +81,9 @@ class ProductsController extends Controller
             'pageCount'=>$pageCount,
             'search'=>$search,
             'message'=>'',
-            'random'=>Service::randomService()
+            'random'=>Service::randomService(),
+            'sideService'=>Service::sideBarServices(),
+            'sideNews'=>News::sideBarNews()
         ]);
     }
 
@@ -116,7 +120,9 @@ class ProductsController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
         else {
@@ -126,7 +132,9 @@ class ProductsController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"Search results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
@@ -165,7 +173,9 @@ class ProductsController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
         else {
@@ -175,7 +185,9 @@ class ProductsController extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"Search results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
@@ -203,7 +215,9 @@ class ProductsController extends Controller
                 'game'=>Games::gameDetail($id),
                 'newGames'=>Games::latestGames(),
                 'random'=>Service::randomService(),
-                'search'=>$search
+                'search'=>$search,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
@@ -230,7 +244,9 @@ class ProductsController extends Controller
                 'equipment'=>Equipment::equipmentDetail($id),
                 'newEquipment'=>Equipment::latestEquipment(),
                 'random'=>Service::randomService(),
-                'search'=>$search
+                'search'=>$search,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }

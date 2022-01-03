@@ -37,7 +37,9 @@ class NewsController Extends Controller
             'search'=>$search,
             'pageCount'=>$pageCount,
             'message'=>'',
-            'random'=>Service::randomService()
+            'random'=>Service::randomService(),
+            'sideService'=>Service::sideBarServices(),
+            'sideNews'=>News::sideBarNews()
         ]);
     }
 
@@ -74,7 +76,9 @@ class NewsController Extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
         else {
@@ -84,7 +88,9 @@ class NewsController Extends Controller
                 'search'=>$search,
                 'pageCount'=>$pageCount,
                 'message'=>"Search results for: " . '\'' . $search . '\'',
-                'random'=>Service::randomService()
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
@@ -111,7 +117,9 @@ class NewsController Extends Controller
                 'news'=>News::newsDetail($id),
                 'newNews'=>News::latestNews(),
                 'random'=>Service::randomService(),
-                'search'=>$search
+                'search'=>$search,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }

@@ -37,7 +37,9 @@ class BlogController extends Controller
             'pageCount'=>$pageCount,
             'message'=>'',
             'random'=>Service::randomService(),
-            'latestBlog'=>Blog::latestBlog()
+            'latestBlog'=>Blog::latestBlog(),
+            'sideService'=>Service::sideBarServices(),
+            'sideNews'=>News::sideBarNews()
         ]);
     }
 
@@ -94,7 +96,9 @@ class BlogController extends Controller
                 'comment'=>Blog::findComment($id,$page),
                 'page'=>$page,
                 'pageCount'=>$pageCount,
-                'userId'=>$userId
+                'userId'=>$userId,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
@@ -148,7 +152,9 @@ class BlogController extends Controller
                 'random'=>Service::randomService(),
                 'latestBlog'=>Blog::latestBlog(),
                 'comment'=>Blog::findComment($nid,$pageCount),
-                'userId'=>$userId
+                'userId'=>$userId,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
@@ -179,7 +185,7 @@ class BlogController extends Controller
         }
 
         $blogCount = Blog::blogCountSearch($search);
-        $pageCount = ceil($blogCount/App::config('npp'));
+        $pageCount = ceil($blogCount/App::config('bpp'));
         
         if($page>$pageCount){
             $page=$pageCount;
@@ -196,7 +202,9 @@ class BlogController extends Controller
                 'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\'',
                 'random'=>Service::randomService(),
-                'latestBlog'=>Blog::latestBlog()
+                'latestBlog'=>Blog::latestBlog(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
         else {
@@ -207,7 +215,9 @@ class BlogController extends Controller
                 'pageCount'=>$pageCount,
                 'message'=>"Search results for: " . '\'' . $search . '\'',
                 'random'=>Service::randomService(),
-                'latestBlog'=>Blog::latestBlog()
+                'latestBlog'=>Blog::latestBlog(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
             ]);
         }
     }
