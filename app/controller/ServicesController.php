@@ -15,9 +15,19 @@ class ServicesController extends Controller
         if($page===0){
             $page=1;
         }
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
 
-        $serviceCount = Service::serviceCount();
-        $pageCount = ceil($serviceCount/App::config('spp'));
+        if(Service::serviceCount()!=0){
+            $serviceCount = Service::serviceCount();
+            $pageCount = ceil($serviceCount/App::config('spp'));
+        }
+        else {
+            $pageCount = 1;
+        }
 
         if($page>$pageCount){
             $page=$pageCount;

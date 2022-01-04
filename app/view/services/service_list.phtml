@@ -20,6 +20,7 @@
 <div class="section padding_layout_1 service_list">
   <div class="container">
     <div class="row">
+      <?php if($service != null): ?>
       <?php foreach($service as $ser): ?>
       <div class="col-md-4 service_blog margin_bottom_50">
         <div class="full">
@@ -32,8 +33,11 @@
         </div>
       </div>
      <?php endforeach;?>
+     <?php include 'pagingSer.phtml'; ?>
+     <?php else :?>
+              <div style="margin-left:20px;" class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_list">Back</a> </div>
+      <?php endif;?>
     </div>
-    <?php include 'pagingSer.phtml'; ?>
   </div>
 </div>
 <div class="section padding_layout_1 light_silver">
