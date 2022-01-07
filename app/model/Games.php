@@ -147,4 +147,12 @@ class Games
         ");
         $query->execute();
     }
+
+    public static function randomGame($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM game where id !=$id order by RAND() limit 3;");
+        $query->execute();
+        return $query->fetchAll();
+    }
 }

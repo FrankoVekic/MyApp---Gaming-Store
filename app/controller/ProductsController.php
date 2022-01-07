@@ -165,7 +165,7 @@ class ProductsController extends Controller
             $page=1;
         }
         
-        if(Games::findGamesSearch($page,$search) == null)
+        if(Equipment::findEquipmentSearch($page,$search) == null)
         {
             $this->view->render($this->viewDir . 'equipment',[
                 'equipment'=>Equipment::findEquipmentSearch($page,$search),
@@ -213,7 +213,7 @@ class ProductsController extends Controller
         else {
             $this->view->render($this->viewDir . 'game_detail',[
                 'game'=>Games::gameDetail($id),
-                'newGames'=>Games::latestGames(),
+                'newGames'=>Games::randomGame($_GET['id']),
                 'random'=>Service::randomService(),
                 'search'=>$search,
                 'sideService'=>Service::sideBarServices(),
@@ -242,7 +242,7 @@ class ProductsController extends Controller
         else {
             $this->view->render($this->viewDir . 'equipment_detail',[
                 'equipment'=>Equipment::equipmentDetail($id),
-                'newEquipment'=>Equipment::latestEquipment(),
+                'newEquipment'=>Equipment::randomEquipment($_GET['id']),
                 'random'=>Service::randomService(),
                 'search'=>$search,
                 'sideService'=>Service::sideBarServices(),

@@ -85,6 +85,14 @@ class Equipment
         return $query->fetchAll();
     }
 
+    public static function randomEquipment($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM equipment where id != $id order by RAND() limit 3;");
+        $query->execute();
+        return $query->fetchAll();
+    }
+
     public static function equipmentExists($id)
     {
         $conn = DB::connect();
