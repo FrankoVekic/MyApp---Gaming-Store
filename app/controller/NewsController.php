@@ -115,7 +115,7 @@ class NewsController Extends Controller
         else {
             $this->view->render($this->viewDir . 'news_detail',[
                 'news'=>News::newsDetail($id),
-                'newNews'=>News::latestNews(),
+                'newNews'=>News::latestNews($_GET['id']),
                 'random'=>Service::randomService(),
                 'search'=>$search,
                 'sideService'=>Service::sideBarServices(),

@@ -98,10 +98,10 @@ class News
         return $newsExists;
     }
 
-    public static function latestNews()
+    public static function latestNews($id)
     {
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM news order by id desc limit 2;');
+        $query = $conn->prepare("SELECT * FROM news where id !=$id order by id desc limit 2;");
         $query->execute();
         return $query->fetchAll();
     }
