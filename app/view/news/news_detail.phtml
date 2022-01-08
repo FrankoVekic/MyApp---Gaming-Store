@@ -30,12 +30,13 @@
                 <h3 class="service_head"><?=$news->headline?></h3>
                 <p><?=$news->text?></p>
                 <p>Author: <?php $id = News::findAuthor($news->id); echo $id;?></p>
-                <p><?=$news->publishDate?></p>
+                <p><i class="fa fa-clock-o"></i> <?=$news->publishDate?></p>
                 <hr>
                 <h2 style="margin-top: 50px;">Latest News</h2>
               </div>
             </div>
           </div>
+          <?php if($newNews !=null):?>
           <?php foreach($newNews as $nn): ?>
           <div class="col-md-6 service_blog margin_bottom_50">
             <div class="full">
@@ -50,6 +51,7 @@
             </div>
           </div>
         <?php endforeach; ?>
+        <?php endif;?>
         </div>
         <div class="row" style="margin-bottom: 30px;">
           <div class="col-md-12">
@@ -84,9 +86,11 @@
             <h4>OUR SERVICE</h4>
             <div class="categary">
               <ul>
+                <?php if($sideService !=null): ?>
                 <?php foreach($sideService as $sideService): ?>
                 <li><a href="<?=App::config('url')?>services/service_detail?id=<?=$sideService->id?>"><i class="fa fa-angle-right"></i> <?=$sideService->title?></a></li>
                 <?php endforeach;?>
+                <?php endif;?>
               </ul>
             </div>
           </div>
@@ -94,9 +98,11 @@
             <h4>RECENT NEWS</h4>
             <div class="categary">
               <ul>
+              <?php if($sideNews !=null): ?>
               <?php foreach($sideNews as $sideNews): ?>
                 <li><a href="<?=App::config('url')?>news/news_detail?id=<?=$sideNews->id?>"><i class="fa fa-angle-right"></i> <?=$sideNews->headline?></a></li>
               <?php endforeach;?>
+              <?php endif;?>
               </ul>
             </div>
           </div>

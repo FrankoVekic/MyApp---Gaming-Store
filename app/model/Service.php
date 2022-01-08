@@ -39,10 +39,10 @@ class Service
         return $query->fetch();
     }
 
-    public static function latestService()
+    public static function latestService($id)
     {
         $conn = DB::connect();
-        $query = $conn->prepare("SELECT * FROM service order by id desc limit 2;");
+        $query = $conn->prepare("SELECT * FROM service where id !=$id order by id desc limit 2;");
         $query->execute();
         return $query->fetchAll();
     }

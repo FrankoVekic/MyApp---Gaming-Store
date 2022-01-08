@@ -360,10 +360,11 @@
       </div>
     </div>
     <div class="row">
+      <?php if($equipment !=null): ?>
       <?php foreach ($equipment as $eq): ?>
       <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 margin_bottom_30_all">
         <div class="product_list">
-          <div class="product_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/shop/<?=$eq->image?>" alt=""> </div>
+          <div class="product_img"> <a href="<?=App::config('url')?>products/equipment_detail?id=<?=$eq->id?>"><img class="img-responsive" src="<?=App::config('url')?>public/images/shop/<?=$eq->image?>" alt=""> </a> </div>
           <div class="product_detail_btm">
             <div class="center">
               <h4><a href="<?=App::config('url')?>products/equipment_detail?id=<?=$eq->id?>"><?=$eq->name?></a></h4>
@@ -374,12 +375,17 @@
             <div class="product_price">
               <p><span class="new_price">$<?=$eq->price?></span></p>
               <hr>
-              <p><?=$eq->smalldesc?></p>
+             <a href="<?=App::config('url')?>products/equipment_detail?id=<?=$eq->id?>"><p><?=$eq->smalldesc?></p></a>
             </div>
           </div>
         </div>
       </div>
       <?php endforeach;?>
+      <?php else : ?>
+        <div class="center">
+          <p>No products in store.</p>
+        </div>
+      <?php endif;?>
     </div>
   </div>
 </div>
@@ -438,54 +444,37 @@
       <div class="col-md-12">
         <div class="full">
           <div class="main_heading text_align_left">
-            <h2>Latest from Our Blog</h2>
+            <h2>Latest News</h2>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
+      <?php if($news !=null): ?>
+      <?php foreach($news as $news ):?>
       <div class="col-md-4">
         <div class="full blog_colum">
-          <div class="blog_feature_img"> <img src="<?=App::config('url')?>public/images/services/post-03.jpg" alt="#" /> </div>
+          <div class="blog_feature_img"> <a href="<?=App::config('url')?>news/news_detail?id=<?=$news->id?>">
+           <img src="<?=App::config('url')?>public/images/news/<?=$news->image?>" alt="#" /> 
+          </a></div>
           <div class="post_time">
-            <p><i class="fa fa-clock-o"></i> April 16, 2018 ( In Maintenance )</p>
+            <p>Author: <?php $id = News::findAuthor($news->id); echo $id;?></p>
+            <p><i class="fa fa-clock-o"></i> <?=$news->publishDate?></p>
           </div>
           <div class="blog_feature_head">
-            <h4>Why Your Computer Hates You</h4>
+            <h4><a href="<?=App::config('url')?>news/news_detail?id=<?=$news->id?>"> <?=$news->headline?></a></h4>
           </div>
           <div class="blog_feature_cont">
-            <p>Lorem ipsum dolor sit amet, consectetur quam justo, pretium adipiscing elit. Vestibulum quam justo, pretium eu tempus ut, ...</p>
+           <a href="<?=App::config('url')?>news/news_detail?id=<?=$news->id?>"> <p><?=substr($news->text,0,120)?>...</p> </a>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="full blog_colum">
-          <div class="blog_feature_img"> <img src="<?=App::config('url')?>public/images/services/crepair.jpg" alt="#" /> </div>
-          <div class="post_time">
-            <p><i class="fa fa-clock-o"></i> April 16, 2018 ( In Maintenance )</p>
+        <?php endforeach;?>
+        <?php else : ?>
+          <div class="center">
+            <p>No news posted.</p>
           </div>
-          <div class="blog_feature_head">
-            <h4>Easy Tips To Computer Repair</h4>
-          </div>
-          <div class="blog_feature_cont">
-            <p>Lorem ipsum dolor sit amet, consectetur quam justo, pretium adipiscing elit. Vestibulum quam justo, pretium eu tempus ut, ...</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="full blog_colum">
-          <div class="blog_feature_img"> <img src="<?=App::config('url')?>public/images/services/post-06.jpg" alt="#" /> </div>
-          <div class="post_time">
-            <p><i class="fa fa-clock-o"></i> April 16, 2018 ( In Maintenance )</p>
-          </div>
-          <div class="blog_feature_head">
-            <h4>Computer Maintenance 2018</h4>
-          </div>
-          <div class="blog_feature_cont">
-            <p>Lorem ipsum dolor sit amet, consectetur quam justo, pretium adipiscing elit. Vestibulum quam justo, pretium eu tempus ut, ...</p>
-          </div>
-        </div>
-      </div>
+        <?php endif; ?>
     </div>
   </div>
 </div>

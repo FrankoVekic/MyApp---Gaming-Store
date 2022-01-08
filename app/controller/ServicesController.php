@@ -59,7 +59,7 @@ class ServicesController extends Controller
         else {
             $this->view->render($this->viewDir . 'service_detail',[
                 'service'=>Service::findService($_GET['id']),
-                'newservice'=>Service::latestService(),
+                'newservice'=>Service::latestService($_GET['id']),
                 'random'=>Service::randomService(),
                 'search'=>$search,
                 'sideService'=>Service::sideBarServices(),

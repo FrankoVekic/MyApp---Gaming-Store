@@ -34,7 +34,7 @@
             <h3 class="service_head"><?=$news->headline?></h3>
             <p><?=substr($news->text,0,75)?>...</p>
             <p>Author: <?php $id = News::findAuthor($news->id); echo $id;?></p>
-            <p><?=$news->publishDate?></p>
+            <p><i class="fa fa-clock-o"></i> <?=$news->publishDate?></p>
             <div class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>news/news_detail?id=<?=$news->id?>">Read News</a> </div>
           </div>
         </div>

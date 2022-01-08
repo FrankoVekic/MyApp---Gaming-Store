@@ -33,7 +33,7 @@ class News
         $npp = App::config('npp');
         $from = $page * $npp - $npp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM news limit :from,:npp;');
+        $query = $conn->prepare('SELECT * FROM news order by id desc limit :from,:npp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('npp',$npp, PDO::PARAM_INT);
@@ -103,7 +103,27 @@ class News
         $conn = DB::connect();
         $query = $conn->prepare("SELECT * FROM news where id !=$id order by id desc limit 2;");
         $query->execute();
-        return $query->fetchAll();
+        $news = $query->fetchAll();
+        if($news == null){
+            return null;
+        }
+        else {
+            return $news;
+        }
+    }
+
+    public static function latestNewsHome()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM news order by id desc limit 3;");
+        $query->execute();
+        $news = $query->fetchAll();
+        if($news == null){
+            return null;
+        }
+        else {
+            return $news;
+        }
     }
 
     public static function sideBarNews()

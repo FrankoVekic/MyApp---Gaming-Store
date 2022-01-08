@@ -6,7 +6,8 @@ class IndexController extends Controller
     public function home()
     {
         $this->view->render('home',[
-            'equipment'=>Equipment::newEquipment()
+            'equipment'=>Equipment::newEquipment(),
+            'news'=>News::latestNewsHome()
         ]);
     }
 
