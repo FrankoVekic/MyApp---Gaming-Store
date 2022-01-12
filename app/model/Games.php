@@ -134,7 +134,7 @@ class Games
         $query = $conn->prepare("
         INSERT INTO game(name,price,smalldesc,description,
         quantity,memory_required,console,image) VALUES (:name,:price,:smalldesc,:description,
-        :quantity,:memory_required,:console,'test.jpg');
+        :quantity,:memory_required,:console,'noimg.png');
         ");
         $query->execute($params);
     }
