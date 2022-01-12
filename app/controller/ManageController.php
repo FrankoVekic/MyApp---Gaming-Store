@@ -224,6 +224,10 @@ class ManageController extends AdminController
             $this->message="Name is required.";
             return false;
         }
+        if(Games::gameExistsByName($this->game->name) !=null){
+            $this->message="This Name is already in use.";
+            return false;
+        }
         if(strlen(trim($this->game->name))<3){
             $this->message="Name is too short (atleast 3 letters).";
             return false;
