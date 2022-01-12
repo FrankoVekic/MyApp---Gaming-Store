@@ -52,6 +52,9 @@ class IndexController extends Controller
     }
     public function login()
     {
+        if(isset($_SESSION['authorized'])){
+            $this->home();
+        }
         $this->view->render('login',[
             'message'=>'Enter required information.'
         ]);
@@ -90,8 +93,7 @@ class IndexController extends Controller
         }
 
         $_SESSION['authorized']=$user;
-        $view = new View();
-        $view->render('home');
+        $this->home();
     }
     
     private function loginView($email,$message)
@@ -112,6 +114,10 @@ class IndexController extends Controller
 
     public function register()
     {
+        if(isset($_SESSION['authorized'])){
+            $this->home();
+        }
+
         $this->view->render('register',[
             'message'=>'Enter required information.'
         ]);
@@ -119,6 +125,10 @@ class IndexController extends Controller
 
     public function registration()
     {
+        if(isset($_SESSION['authorized'])){
+            $this->home();
+        }
+
         $uppercase = preg_match('@[A-Z]@', $_POST['password']);
         $number = preg_match('@[0-9]@', $_POST['password']);
 

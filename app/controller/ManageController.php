@@ -265,6 +265,7 @@ class ManageController extends AdminController
 
     private function verify_smalldesc()
     {
+
         if(!isset($this->game->smalldesc)){
             $this->message = "Short Description is required.";
             return false;
@@ -277,8 +278,21 @@ class ManageController extends AdminController
             $this->message="Short Description is too short.";
             return false;
         }
-        if(strlen(trim($this->game->smalldesc))>60){
-            $this->message="Max number of letters is 60.";
+        $catchWords = explode(' ',trim($this->game->smalldesc));
+        if(strlen($catchWords[0]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWords[1]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWords[2]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen(trim($this->game->smalldesc))>250){
+            $this->message="Max number of letters in Short Description is 250.";
             return false;
         }
         if(preg_match('/[\'\/~`\#\%\^\*\(\)_\+=\{\}\[\]\|;"\<\>\?\\\]/', $this->game->smalldesc)){
@@ -294,7 +308,12 @@ class ManageController extends AdminController
 
     private function verify_description()
     {
+
         if(!isset($this->game->description)){
+            $this->message = "Description is required.";
+            return false;
+        }
+        if(empty($this->game->description)){
             $this->message = "Description is required.";
             return false;
         }
@@ -302,11 +321,24 @@ class ManageController extends AdminController
             $this->message="Description is required.";
             return false;
         }
-        if(strlen(trim($this->game->description))<60){
+        if(strlen(trim($this->game->description))<30){
             $this->message="Description is too short.";
             return false;
         }
-        if(strlen(trim($this->game->description))>3000){
+        $catchWord = explode(' ',trim($this->game->description));
+        if(strlen($catchWord[0]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWord[1]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWord[2]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen(trim($this->game->description))>5000){
             $this->message="Description is too big.";
             return false;
         }
