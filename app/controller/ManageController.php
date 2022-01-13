@@ -3,6 +3,7 @@
 class ManageController extends AdminController
 {
     private $viewDir = 'manage' . DIRECTORY_SEPARATOR;
+    private $imgDir = BP . 'public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'shop' . DIRECTORY_SEPARATOR;
 
     private $game;
     private $message;
@@ -167,6 +168,69 @@ class ManageController extends AdminController
         ]);
     }
 
+    public function edit()
+    {
+        if(!isset($_GET['game'])){
+            $this->games();
+        }
+
+        if(Games::gameExistsByName($_GET['game']) == null){
+            $this->games();
+        }
+        else {
+            $game = Games::gameExistsByName($_GET['game']);
+            $this->view->render($this->viewDir . 'edit',[
+                'game'=>$game,
+                'message'=>'Change information about ' . $game->name
+            ]);
+        }
+    }
+
+    public function change_game_data()
+    {
+        if(!$_POST){
+            $this->games();
+            return;
+        }
+
+        if(Games::gameExists($_POST['id']) == null){
+            $this->games();
+            return;
+        }
+
+        $this->game=(object)$_POST;
+
+        if($this->verify_name_edit() && 
+           $this->verify_price() &&
+           $this->verify_smalldesc() && 
+           $this->verify_description() && 
+           $this->verify_quantity() && 
+           $this->verify_memoryRequired() &&
+           $this->verify_console()        
+        ){
+            $file = $_FILES['image']['name'];
+            if (!$file){
+                $img = $_SESSION['image'];
+                Games::update((array)($this->game),$img);
+                unset($_SESSION['image']);
+            }else {
+                $img = $this->game->id . '.jpg';
+                Games::update((array)($this->game),$img);
+        }
+            if(isset($_FILES['image'])){
+                move_uploaded_file($_FILES['image']['tmp_name'],
+                $this->imgDir . $this->game->id . '.jpg');
+            }
+            $this->games();
+        }
+        else {
+            $this->view->render($this->viewDir . 'edit',[
+                'game'=>$this->game,
+                'message'=>$this->message
+            ]);
+        }
+    }
+
     public function add_game()
     {
         if(!$_POST){
@@ -247,6 +311,38 @@ class ManageController extends AdminController
         return true;
     }
 
+    private function verify_name_edit()
+    {
+        if(!isset($this->game->name)){
+            $this->message = "Name is required";
+            return false;
+        }
+        if(strlen(trim($this->game->name)) === 0){
+            $this->message="Name is required.";
+            return false;
+        }
+        if(Games::checkNameForEdit($this->game->name,$this->game->id) != null){
+            $this->message="This Name is already in use.";
+            return false;
+        }
+        if(strlen(trim($this->game->name))<3){
+            $this->message="Name is too short (atleast 3 letters).";
+            return false;
+        }
+        if(strlen(trim($this->game->name))>50){
+            $this->message="Max number of letters is 50.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\+=\{\}\[\]\|;"\<\>,\?\\\]/', $this->game->name)){
+            $this->message="You can only write letters and numbers.";
+            return false;
+        }
+        if(!preg_match("/[a-z0-9.]/i", $this->game->name)){
+            $this->message="You didn't enter any letters or numbers.";
+            return false;
+        }
+        return true;
+    }
     private function verify_price()
     {
         if(!isset($this->game->price)){
