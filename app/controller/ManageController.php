@@ -7,6 +7,7 @@ class ManageController extends AdminController
 
     private $game;
     private $message;
+    private $equipment;
 
     public function __construct()
     {
@@ -20,6 +21,14 @@ class ManageController extends AdminController
         $this->game->memory_required="0";
         $this->game->console="Select Console";
         $this->game->image="";
+
+        $this->equipment = new stdClass();
+        $this->equipment->name="";
+        $this->equipment->price="0,00";
+        $this->equipment->smalldesc = "";
+        $this->equipment->description="";
+        $this->equipment->quantity="0";
+        $this->equipment->image="";
     }
 
     public function games()
@@ -504,12 +513,53 @@ class ManageController extends AdminController
 
     public function equipment()
     {
-        $this->view->render($this->viewDir . 'equipment');
-    }
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        if($page===0){
+            $page=1;
+        }
 
-    public function services ()
-    {
-        $this->view->render($this->viewDir . 'services');
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        if(Equipment::equipmentCount() != 0){
+            $equipmentCount = Equipment::equipmentCount();
+            $pageCount = ceil($equipmentCount/App::config('spp'));
+        }
+        else {
+            $pageCount = 1;
+        }
+
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        
+        if(trim($search)=='' || strlen(trim($search))==0 || empty($_GET['search'])){
+
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::findEquipmentSearch($page,$search),
+                'page'=>$page,
+                'pageCount'=>$pageCount,
+                'search'=>$search,
+                'message'=>''
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::readEquipment($page),
+                'page'=>$page,
+                'pageCount'=>$pageCount,
+                'search'=>$search,
+                'message'=>''
+            ]);
+        }
     }
 
     public static function checkSearchGames()
@@ -523,5 +573,78 @@ class ManageController extends AdminController
             $url = 'request_game';
         }
         return $url;
+    }
+
+    public static function checkSearchEquipment()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'equipment';
+        }
+        else 
+        {
+            $url = 'request_equipment';
+        }
+        return $url;
+    }
+
+    public function request_equipment()
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $equipmentCount = Equipment::equipmentCountSearch($search);
+        $pageCount = ceil($equipmentCount/App::config('spp'));
+        
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        if($page==0){
+            $page=1;
+        }
+
+        if(Equipment::findEquipmentSearch($page,$search) == null)
+        {
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::findEquipmentSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount
+            ]);
+        }
+        else if(strlen(trim($search))==0 || trim($search)==''){
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::findEquipmentSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'equipment',[
+                'equipment'=>Equipment::findEquipmentSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount
+            ]);
+        }
+    }
+    public function new_equipment()
+    {
+        $this->view->render($this->viewDir . 'new_equipment',[
+            'equipment'=>$this->equipment,
+            'message'=>'Enter required information.'
+        ]);
     }
 }

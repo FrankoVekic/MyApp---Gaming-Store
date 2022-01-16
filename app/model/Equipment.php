@@ -107,4 +107,18 @@ class Equipment
         }
         return $equipmentExists;
     }
+
+    public static function findEquipmentAdmin($page)
+    {
+        $spp = App::config('spp');
+        $from = $page * $spp - $spp;
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM equipment limit :from,:spp;');
+
+        $query->bindValue('from',$from, PDO::PARAM_INT);
+        $query->bindValue('spp',$spp, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
 }
