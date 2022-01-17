@@ -513,49 +513,24 @@ class ManageController extends AdminController
 
     public function equipment()
     {
-        if(!isset($_GET['page'])){
-            $page = 1;
-        }
-        else {
-            $page=(int)$_GET['page'];
-        }
-        if($page===0){
-            $page=1;
-        }
 
         if(!isset($_GET['search'])){
             $search='';
         }else {
             $search = $_GET['search'];
         }
-
-        if(Equipment::equipmentCount() != 0){
-            $equipmentCount = Equipment::equipmentCount();
-            $pageCount = ceil($equipmentCount/App::config('spp'));
-        }
-        else {
-            $pageCount = 1;
-        }
-
-        if($page>$pageCount){
-            $page=$pageCount;
-        }
         
         if(trim($search)=='' || strlen(trim($search))==0 || empty($_GET['search'])){
 
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::findEquipmentSearch($page,$search),
-                'page'=>$page,
-                'pageCount'=>$pageCount,
+                'equipment'=>Equipment::getAllEquipment(),
                 'search'=>$search,
                 'message'=>''
             ]);
         }
         else {
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::readEquipment($page),
-                'page'=>$page,
-                'pageCount'=>$pageCount,
+                'equipment'=>Equipment::getAllEquipment(),
                 'search'=>$search,
                 'message'=>''
             ]);
@@ -620,7 +595,8 @@ class ManageController extends AdminController
                 'equipment'=>Equipment::findEquipmentSearch($page,$search),
                 'page'=>$page,
                 'search'=>$search,
-                'pageCount'=>$pageCount
+                'pageCount'=>$pageCount,
+                'message'=>"No results for: " . '\'' . $search . '\''
             ]);
         }
         else if(strlen(trim($search))==0 || trim($search)==''){

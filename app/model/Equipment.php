@@ -121,4 +121,13 @@ class Equipment
 
         return $query->fetchAll();
     }
+
+    public static function getAllEquipment()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare('SELECT * FROM equipment;');
+        $query->execute();
+
+        return $query->fetchAll();
+    }
 }
