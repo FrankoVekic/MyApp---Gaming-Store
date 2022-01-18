@@ -157,6 +157,17 @@ class Equipment
         return $productExists;
     }
 
+    public static function create($params)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        INSERT INTO equipment(name,price,smalldesc,description,
+        quantity,image) VALUES (:name,:price,:smalldesc,:description,
+        :quantity,'noimg.png');
+        ");
+        $query->execute($params);
+    }
+
     public static function update ($params,$img)
     {
         $conn = DB::connect();

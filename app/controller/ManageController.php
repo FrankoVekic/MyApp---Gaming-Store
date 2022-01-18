@@ -808,6 +808,34 @@ class ManageController extends AdminController
         return true;
     }
 
+    public function add_product()
+    {
+        if(!$_POST){
+            $this->new_equipment();
+            return;
+        }
+
+        $this->equipment=(object)$_POST;
+
+        if($this->verify_name_edit_product() && 
+           $this->verify_price_product() &&
+           $this->verify_smalldesc_product() && 
+           $this->verify_description_product() && 
+           $this->verify_quantity_product()     
+        ){
+            $this->equipment->price = str_replace(array('.', ','), array('', '.'), 
+            $this->equipment->price);
+            Equipment::create((array)($this->equipment));
+            $this->equipment();
+        }
+        else {
+            $this->view->render($this->viewDir . 'new_equipment',[
+                'equipment'=>$this->equipment,
+                'message'=>$this->message
+            ]);
+        }
+    }
+
     public function remove()
     {
         if(!isset($_GET['product'])){
