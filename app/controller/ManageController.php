@@ -177,7 +177,7 @@ class ManageController extends AdminController
         ]);
     }
 
-    public function edit()
+    public function edit_game()
     {
         if(!isset($_GET['game'])){
             $this->games();
@@ -191,6 +191,24 @@ class ManageController extends AdminController
             $this->view->render($this->viewDir . 'edit',[
                 'game'=>$game,
                 'message'=>'Change information about ' . $game->name
+            ]);
+        }
+    }
+
+    public function edit_equipment()
+    {
+        if(!isset($_GET['product'])){
+            $this->equipment();
+        }
+
+        if(Equipment::equipmentExistsByName($_GET['product']) == null){
+            $this->equipment();
+        }
+        else {
+            $equipment = Equipment::equipmentExistsByName($_GET['product']);
+            $this->view->render($this->viewDir . 'edit_product',[
+                'equipment'=>$equipment,
+                'message'=>'Change information about ' . $equipment->name
             ]);
         }
     }
@@ -328,10 +346,6 @@ class ManageController extends AdminController
         }
         if(strlen(trim($this->game->name)) === 0){
             $this->message="Name is required.";
-            return false;
-        }
-        if(Games::checkNameForEdit($this->game->name,$this->game->id) != null){
-            $this->message="This Name is already in use.";
             return false;
         }
         if(strlen(trim($this->game->name))<3){
@@ -523,14 +537,14 @@ class ManageController extends AdminController
         if(trim($search)=='' || strlen(trim($search))==0 || empty($_GET['search'])){
 
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::getAllEquipment(),
+                'equipment'=>Equipment::readEquipmentManageTable($search),
                 'search'=>$search,
                 'message'=>''
             ]);
         }
         else {
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::getAllEquipment(),
+                'equipment'=>Equipment::readEquipmentManageTable($search),
                 'search'=>$search,
                 'message'=>''
             ]);
@@ -565,54 +579,31 @@ class ManageController extends AdminController
 
     public function request_equipment()
     {
-        if(!isset($_GET['page'])){
-            $page=1;
-        }
-        else {
-            $page=(int)$_GET['page'];
-        }
-        
-
+     
         if(!isset($_GET['search'])){
             $search='';
         }else {
             $search = $_GET['search'];
         }
 
-        $equipmentCount = Equipment::equipmentCountSearch($search);
-        $pageCount = ceil($equipmentCount/App::config('spp'));
-        
-        if($page>$pageCount){
-            $page=$pageCount;
-        }
-        if($page==0){
-            $page=1;
-        }
-
-        if(Equipment::findEquipmentSearch($page,$search) == null)
+        if(Equipment::readEquipmentManageTable($search) == null)
         {
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::findEquipmentSearch($page,$search),
-                'page'=>$page,
+                'equipment'=>Equipment::readEquipmentManageTable($search),
                 'search'=>$search,
-                'pageCount'=>$pageCount,
                 'message'=>"No results for: " . '\'' . $search . '\''
             ]);
         }
         else if(strlen(trim($search))==0 || trim($search)==''){
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::findEquipmentSearch($page,$search),
-                'page'=>$page,
-                'search'=>$search,
-                'pageCount'=>$pageCount
+                'equipment'=>Equipment::readEquipmentManageTable($search),
+                'search'=>$search
             ]);
         }
         else {
             $this->view->render($this->viewDir . 'equipment',[
-                'equipment'=>Equipment::findEquipmentSearch($page,$search),
-                'page'=>$page,
+                'equipment'=>Equipment::readEquipmentManageTable($search),
                 'search'=>$search,
-                'pageCount'=>$pageCount
             ]);
         }
     }
@@ -622,5 +613,215 @@ class ManageController extends AdminController
             'equipment'=>$this->equipment,
             'message'=>'Enter required information.'
         ]);
+    }
+
+    public function change_equipment_data()
+    {
+        if(!$_POST){
+            $this->equipment();
+            return;
+        }
+
+        if(Equipment::equipmentExists($_POST['id']) == null){
+            $this->equipment();
+            return;
+        }
+
+        $this->equipment=(object)$_POST;
+
+        if($this->verify_name_edit_product() && 
+           $this->verify_price_product() &&
+           $this->verify_smalldesc_product() && 
+           $this->verify_description_product() && 
+           $this->verify_quantity_product()      
+        ){
+            $file = $_FILES['image']['name'];
+            if (!$file){
+                $img = $_SESSION['image_product'];
+                Equipment::update((array)($this->equipment),$img);
+                unset($_SESSION['image_product']);
+            }else {
+                $img = $this->equipment->id . 'a.jpg';
+                Equipment::update((array)($this->equipment),$img);
+        }
+            if(isset($_FILES['image'])){
+                move_uploaded_file($_FILES['image']['tmp_name'],
+                $this->imgDir . $this->equipment->id . 'a.jpg');
+            }
+            $this->equipment();
+        }
+        else {
+            $this->view->render($this->viewDir . 'edit_product',[
+                'equipment'=>$this->equipment,
+                'message'=>$this->message
+            ]);
+        }
+    }
+
+    private function verify_name_edit_product()
+    {
+        if(!isset($this->equipment->name)){
+            $this->message = "Name is required";
+            return false;
+        }
+        if(strlen(trim($this->equipment->name)) === 0){
+            $this->message="Name is required.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->name))<3){
+            $this->message="Name is too short (atleast 3 letters).";
+            return false;
+        }
+        if(strlen(trim($this->equipment->name))>50){
+            $this->message="Max number of letters is 50.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\+=\{\}\[\]\|;"\<\>,\?\\\]/', $this->equipment->name)){
+            $this->message="You can only write letters and numbers.";
+            return false;
+        }
+        if(!preg_match("/[a-z0-9.]/i", $this->equipment->name)){
+            $this->message="You didn't enter any letters or numbers.";
+            return false;
+        }
+        return true;
+    }
+    private function verify_price_product()
+    {
+        if(!isset($this->equipment->price)){
+            $this->message="Price is required";
+            return false;
+        }
+        if(strlen(trim($this->equipment->price))===0){
+            $this->message="Price is required";
+            return false;
+        }
+        $num=(float) str_replace(array('.', ','), array('', '.'), 
+        $this->equipment->price);
+        
+        if($num<=0){
+            $this->message="Price must be a possitive number";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_smalldesc_product()
+    {
+
+        if(!isset($this->equipment->smalldesc)){
+            $this->message = "Short Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->smalldesc)) === 0){
+            $this->message="Short Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->smalldesc))<10){
+            $this->message="Short Description is too short.";
+            return false;
+        }
+        $catchWords = explode(' ',trim($this->equipment->smalldesc));
+        if(strlen($catchWords[0]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWords[1]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWords[2]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->smalldesc))>250){
+            $this->message="Max number of letters in Short Description is 250.";
+            return false;
+        }
+        if(!preg_match("/[a-z.]/i", $this->equipment->smalldesc)){
+            $this->message="You didn't write any letters.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_description_product()
+    {
+
+        if(!isset($this->equipment->description)){
+            $this->message = "Description is required.";
+            return false;
+        }
+        if(empty($this->equipment->description)){
+            $this->message = "Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->description)) === 0){
+            $this->message="Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->description))<30){
+            $this->message="Description is too short.";
+            return false;
+        }
+        $catchWord = explode(' ',trim($this->equipment->description));
+        if(strlen($catchWord[0]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWord[1]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWord[2]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen(trim($this->equipment->description))>5000){
+            $this->message="Description is too big.";
+            return false;
+        }
+        if(!preg_match("/[a-z.]/i", $this->equipment->description)){
+            $this->message="You didn't write any letters.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_quantity_product(){
+       
+        if(!isset($this->equipment->quantity)){
+            $this->message="Quantity is required";
+            return false;
+        }
+        if(strlen(trim($this->equipment->quantity))===0){
+            $this->message="Quantity is required";
+            return false;
+        }
+        $num=(float) str_replace(array('.', ','), array('', '.'), 
+        $this->equipment->quantity);
+        
+        if($num<=0){
+            $this->message="Quantity must be a possitive number";
+            return false;
+        }
+        return true;
+    }
+
+    public function remove()
+    {
+        if(!isset($_GET['product'])){
+            $this->equipment();
+        }
+        else {
+            $name = $_GET['product'];
+            if(Equipment::equipmentExistsByName($name) == null){
+                $this->equipment();
+            }
+            else {
+                Equipment::delete($name);
+                $this->equipment();
+            }
+        }
     }
 }
