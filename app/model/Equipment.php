@@ -49,6 +49,17 @@ class Equipment
         return $query->fetchAll();
     }
 
+    public static function readEquipmentManageTable($search)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT * FROM equipment WHERE name like :search");
+        $search = '%' . $search . '%';
+        $query->bindParam('search',$search);
+        $query->execute();
+
+        return $query->fetchAll();
+    }
+
     public static function findEquipmentSearch($page,$search)
     {
         $epp = App::config('epp');
@@ -129,5 +140,44 @@ class Equipment
         $query->execute();
 
         return $query->fetchAll();
+    }
+
+    public static function equipmentExistsByName($name)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM equipment WHERE name = '$name';"
+        );
+        $query->execute();
+        $productExists = $query->fetch();
+
+        if($productExists==null){
+            return null;
+        }
+        return $productExists;
+    }
+
+    public static function update ($params,$img)
+    {
+        $conn = DB::connect();
+
+        $query = $conn->prepare("update equipment set
+         name=:name,
+         price=:price,
+         smalldesc =:smalldesc,
+         description=:description,
+         quantity=:quantity,
+         image='$img'
+         where id=:id");
+         $query->execute($params);
+    }
+
+    public static function delete($name)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        DELETE FROM equipment WHERE name ='$name';
+        ");
+        $query->execute();
     }
 }
