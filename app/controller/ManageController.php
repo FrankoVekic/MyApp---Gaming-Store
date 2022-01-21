@@ -208,7 +208,7 @@ class ManageController extends AdminController
             $equipment = Equipment::equipmentExistsByName($_GET['product']);
             $this->view->render($this->viewDir . 'edit_product',[
                 'equipment'=>$equipment,
-                'message'=>'Change information about ' . $equipment->name
+                'message'=>'Change information about ' . $equipment->name . '.'
             ]);
         }
     }
@@ -851,5 +851,57 @@ class ManageController extends AdminController
                 $this->equipment();
             }
         }
+    }
+
+    public function services()
+    {
+        if(!isset($_GET['page'])){
+            $page = 1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        if($page===0){
+            $page=1;
+        }
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        if(Service::serviceCount()!=0){
+            $serviceCount = Service::serviceCount();
+            $pageCount = ceil($serviceCount/App::config('spp'));
+        }
+        else {
+            $pageCount = 1;
+        }
+
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        
+        $this->view->render($this->viewDir . 'services',[
+            'service'=>Service::getService($page),
+            'page'=>$page,
+            'pageCount'=>$pageCount,
+            'random'=>Service::randomService(),
+            'message'=>'',
+            'search'=>$search
+        ]);
+    }
+
+    public static function checkSearchService()
+    {
+        $url = '';
+        if(!isset($_GET['search']) || strlen(trim($_GET['search'])) == 0){
+            $url = 'services';
+        }
+        else 
+        {
+            $url = 'request_services';
+        }
+        return $url;
     }
 }

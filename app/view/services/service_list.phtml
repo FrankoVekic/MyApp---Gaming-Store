@@ -5,10 +5,10 @@
         <div class="full">
           <div class="title-holder">
             <div class="title-holder-cell text-left">
-              <h1 class="page-title">Services List</h1>
+              <h1 class="page-title"> Service List</h1>
               <ol class="breadcrumb">
-                <li><a href="<?=App::config('url')?>index/home">Home</a></li>
-                <li class="active">Services List</li>
+                <li><a href="index.html">Home</a></li>
+                <li class="active"> Service List</li>
               </ol>
             </div>
           </div>
@@ -19,111 +19,72 @@
 </div>
 <div class="section padding_layout_1 service_list">
   <div class="container">
+  <div class="col-md-4">
+         <h3><?=$message?></h3>
+     </div>
     <div class="row">
-      <?php if($service != null): ?>
-      <?php foreach($service as $ser): ?>
-      <div class="col-md-4 service_blog margin_bottom_50">
-        <div class="full">
-          <div class="service_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/<?=$ser->image?>" alt="#" /> </div>
-          <div class="service_cont">
-            <h3 class="service_head"><?=$ser->title?></h3>
-            <p><?=$ser->smalldesc?></p>
-            <div class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$ser->id?>">View Service</a> </div>
+      <div class="col-md-9">
+        <div class="row">
+            <?php if($service !=null):?>
+            <?php foreach($service as $service): ?>
+          <div class="col-md-6 service_blog margin_bottom_50">
+            <div class="full">
+              <div class="service_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/<?=$service->image?>" alt="#" /> </div>
+              <div class="service_cont">
+                <h3 class="service_head"><?=$service->title?></h3>
+                <p><?=$service->smalldesc?></p>
+                <div class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$service->id?>">View Service</a> </div>
+              </div>
+            </div>
           </div>
+            <?php endforeach;?>
+            <?php endif;?>
         </div>
+        <?php include 'pagingSer.phtml'; ?>
       </div>
-     <?php endforeach;?>
-     <?php include 'pagingSer.phtml'; ?>
-     <?php else :?>
-              <div style="margin-left:20px;" class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_list">Back</a> </div>
-      <?php endif;?>
-    </div>
-  </div>
-</div>
-<div class="section padding_layout_1 light_silver">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="main_heading text_align_left">
-            <h2>Experienced Staff</h2>
-            <p class="large">Our experts have been featured in press numerous times.</p>
+      <div class="col-md-3">
+        <div class="side_bar">
+          <div class="side_bar_blog">
+            <h4>SEARCH</h4>
+            <div class="side_bar_search">
+              <form action="<?=App::config('url')?>services/request_service">
+              <div class="input-group stylish-input-group">
+                <input class="form-control" name="search" value="<?=$search?>" placeholder="Search" type="text">
+                <span class="input-group-addon">
+                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </span> </div>
+              </form>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 col-sm-6">
-        <div class="full team_blog_colum">
-          <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-1.jpg" alt="#"> </div>
-          <div class="team_feature_head">
-            <h4>Dean Michael</h4>
-          </div>
-          <div class="team_feature_social">
-            <div class="social_icon">
-              <ul class="list-inline">
-                <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
+            <div class="side_bar_blog">
+            <h4>OUR SERVICE</h4>
+            <div class="categary">
+              <ul>
+                <?php foreach($sideService as $sideService): ?>
+                <li><a href="<?=App::config('url')?>services/service_detail?id=<?=$sideService->id?>"><i class="fa fa-angle-right"></i> <?=$sideService->title?></a></li>
+                <?php endforeach;?>
               </ul>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="full team_blog_colum">
-          <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-2.jpg" alt="#"> </div>
-          <div class="team_feature_head">
-            <h4>Ruby Jake</h4>
-          </div>
-          <div class="team_feature_social">
-            <div class="social_icon">
-              <ul class="list-inline">
-                <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
+          <div class="side_bar_blog">
+            <h4>RECENT NEWS</h4>
+            <div class="categary">
+              <ul>
+              <?php foreach($sideNews as $sideNews): ?>
+                <li><a href="<?=App::config('url')?>news/news_detail?id=<?=$sideNews->id?>"><i class="fa fa-angle-right"></i> <?=$sideNews->headline?></a></li>
+              <?php endforeach;?>
               </ul>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="full team_blog_colum">
-          <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-3.jpg" alt="#"> </div>
-          <div class="team_feature_head">
-            <h4>David Hussay</h4>
-          </div>
-          <div class="team_feature_social">
-            <div class="social_icon">
-              <ul class="list-inline">
-                <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="full team_blog_colum">
-          <div class="it_team_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/team-member-1.jpg" alt="#"> </div>
-          <div class="team_feature_head">
-            <h4>Dean Michael</h4>
-          </div>
-          <div class="team_feature_social">
-            <div class="social_icon">
-              <ul class="list-inline">
-                <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
+          <div class="side_bar_blog">
+            <h4>TAG</h4>
+            <div class="tags">
+              <ul>
+                <li><a href="#">HTML5</a></li>
+                <li><a href="#">PHP</a></li>
+                <li><a href="#">BOOTSTRAP</a></li>
+                <li><a href="#">SQL</a></li>
+                <li><a href="#">CSS</a></li>
               </ul>
             </div>
           </div>

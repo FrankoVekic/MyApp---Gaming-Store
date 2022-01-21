@@ -20,7 +20,7 @@ class Service
         $npp = App::config('npp');
         $from = $page * $npp - $npp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM service where name like :search limit :from,:npp;');
+        $query = $conn->prepare('SELECT * FROM service where title like :search limit :from,:npp;');
         $search = '%' . $search . '%';
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
@@ -63,7 +63,7 @@ class Service
         {
             $conn = DB::connect();
             $query = $conn->prepare(
-                'SELECT count(a.id) from service a where name like :search;'
+                'SELECT count(a.id) from service a where title like :search;'
             );
             $search = '%' . $search . '%';
             $query->bindParam('search',$search);
