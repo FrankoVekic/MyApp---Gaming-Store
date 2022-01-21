@@ -15,15 +15,16 @@ class ServicesController extends Controller
         if($page===0){
             $page=1;
         }
+
         if(!isset($_GET['search'])){
             $search='';
         }else {
             $search = $_GET['search'];
         }
 
-        if(Service::serviceCount()!=0){
+        if(Service::serviceCount() != 0){
             $serviceCount = Service::serviceCount();
-            $pageCount = ceil($serviceCount/App::config('spp'));
+            $pageCount = ceil($serviceCount/App::config('npp'));
         }
         else {
             $pageCount = 1;
@@ -32,14 +33,30 @@ class ServicesController extends Controller
         if($page>$pageCount){
             $page=$pageCount;
         }
-        
-        $this->view->render($this->viewDir . 'service_list',[
-            'service'=>Service::getService($page),
-            'page'=>$page,
-            'pageCount'=>$pageCount,
-            'random'=>Service::randomService(),
-            'message'=>''
-        ]);
+
+        if(trim($search)=='' || strlen(trim($search))==0 || empty($_GET['search'])){
+
+            $this->view->render($this->viewDir . 'service_list',[
+                'service'=>Service::getServiceSearch($page,$search),
+                'search'=>$search,
+                'message'=>'',
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews(),
+                'page'=>$page,
+                'pageCount'=>$pageCount
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'service_list',[
+                'service'=>Service::getServiceSearch($page,$search),
+                'search'=>$search,
+                'message'=>'',
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews(),
+                'page'=>$page,
+                'pageCount'=>$pageCount
+            ]);
+        }
     }
 
     public function service_detail()
@@ -85,7 +102,7 @@ class ServicesController extends Controller
         }
 
         $serviceCount = Service::serviceCountSearch($search);
-        $pageCount = ceil($serviceCount/App::config('spp'));
+        $pageCount = ceil($serviceCount/App::config('npp'));
         
         if($page>$pageCount){
             $page=$pageCount;
