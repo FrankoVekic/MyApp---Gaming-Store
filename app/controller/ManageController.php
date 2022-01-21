@@ -881,6 +881,17 @@ class ManageController extends AdminController
         if($page>$pageCount){
             $page=$pageCount;
         }
+
+        $newService = '<div class="col-md-4 service_blog margin_bottom_50">
+        <div class="full">
+          <div class="service_img"> <img class="img-responsive" src="/public/images/shop/newService.jpg" alt="#" /> </div>
+          <div class="service_cont">
+            <h3 class="service_head">Add New Service</h3>
+            <p>Add a service. You must fill in the appropriate information in order to enter the service to the shop.</p>
+            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt btn-lg btn-block" href="new_service">Add</a> </div>
+          </div>
+        </div>
+      </div>';
         
         $this->view->render($this->viewDir . 'services',[
             'service'=>Service::getService($page),
@@ -888,7 +899,8 @@ class ManageController extends AdminController
             'pageCount'=>$pageCount,
             'random'=>Service::randomService(),
             'message'=>'',
-            'search'=>$search
+            'search'=>$search,
+            'newService'=>$newService
         ]);
     }
 
