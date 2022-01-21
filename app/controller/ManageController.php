@@ -8,6 +8,7 @@ class ManageController extends AdminController
     private $game;
     private $message;
     private $equipment;
+    private $service;
 
     public function __construct()
     {
@@ -29,6 +30,12 @@ class ManageController extends AdminController
         $this->equipment->description="";
         $this->equipment->quantity="0";
         $this->equipment->image="";
+
+        $this->service = new stdClass();
+        $this->service->title="";
+        $this->service->smalldesc="";
+        $this->service->description="";
+        $this->service->image="";
     }
 
     public function games()
@@ -915,5 +922,174 @@ class ManageController extends AdminController
             $url = 'request_services';
         }
         return $url;
+    }
+
+    public function new_service()
+    {
+        $this->view->render($this->viewDir . 'new_service',[
+            'service'=>$this->service,
+            'message'=>'Enter required information.'
+        ]);
+    }
+
+    public function delete_service()
+    {
+        if(!isset($_GET['service'])){
+            $this->services();
+        }
+        else {
+            $id = $_GET['service'];
+            if(Service::findService($id) == null){
+                $this->services();
+            }
+            else {
+                Service::delete($id);
+                $this->services();
+            }
+        }
+    }
+
+    public function add_service()
+    {
+        if(!$_POST){
+            $this->new_service();
+            return;
+        }
+
+        $this->service=(object)$_POST;
+
+        if($this->verify_title() && 
+           $this->verify_smalldesc_service() && 
+           $this->verify_description_service()       
+        ){
+            Service::create((array)($this->service));
+            $this->services();
+        }
+        else {
+            $this->view->render($this->viewDir . 'new_service',[
+                'service'=>$this->service,
+                'message'=>$this->message
+            ]);
+        }
+    }
+
+    private function verify_title()
+    {
+        if(!isset($this->service->title)){
+            $this->message = "Title is required";
+            return false;
+        }
+        if(strlen(trim($this->service->title)) === 0){
+            $this->message="Title is required.";
+            return false;
+        }
+        if(strlen(trim($this->service->title))<3){
+            $this->message="Title is too short (atleast 3 letters).";
+            return false;
+        }
+        if(strlen(trim($this->service->title))>100){
+            $this->message="Max number of letters is 100.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\+=\{\}\[\]\|;"\<\>,\?\\\]/', $this->service->title)){
+            $this->message="You can only write letters and numbers.";
+            return false;
+        }
+        if(!preg_match("/[a-z0-9.]/i", $this->service->title)){
+            $this->message="You didn't enter any letters or numbers.";
+            return false;
+        }
+        return true;
+    }
+
+
+    private function verify_smalldesc_service()
+    {
+
+        if(!isset($this->service->smalldesc)){
+            $this->message = "Short Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->service->smalldesc)) === 0){
+            $this->message="Short Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->service->smalldesc))<10){
+            $this->message="Short Description is too short.";
+            return false;
+        }
+        $catchWords = explode(' ',trim($this->service->smalldesc));
+        if(strlen($catchWords[0]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWords[1]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWords[2]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen(trim($this->service->smalldesc))>250){
+            $this->message="Max number of letters in Short Description is 250.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\#\%\^\*\(\)_\+=\{\}\[\]\|;"\<\>\?\\\]/', $this->service->smalldesc)){
+            $this->message="Some of the characters you wrote are not allowed to be in the Short Description.";
+            return false;
+        }
+        if(!preg_match("/[a-z.]/i", $this->service->smalldesc)){
+            $this->message="You didn't write any letters.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_description_service()
+    {
+
+        if(!isset($this->service->description)){
+            $this->message = "Description is required.";
+            return false;
+        }
+        if(empty($this->service->description)){
+            $this->message = "Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->service->description)) === 0){
+            $this->message="Description is required.";
+            return false;
+        }
+        if(strlen(trim($this->service->description))<30){
+            $this->message="Description is too short.";
+            return false;
+        }
+        $catchWord = explode(' ',trim($this->service->description));
+        if(strlen($catchWord[0]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWord[1]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen($catchWord[2]) > 25){
+            $this->message="Too long words. Try writing something else.";
+            return false;
+        }
+        if(strlen(trim($this->service->description))>5000){
+            $this->message="Description is too big.";
+            return false;
+        }
+        if(preg_match('/[\'\/~`\#\%\^\*\(\)_\+=\{\}\[\]\|;"\<\>\\\\]/', $this->service->description)){
+            $this->message="Some of the characters you wrote are not allowed to be in the Description.";
+            return false;
+        }
+        if(!preg_match("/[a-z.]/i", $this->service->description)){
+            $this->message="You didn't write any letters.";
+            return false;
+        }
+        return true;
     }
 }

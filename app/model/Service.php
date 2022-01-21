@@ -87,4 +87,38 @@ class Service
         $query->execute();
         return $query->fetchAll();
     }
+
+    public static function serviceExistsByName($title)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM service WHERE title = '$title';"
+        );
+        $query->execute();
+        $serviceExists = $query->fetch();
+
+        if($serviceExists==null){
+            return null;
+        }
+        return $serviceExists;
+    }
+
+    public static function create($params)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        INSERT INTO service(title,smalldesc,description,image) 
+        VALUES (:title,:smalldesc,:description,'servicesimage.jpg');
+        ");
+        $query->execute($params);
+    }
+
+    public static function delete($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        DELETE FROM service WHERE id ='$id';
+        ");
+        $query->execute();
+    }
 }
