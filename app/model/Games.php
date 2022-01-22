@@ -15,7 +15,7 @@ class Games
         $epp = App::config('epp');
         $from = $page * $epp - $epp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM game limit :from,:epp;');
+        $query = $conn->prepare('SELECT * FROM game order by id desc limit :from,:epp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('epp',$epp, PDO::PARAM_INT);
@@ -34,7 +34,7 @@ class Games
         $spp = App::config('spp');
         $from = $page * $spp - $spp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM game limit :from,:spp;');
+        $query = $conn->prepare('SELECT * FROM game order by id desc limit :from,:spp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('spp',$spp, PDO::PARAM_INT);
@@ -48,7 +48,7 @@ class Games
         $epp = App::config('epp');
         $from = $page * $epp - $epp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM game where name like :search limit :from,:epp;');
+        $query = $conn->prepare('SELECT * FROM game where name like :search order by id desc limit :from,:epp;');
         $search = '%' . $search . '%';
 
         $query->bindValue('from',$from, PDO::PARAM_INT);

@@ -7,7 +7,7 @@ class Service
         $spp = App::config('spp');
         $from = $page * $spp - $spp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM service limit :from,:spp;');
+        $query = $conn->prepare('SELECT * FROM service order by id desc limit :from,:spp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('spp',$spp, PDO::PARAM_INT);
@@ -20,7 +20,7 @@ class Service
         $npp = App::config('npp');
         $from = $page * $npp - $npp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM service where title like :search limit :from,:npp;');
+        $query = $conn->prepare('SELECT * FROM service where title like :search order by id desc limit :from,:npp;');
         $search = '%' . $search . '%';
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
@@ -111,6 +111,19 @@ class Service
         VALUES (:title,:smalldesc,:description,'servicesimage.jpg');
         ");
         $query->execute($params);
+    }
+
+    public static function update ($params,$img)
+    {
+        $conn = DB::connect();
+
+        $query = $conn->prepare("update service set
+         title=:title,
+         smalldesc =:smalldesc,
+         description=:description,
+         image='$img'
+         where id=:id");
+         $query->execute($params);
     }
 
     public static function delete($id)

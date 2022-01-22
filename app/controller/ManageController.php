@@ -4,6 +4,7 @@ class ManageController extends AdminController
 {
     private $viewDir = 'manage' . DIRECTORY_SEPARATOR;
     private $imgDir = BP . 'public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'shop' . DIRECTORY_SEPARATOR;
+    private $imgDirService = BP . 'public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'services' . DIRECTORY_SEPARATOR;
 
     private $game;
     private $message;
@@ -1078,7 +1079,7 @@ class ManageController extends AdminController
             $this->message="Too long words. Try writing something else.";
             return false;
         }
-        if(strlen(trim($this->service->description))>5000){
+        if(strlen(trim($this->service->description))>7000){
             $this->message="Description is too big.";
             return false;
         }
@@ -1091,5 +1092,64 @@ class ManageController extends AdminController
             return false;
         }
         return true;
+    }
+
+    public function edit_service()
+    {
+        if(!isset($_GET['service'])){
+            $this->services();
+        }
+
+        if(Service::findService($_GET['service']) == null){
+            $this->services();
+        }
+        else {
+            $service = Service::findService($_GET['service']);
+            $this->view->render($this->viewDir . 'edit_service',[
+                'service'=>$service,
+                'message'=>'Change information about ' . $service->title . '.'
+            ]);
+        }
+    }
+
+    public function change_service_data()
+    {
+        if(!$_POST){
+            $this->services();
+            return;
+        }
+
+        if(Service::findService($_POST['id']) == null){
+            $this->services();
+            return;
+        }
+
+        $this->service=(object)$_POST;
+
+        if($this->verify_title() && 
+           $this->verify_smalldesc_service() && 
+           $this->verify_description_service()      
+        ){
+            $file = $_FILES['image']['name'];
+            if (!$file){
+                $img = $_SESSION['image_service'];
+                Service::update((array)($this->service),$img);
+                unset($_SESSION['image_service']);
+            }else {
+                $img = $this->service->id . '.jpg';
+                Service::update((array)($this->service),$img);
+        }
+            if(isset($_FILES['image'])){
+                move_uploaded_file($_FILES['image']['tmp_name'],
+                $this->imgDirService . $this->service->id . '.jpg');
+            }
+            $this->services();
+        }
+        else {
+            $this->view->render($this->viewDir . 'edit_service',[
+                'service'=>$this->service,
+                'message'=>$this->message
+            ]);
+        }
     }
 }

@@ -5,10 +5,11 @@
         <div class="full">
           <div class="title-holder">
             <div class="title-holder-cell text-left">
-              <h1 class="page-title">Manage Services</h1>
+              <h1 class="page-title">Edit Service</h1>
               <ol class="breadcrumb">
                 <li><a href="<?=App::config('url')?>index/home">Home</a></li>
-                <li class="active">Manage Services</li>
+                <li><a href="<?=App::config('url')?>manage/games">Manage Equipment</a></li>
+                <li class="active">Edit Service</li>
               </ol>
             </div>
           </div>
@@ -17,69 +18,61 @@
     </div>
   </div>
 </div>
-<div class="section padding_layout_1 service_list">
+<div class="section padding_layout_1 checkout_section">
   <div class="container">
     <div class="row">
-    <div class="side_bar_blog">
-        <h3 style="text-align:center;">FIND SERVICE</h3>
-          <div class="side_bar_search">
-            <form action="<?=App::config('url')?>manage/request_service">
-              <div class="input-group stylish-input-group">
-                  <input class="form-control" name="search" value="<?=$search?>" placeholder="Search" type="text">
-                  <span class="input-group-addon">
-                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-              </span> </div>
-          </form>
-        </div>
-    </div>
-    <?php if($service != null && Service::serviceCount() >=3): ?>
-      <div class="center">
-        <a href="<?=App::config('url')?>manage/new_service" class="btn main_bt" type="submit">Add New</a>
-    </div>
-    <?php endif;?>
-    <div class="container">
-    <div class="col-md-4">
-         <h3><?=$message?></h3>
-     </div>
-    <div class="row">
-      <?php if($service != null): ?>
-        <?php foreach($service as $ser): ?>
-      <div class="col-md-4 service_blog margin_bottom_50">
+      <div class="col-sm-12">
         <div class="full">
-          <div class="service_img"> <img class="img-responsive" src="<?=App::config('url')?>public/images/services/<?=$ser->image?>" alt="#" /> </div>
-          <div class="service_cont">
-            <h3 class="service_head"><?=$ser->title?></h3>
-            <p><?=$ser->smalldesc?></p>
-            <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit_service?service=<?=$ser->id?>">Edit</a>
-            <a onclick="return confirm('Are you sure you want to delete &#34;<?=$ser->title?>&#34; from services?');" class="btn sqaure_bt"
-             style="background-color:indianred" href="<?=App::config('url')?>manage/delete_service?service=<?=$ser->id?>">Delete</a> 
-            </div>
+          <div class="tab-info coupon-section">
+            <p><?=$message?></p>
           </div>
         </div>
       </div>
-     <?php endforeach;?>
-     <?php if(Service::serviceCount()<=2): ?>
-    <div class="col-md-4 service_blog margin_bottom_50">
-        <div class="full">
-          <div class="service_img"> <img class="img-responsive" src="/public/images/shop/newService.jpg" alt="#" /> </div>
-          <div class="service_cont">
-            <h3 class="service_head">Add New Service</h3>
-            <p>Add a service. You must fill in the appropriate information in order to enter the service to the shop.</p>
-            <div class="bt_cont"> <a style="margin-right:5px; background-color:seagreen" class="btn sqaure_bt btn-lg btn-block" href="new_service">Add</a> </div>
-          </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="checkout-form">
+          <form action="<?=App::config('url')?>manage/change_service_data" method="POST" enctype="multipart/form-data">
+            <fieldset>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-field">
+                  <label>Title <span class="red"></span></label>
+                  <input class="inputcheckout" placeholder="Enter service title." name="title" value="<?=$service->title?>" type="text">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-field">
+                  <label>Short Description</label>
+                  <input class="inputcheckout"  name="smalldesc" placeholder="Describe the service in one or two sentences." value="<?=$service->smalldesc?>" type="text">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-field">
+                  <label>Description <span class="red"></span></label>
+                  <input class="inputcheckout" value="<?=$service->description?>" placeholder="Enter product description." name="description"></input>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-field">
+                  <label> Choose a image <span class="red"></span></label>
+                  <input class="inputcheckout" value="<?=$service->image?>" name="image" type="file">
+                  <?php if(isset($service->image)){ $_SESSION['image_service'] = $service->image; }?>
+                </div>
+              </div>
+              <div class="center">
+              <button class="btn main_bt" type="submit">Save changes</button>
+              <a href="<?=App::config('url')?>manage/services" style="margin-left:10px; background-color:firebrick" class="btn main_bt" type="submit">Back</a>
+            </div>
+            </div>
+            </fieldset>
+            <input type="hidden" name="id" value="<?=$service->id?>">
+          </form>
         </div>
-      </div>;
-      <?php endif;?>
+      </div>
+    <!-- SIDE BAR HERE -->
     </div>
-    <?php include 'pagingSer.phtml'; ?>
-    <?php else: ?>
-      <?php if(isset($newService)){echo $newService;}?>
-      <?php if(isset($backButton)){echo $backButton;} ?>
-    <?php endif;?>
   </div>
-</div>
-    </div>
-</div>
 </div>
 <div class="section padding_layout_1 testmonial_section white_fonts">
   <div class="container">
