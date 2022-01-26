@@ -406,7 +406,13 @@ class ProductsController extends Controller
     {
         if(empty($_SESSION['cart'])){
             $this->view->render($this->viewDir . 'cart',[
-                'message'=>"Enter coupon code.",
+                'message'=>"Your shopping cart is empty.",
+                'total'=>$this->total()
+            ]);
+        }
+        else if(!isset($_SESSION['authorized'])){
+            $this->view->render($this->viewDir . 'cart',[
+                'message'=>"You have to be logged in to checkout.",
                 'total'=>$this->total()
             ]);
         }

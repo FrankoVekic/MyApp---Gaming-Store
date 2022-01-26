@@ -161,8 +161,15 @@ class BlogController extends Controller
 
     public function request()
     {
+        if(!isset($_POST['postId'])){
+            $this->blog_detail();
+        }
+
         if(!empty($_POST['comment'])){
             Blog::insertComment($_POST['writer'],$_POST['comment'],$_POST['postId']);
+            $this->returnDetail($_POST['postId']);
+        }
+        else {
             $this->returnDetail($_POST['postId']);
         }
         $this->blog_detail();
@@ -233,5 +240,12 @@ class BlogController extends Controller
             $url = 'request_blog';
         }
         return $url;
+    }
+
+    public function delete_comment()
+    {
+        if(!isset($_SESSION['authorized'])){
+            
+        }
     }
 }
