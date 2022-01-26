@@ -60,7 +60,7 @@
                     <p class="comm_head">
                       <?=$com->writer?><span><?=$com->date?></span>
                     <?php if(Blog::myComment($com->id,$userId)): ?>
-                    <a class="rply" href="<?=App::config('url')?>blog/delete_comment?comment=<?=$com->id?>&uid=<?=$userId?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    <a class="rply" onclick="return confirm('Are you sure you want to delete this comment?');" href="<?=App::config('url')?>blog/delete_comment?comment=<?=$com->id?>&blog=<?=$blog->id?>"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     <a class="rply" style="margin-right:10px;" href="<?=App::config('url')?>blog/update_comment?comment=<?=$com->id?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     <?php endif; ?>
                   </p>

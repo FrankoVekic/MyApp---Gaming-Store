@@ -104,8 +104,19 @@ class Blog
             return $query->fetchColumn();
     }
 
+    public static function commentExists($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * from comment where post = $id;"
+        );
+        $query->execute();
+        return $query->fetch();
+    }
+
     public static function findComment($id,$page)
     {
+        
         $npp = App::config('npp');
         $from = $page * $npp - $npp;
         $conn = DB::connect();
@@ -113,13 +124,20 @@ class Blog
         from user a 
         inner join comment b on b.writer = a.id 
         inner join blog c on c.id = b.post 
-        where b.post =$id order by b.commentDate asc limit :from,:npp;");
+        where b.post = $id order by b.commentDate asc limit :from,:npp;");
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('npp',$npp, PDO::PARAM_INT);
         $query->execute();
 
-        return $query->fetchAll();
+        $commentExists = $query->fetchAll();
+
+        if($commentExists == null){
+            return null;
+        }
+        else {
+            return $commentExists;
+        }
     }
 
     public static function getCommentWriter($id)

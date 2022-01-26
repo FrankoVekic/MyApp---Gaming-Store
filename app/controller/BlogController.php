@@ -139,6 +139,7 @@ class BlogController extends Controller
 
         $nid = $id;
         $blogExists = Blog::blogExists($nid);
+
         if($blogExists == null){
             $this->index();
         }
@@ -245,7 +246,83 @@ class BlogController extends Controller
     public function delete_comment()
     {
         if(!isset($_SESSION['authorized'])){
+            $this->index();
+            return;
+        }
+        if(!isset($_GET['blog'])){
+            $this->index();
+            return;
+        }
+
+        if(!isset($_GET['comment'])){
+            $this->returnDetail($_GET['blog']);
+            return;
+        }
+        
+        if(Comment::commentExists($_GET['comment']) == null){
+            $this->returnDetail($_GET['blog']);
+            return;
+        }
+
+        Comment::delete($_GET['comment']);
+        $this->detailPath($_GET['blog']);
+    }
+
+    public function detailPath($id){
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+        
+
+        if(!isset($_GET['blog'])){
+            $this->index();
+        }
+        $blogExists = Blog::blogExists($id);
+        if($blogExists == null){
+            $this->index();
+        }
+        else {
+          
+            $commentCount = Blog::commentCount($id);
+            $pageCount = ceil($commentCount/App::config('npp'));
             
+            if($page>$pageCount){
+                $page=$pageCount;
+            }
+            if($page==0){
+                $page=1;
+            }
+
+            if(isset($_SESSION['authorized'])){
+                $userId = $_SESSION['authorized']->id;
+                
+            }
+            else{
+                $userId = '';
+            }
+
+            $this->view->render($this->viewDir . 'blog_detail',[
+                'blog'=>Blog::blogDetail($id),
+                'search'=>$search,
+                'message'=>'',
+                'random'=>Service::randomService(),
+                'latestBlog'=>Blog::latestBlog(),
+                'comment'=>Blog::findComment($id,$page),
+                'page'=>$page,
+                'pageCount'=>$pageCount,
+                'userId'=>$userId,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
+            ]);
         }
     }
 }
