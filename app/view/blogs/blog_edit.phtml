@@ -1,0 +1,109 @@
+<div id="inner_banner" class="section inner_banner_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="full">
+          <div class="title-holder">
+            <div class="title-holder-cell text-left">
+              <h1 class="page-title">Blog Edit</h1>
+              <ol class="breadcrumb">
+                <li><a href="<?=App::config('url')?>index/home">Home</a></li>
+                <li><a href="<?=App::config('url')?>blog/index">Blog List</a></li>
+                <li class="active">Blog Edit</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section padding_layout_1 blog_grid">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pull-right">
+        <div class="full">
+          <div class="blog_section margin_bottom_0">
+            <div class="view_commant">
+              <div class="row">
+                <div class="col-lg-12 col-md-10 col-sm-9 col-xs-12">
+                  <div class="post_commt_form">
+                    <h4>EDIT YOUR COMMENT</h4>
+                    <div class="form_section">
+                        <form class="form_contant" method="POST" action="<?=App::config('url')?>blog/change_comment">
+                        <fieldset class="row">
+                    <div class="field col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <input type="hidden" value="<?=$editComment->id?>"></input>
+                    <input class="field_custom" name="comment" value="<?=$editComment->comment?>" required></input>
+                  </div>
+                  <div class="center">
+                    <button class="btn main_bt" type="submit">SAVE CHANGES</button>
+                    <a href="<?=App::config('url')?>blog/blog_detail?id=<?=$editComment->blogId?>" style="margin-left:20px;" class="btn main_bt" type="submit">CANCEL</a>
+                  </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pull-left">
+        <div class="side_bar">
+          <div class="side_bar_blog">
+          <h4>SEARCH</h4>
+            <div class="side_bar_search">
+              <form action="<?=App::config('url')?>blog/request_blog">
+              <div class="input-group stylish-input-group">
+                <input class="form-control" name="search" value="<?=$search?>" placeholder="Search" type="text">
+                <span class="input-group-addon">
+                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </span> </div>
+              </form>
+            </div>
+          </div>
+          <div class="side_bar_blog">
+          <h4><?=strtoupper($random->title)?></h4>
+            <p><?=$random->smalldesc?></p>
+            <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a>
+          </div>
+          <div class="side_bar_blog">
+            <h4>RECENT POST</h4>
+            <div class="recent_post">
+              <ul>
+                <?php foreach($latestBlog as $lb): ?>
+                <li>
+                  <p class="post_head"><a href="<?=App::config('url')?>blog/blog_detail?id=<?=$lb->id?>"><?=$lb->title?></a></p>
+                  <p class="post_date"><i class="fa fa-calendar" aria-hidden="true"></i> <?=$lb->blogdate?></p>
+                </li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+          </div>
+          <div class="side_bar_blog">
+            <h4>OUR SERVICE</h4>
+            <div class="categary">
+              <ul>
+                <?php foreach($sideService as $sideService): ?>
+                <li><a href="<?=App::config('url')?>services/service_detail?id=<?=$sideService->id?>"><i class="fa fa-angle-right"></i> <?=$sideService->title?></a></li>
+                <?php endforeach;?>
+              </ul>
+            </div>
+          </div>
+          <div class="side_bar_blog">
+            <h4>RECENT NEWS</h4>
+            <div class="categary">
+              <ul>
+              <?php foreach($sideNews as $sideNews): ?>
+                <li><a href="<?=App::config('url')?>news/news_detail?id=<?=$sideNews->id?>"><i class="fa fa-angle-right"></i> <?=$sideNews->headline?></a></li>
+              <?php endforeach;?>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

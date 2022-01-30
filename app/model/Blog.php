@@ -186,4 +186,73 @@ class Blog
             return $user;
         }
     }
+
+    public static function checkBeforeDelete($comment,$post,$user)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        select * from comment where id =:comment and post =:post and writer =:user;
+        ");
+        $query->bindParam(":user",$user);
+        $query->bindParam(":comment",$comment);
+        $query->bindParam(":post",$post);
+        $query->execute();
+
+        $exists = $query->fetch();
+
+        if($exists==null){
+            return null;
+        }
+        else {
+            return $exists;
+        }
+    }
+
+    public static function getCommentEdit($comment,$blog,$page)
+    {
+        $npp = App::config('npp');
+        $from = $page * $npp - $npp;
+        $conn = DB::connect();
+        $query = $conn->prepare("SELECT concat(a.name,' ', a.surname) as writer,b.id as id, b.comment as comment, b.commentDate as date
+        from user a 
+        inner join comment b on b.writer = a.id 
+        inner join blog c on c.id = b.post 
+        where b.post = $blog and b.id != $comment order by b.commentDate asc limit :from,:npp;");
+
+        $query->bindValue('from',$from, PDO::PARAM_INT);
+        $query->bindValue('npp',$npp, PDO::PARAM_INT);
+        $query->execute();
+
+        $commentExists = $query->fetchAll();
+
+        if($commentExists == null){
+            return null;
+        }
+        else {
+            return $commentExists;
+        }
+    }
+
+    public static function getComment($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        SELECT concat(a.name,' ', a.surname) as writer,b.id as id, b.comment as comment, b.commentDate as date, c.id as blogId
+        from user a 
+        inner join comment b on b.writer = a.id 
+        inner join blog c on c.id = b.post 
+        where b.id = :id;
+        ");
+        $query->bindParam(":id",$id);
+        $query->execute();
+
+        $comment = $query->fetch();
+
+        if($comment==null){
+            return null;
+        }
+        else {
+            return $comment;
+        }
+    }
 }
