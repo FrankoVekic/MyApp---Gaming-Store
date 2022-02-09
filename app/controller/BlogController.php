@@ -419,4 +419,11 @@ class BlogController extends Controller
         ]);
     }
 }
+
+    public function new_blog()
+    {
+        $this->view->render($this->viewDir . 'new_blog',[
+            'message'=>'Fill in the required fields.'
+        ]);
+    }
 }
