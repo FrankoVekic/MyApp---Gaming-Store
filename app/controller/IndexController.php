@@ -33,7 +33,20 @@ class IndexController extends Controller
 
     public function privacy_policy()
     {
-        $this->view->render('privacy_policy');
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $this->view->render('privacy_policy',[
+            'search'=>$search,
+            'message'=>'',
+            'random'=>Service::randomService(),
+            'sideService'=>Service::sideBarServices(),
+            'sideNews'=>News::sideBarNews()
+        ]);
     }
     
     public function price()

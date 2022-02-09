@@ -925,6 +925,63 @@ class ManageController extends AdminController
         return $url;
     }
 
+     public function request_service()
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+        
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        $serviceCount = Service::serviceCountSearch($search);
+        $pageCount = ceil($serviceCount/App::config('spp'));
+        
+        if($page>$pageCount){
+            $page=$pageCount;
+        }
+        if($page==0){
+            $page=1;
+        }
+        if(Service::getServiceSearch($page,$search) == null)
+        {
+            $backButton = '<div class="row">      
+                           <div style="margin-left:50px;" class="bt_cont"><a class="btn sqaure_bt" href="services">Back</a></div>
+                           </div>';
+            
+            $this->view->render($this->viewDir . 'services',[
+                'service'=>Service::getServiceSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"No results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews(),
+                'backButton'=>$backButton
+            ]);
+        }
+        else {
+            $this->view->render($this->viewDir . 'services',[
+                'service'=>Service::getServiceSearch($page,$search),
+                'page'=>$page,
+                'search'=>$search,
+                'pageCount'=>$pageCount,
+                'message'=>"Search results for: " . '\'' . $search . '\'',
+                'random'=>Service::randomService(),
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
+            ]);
+        }
+    }
+
     public function new_service()
     {
         $this->view->render($this->viewDir . 'new_service',[
