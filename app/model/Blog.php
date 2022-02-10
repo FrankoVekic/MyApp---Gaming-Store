@@ -7,7 +7,7 @@ class Blog
         $bpp = App::config('bpp');
         $from = $page * $bpp - $bpp;
         $conn = DB::connect();
-        $query = $conn->prepare('SELECT * FROM blog order by blogdate asc limit :from,:bpp;');
+        $query = $conn->prepare('SELECT * FROM blog order by id desc limit :from,:bpp;');
 
         $query->bindValue('from',$from, PDO::PARAM_INT);
         $query->bindValue('bpp',$bpp, PDO::PARAM_INT);
@@ -254,5 +254,25 @@ class Blog
         else {
             return $comment;
         }
+    }
+
+    public static function create($params,$img)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        INSERT INTO blog(title, text, author, image) VALUES (:title, :text, :author, '$img');
+        ");
+        $query->execute($params);
+    }
+
+    public static function findLastBlog()
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        select id from blog order by id desc limit 1;
+        ");
+        $query->execute();
+
+        return $query->fetch();
     }
 }

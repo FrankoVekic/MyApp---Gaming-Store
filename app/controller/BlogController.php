@@ -3,7 +3,20 @@
 class BlogController extends Controller 
 {
 
+    
     private $viewDir = 'blogs' . DIRECTORY_SEPARATOR;
+    private $imgDir = BP . 'public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'blog' . DIRECTORY_SEPARATOR;
+    private $blog;
+    private $message;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->blog = new stdClass();
+        $this->blog->title="";
+        $this->blog->text="";
+        $this->blog->image="";
+    }
 
     public function index ()
     {
@@ -422,8 +435,98 @@ class BlogController extends Controller
 
     public function new_blog()
     {
+        if(!isset($_SESSION['authorized'])){
+            $this->index();
+        }
+
         $this->view->render($this->viewDir . 'new_blog',[
+            'blog'=>$this->blog,
             'message'=>'Fill in the required fields.'
         ]);
+    }
+
+    public function upload_blog()
+    {
+        if(!isset($_SESSION['authorized'])){
+            $this->index();
+        }
+
+        if(!$_POST){
+            $this->new_blog();
+            return;
+        }
+
+        $this->blog=(object)$_POST;
+
+        if($this->verify_blog_title() && 
+           $this->verify_blog_text()   
+        ){
+            $file = $_FILES['image']['name'];
+
+            if (!$file){
+                $img = $_SESSION['image_blog'];
+                if($img == ''){
+                    $img = null;
+                }
+                Blog::create((array)($this->blog),$img);
+                unset($_SESSION['image_blog']);
+            }else {
+                $img = $this->blog->title . $this->blog->author . '.jpg';
+                Blog::create((array)($this->blog),$img);
+        }
+            if(isset($_FILES['image'])){
+                move_uploaded_file($_FILES['image']['tmp_name'],
+                $this->imgDir . $this->blog->title . $this->blog->author . '.jpg');
+            }
+            $this->index();
+        }
+        else {
+            $this->view->render($this->viewDir . 'new_blog',[
+                'blog'=>$this->blog,
+                'message'=>$this->message
+            ]);
+        }
+    }
+
+    private function verify_blog_title()
+    {
+        if(!isset($this->blog->title)){
+            $this->message = "Title is required";
+            return false;
+        }
+        if(strlen(trim($this->blog->title)) === 0){
+            $this->message="Title is required.";
+            return false;
+        }
+        if(strlen(trim($this->blog->title))<3){
+            $this->message="Title is too short (atleast 3 letters).";
+            return false;
+        }
+        if(strlen(trim($this->blog->title))>50){
+            $this->message="Max number of letters is 50.";
+            return false;
+        }
+        return true;
+    }
+
+    private function verify_blog_text()
+    {
+        if(!isset($this->blog->text)){
+            $this->message = "Blog text is required.";
+            return false;
+        }
+        if(empty($this->blog->text)){
+            $this->message = "Blog text is required.";
+            return false;
+        }
+        if(strlen(trim($this->blog->text)) === 0){
+            $this->message="Blog text is required.";
+            return false;
+        }
+        if(strlen(trim($this->blog->text))<10){
+            $this->message="Blog text is too short.";
+            return false;
+        }
+        return true;
     }
 }

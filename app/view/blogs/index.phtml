@@ -25,7 +25,6 @@
     <div class="row">
       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 pull-right">
         <div class="full">
-          <!--BLOG SELECTION START -->
           <div class="center" style="margin-bottom: 20px;">
             <a href="<?=App::config('url')?>blog/new_blog" class="btn main_bt" type="submit">Add New Blog</a>
           </div>
@@ -50,7 +49,6 @@
           </div>
           </div>
           <?php endforeach; ?>
-          <!-- BLOG SELECTION END -->
             <?php include 'pagingBl.phtml'; ?>
             <?php else :?>
               <div style="margin-left:20px;" class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>blog/index">Back</a> </div>

@@ -5,11 +5,11 @@
         <div class="full">
           <div class="title-holder">
             <div class="title-holder-cell text-left">
-              <h1 class="page-title">Add Game</h1>
+              <h1 class="page-title">Add New Blog</h1>
               <ol class="breadcrumb">
                 <li><a href="<?=App::config('url')?>index/home">Home</a></li>
-                <li><a href="<?=App::config('url')?>manage/games">Manage Games</a></li>
-                <li class="active">Add Game</li>
+                <li><a href="<?=App::config('url')?>blog/index">Blog</a></li>
+                <li class="active">Add New Blog</li>
               </ol>
             </div>
           </div>
@@ -38,21 +38,23 @@
             <div class="col-md-12">
                 <div class="form-field">
                   <label> Upload a image (not necessary) <span class="red"></span></label>
-                  <input class="inputcheckout" value="" name="image" type="file">
+                  <input class="inputcheckout" value="<?=$blog->image?>" name="image" type="file">
+                  <?php if(isset($blog->image)){ $_SESSION['image_blog'] = $blog->image; }?>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-field">
                   <label>Title <span class="red">*</span></label>
-                  <input class="inputcheckout" placeholder="Enter a title for your Blog." name="title" value="" type="text">
+                  <input class="inputcheckout" placeholder="Enter a title for your Blog." name="title" value="<?=$blog->title?>" type="text">
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="form-field">
                   <label>Blog text <span class="red">*</span></label>
-                  <input class="inputcheckout" value="" placeholder="Write your blog here" name="text"></input>
+                  <input class="inputcheckout" value="<?=$blog->text?>" placeholder="Write your blog here" name="text"></input>
                 </div>
               </div>
+              <input type="hidden" name="author" value="<?=$_SESSION['authorized']->id;?>">
               <div class="center">
               <button class="btn main_bt" type="submit">Add</button>
               <a href="<?=App::config('url')?>blog/index" style="margin-left:10px; background-color:firebrick" class="btn main_bt" type="submit">Back</a>

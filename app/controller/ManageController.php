@@ -37,6 +37,7 @@ class ManageController extends AdminController
         $this->service->smalldesc="";
         $this->service->description="";
         $this->service->image="";
+
     }
 
     public function games()
@@ -755,7 +756,6 @@ class ManageController extends AdminController
 
     private function verify_description_product()
     {
-
         if(!isset($this->equipment->description)){
             $this->message = "Description is required.";
             return false;
