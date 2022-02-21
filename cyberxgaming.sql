@@ -105,7 +105,7 @@ alter table order_details add foreign key (buyer) references user(id);
 alter table blog add foreign key (author) references user(id);
 alter table news add foreign key (author) references user(id);
 alter table comment add foreign key (writer) references user(id);
-alter table comment add foreign key (post) references blog(id);
+alter table comment add foreign key (post) references blog(id) ON DELETE CASCADE;
 
 # USER INSERT
 insert into user (email,password,name,surname,role) values 

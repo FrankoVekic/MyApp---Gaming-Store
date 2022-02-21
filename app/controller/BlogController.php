@@ -651,4 +651,18 @@ class BlogController extends Controller
         }
     }
 
+    public function delete_blog()
+    {
+        if(!isset($_GET['blog'])){
+            $this->index();
+            return;
+        }
+        if(Blog::blogExists($_GET['blog']) == null){
+            $this->index();
+            return;
+        }
+
+        Blog::delete($_GET['blog']);
+        $this->index();
+    }
 }

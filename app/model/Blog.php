@@ -309,4 +309,13 @@ class Blog
         $query->execute($params);
     }
 
+    public static function delete($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        DELETE FROM blog WHERE id =:id;
+        ");
+        $query->bindParam(":id",$id);
+        $query->execute();
+    }
 }
