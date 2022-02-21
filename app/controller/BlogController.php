@@ -288,6 +288,62 @@ class BlogController extends Controller
         $this->detailPath($_GET['blog']);
     }
 
+    public function pageById($id)
+    {
+        if(!isset($_GET['page'])){
+            $page=1;
+        }
+        else {
+            $page=(int)$_GET['page'];
+        }
+
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+        
+
+        $blogExists = Blog::blogExists($id);
+        if($blogExists == null){
+            $this->index();
+        }
+        else {
+          
+            $commentCount = Blog::commentCount($id);
+            $pageCount = ceil($commentCount/App::config('npp'));
+            
+            if($page>$pageCount){
+                $page=$pageCount;
+            }
+            if($page==0){
+                $page=1;
+            }
+
+            if(isset($_SESSION['authorized'])){
+                $userId = $_SESSION['authorized']->id;
+                
+            }
+            else{
+                $userId = '';
+            }
+
+            $this->view->render($this->viewDir . 'blog_detail',[
+                'blog'=>Blog::blogDetail($id),
+                'search'=>$search,
+                'message'=>'',
+                'random'=>Service::randomService(),
+                'latestBlog'=>Blog::latestBlog(),
+                'comment'=>Blog::findComment($id,$page),
+                'page'=>$page,
+                'pageCount'=>$pageCount,
+                'userId'=>$userId,
+                'sideService'=>Service::sideBarServices(),
+                'sideNews'=>News::sideBarNews()
+            ]);
+        }
+    }
+
     public function detailPath($id){
         if(!isset($_GET['page'])){
             $page=1;
@@ -553,6 +609,46 @@ class BlogController extends Controller
             'blog'=>$blog,
             'message'=> 'Change data in your blog.'
         ]);
+    }
+
+    public function change_blog_data()
+    {
+        if(!isset($_SESSION['authorized'])){
+            $this->index();
+            return;
+        }
+
+        if(!$_POST){
+            $this->index();
+            return;
+        }
+
+        $this->blog = (object)$_POST;
+
+        if($this->verify_blog_title() 
+        && $this->verify_blog_text()){
+
+            $file = $_FILES['image']['name'];
+            if (!$file){
+                $img = $_SESSION['image_blog'];
+                Blog::update((array)($this->blog),$img);
+                unset($_SESSION['image_blog']);
+            }else {
+                $img = $this->blog->id . 'a.jpg';
+                Blog::update((array)($this->blog),$img);
+        }
+            if(isset($_FILES['image'])){
+                move_uploaded_file($_FILES['image']['tmp_name'],
+                $this->imgDir . $this->blog->id . 'a.jpg');
+            }
+            $this->pageById($this->blog->id);
+        }
+        else {
+            $this->view->render($this->viewDir . 'update_blog',[
+                'blog'=>$this->blog,
+                'message'=>$this->message
+            ]);
+        }
     }
 
 }

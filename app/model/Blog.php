@@ -295,4 +295,18 @@ class Blog
 
         return $query->fetch();
     }
+
+    public static function update($params,$img)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        update blog set 
+        title=:title,
+        text=:text,
+        author=:author,
+        image='$img'
+        where id=:id");
+        $query->execute($params);
+    }
+
 }
