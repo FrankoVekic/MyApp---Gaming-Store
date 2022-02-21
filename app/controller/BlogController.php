@@ -529,4 +529,30 @@ class BlogController extends Controller
         }
         return true;
     }
+
+
+    public function update_blog()
+    {
+        if(!isset($_GET['blog'])){
+            $this->index();
+            return;
+        }
+
+        if(Blog::blogExists($_GET['blog']) == null){
+            $this->index();
+            return;
+        }
+
+        if(Blog::myBlog($_SESSION['authorized']->id,$_GET['blog']) == null){
+            $this->index();
+            return;
+        }
+
+        $blog = Blog::blogDetail($_GET['blog']);
+        $this->view->render($this->viewDir . 'update_blog',[
+            'blog'=>$blog,
+            'message'=> 'Change data in your blog.'
+        ]);
+    }
+
 }

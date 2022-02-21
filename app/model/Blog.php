@@ -79,6 +79,26 @@ class Blog
         return $query->fetchColumn();
     }
 
+    public static function myBlog($author,$blogId)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        SELECT * FROM blog WHERE author = :author and id = :blogId;
+        ");
+
+        $query->bindParam(':author',$author);
+        $query->bindParam(':blogId',$blogId);
+        $query->execute();
+        $blog = $query->fetch();
+
+        if($blog == null){
+            return null;
+        }
+        else {
+            return $blog;
+        }
+    }
+
     public static function blogExists($id)
     {
         $conn = DB::connect();
