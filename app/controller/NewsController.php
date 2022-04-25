@@ -95,6 +95,12 @@ class NewsController Extends Controller
         }
     }
 
+    public function publish_news(){
+        $this->view->render($this->viewDir . 'publish_news',[
+            'message'=>'Enter required information.'
+        ]);
+    }
+
     public function news_detail()
     {
 

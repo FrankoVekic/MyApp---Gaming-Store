@@ -5,10 +5,11 @@
         <div class="full">
           <div class="title-holder">
             <div class="title-holder-cell text-left">
-              <h1 class="page-title">News</h1>
+              <h1 class="page-title">Publish News</h1>
               <ol class="breadcrumb">
                 <li><a href="<?=App::config('url')?>index/home">Home</a></li>
-                <li class="active">News</li>
+                <li><a href="<?=App::config('url')?>news/index">News</a></li>
+                <li class="active">Publish News</li>
               </ol>
             </div>
           </div>
@@ -17,96 +18,48 @@
     </div>
   </div>
 </div>
-<div class="section padding_layout_1 product_list_main">
+<div class="section padding_layout_1 checkout_section">
   <div class="container">
-    <?php if(isset($_SESSION['authorized'])):?>
-    <?php if($_SESSION['authorized']->role == 'admin'): ?>
-    <?php if($news != null):?>
-  <div class="row">
-    <div style="margin-left:20px;" class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>news/publish_news">Publish News</a> </div>
-    </div>
-    <?php endif;?>
-    <?php endif;?>
-    <?php endif;?>
     <div class="row">
-      <div class="col-md-9">
-          <div>
-            <h3><?=$message?></h3>
-          </div>
-        <div class="row">
-        <?php if($news != null): ?>
-          <?php foreach($news as $news): ?>
-      <div class="col-md-6 service_blog margin_bottom_50">
+      <div class="col-sm-12">
         <div class="full">
-          <div class="service_img"> <img class="img-responsiveNews" src="<?=App::config('url')?>public/images/news/<?=$news->image?>" alt="#" /> </div>
-          <div class="service_cont">
-            <h3 class="service_head"><?=$news->headline?></h3>
-            <p><?=substr($news->text,0,75)?>...</p>
-            <p>Author: <?php $id = News::findAuthor($news->id); echo $id;?></p>
-            <p><i class="fa fa-clock-o"></i> <?=$news->publishDate?></p>
-            <div class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>news/news_detail?id=<?=$news->id?>">Read News</a> </div>
+          <div class="tab-info coupon-section">
+            <p><?=$message?></p>
           </div>
         </div>
       </div>
-     <?php endforeach;?>
-          <?php include 'pagingSr.phtml' ?>
-          <?php else: ?>
-            <div style="margin-left:20px;" class="bt_cont"> <a class="btn sqaure_bt" href="<?=App::config('url')?>news/index">Back</a> </div>
-          <?php endif; ?>
-        </div>  
-      </div>
-      <div class="col-md-3">
-        <div class="side_bar">
-          <div class="side_bar_blog">
-            <h4>SEARCH</h4>
-            <div class="side_bar_search">
-              <form action="<?=App::config('url')?>news/request_news">
-              <div class="input-group stylish-input-group">
-                <input class="form-control" name="search" value="<?=$search?>" placeholder="Search" type="text">
-                <span class="input-group-addon">
-                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </span> </div>
-              </form>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="checkout-form">
+          <form action="<?=App::config('url')?>news/publish" method="POST" enctype="multipart/form-data">
+            <fieldset>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-field">
+                  <label>Headline <span class="red"></span></label>
+                  <input class="inputcheckout" placeholder="Enter a headline" name="headline" type="text">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-field">
+                  <label>News Article <span class="red"></span></label>
+                  <textarea class="inputcheckout"  placeholder="Enter news here" name="news"></textarea>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-field">
+                  <label> Choose a image <span class="red"></span></label>
+                  <input class="inputcheckout" value="" name="image" type="file">
+                </div>
+              </div>
+              <div class="center">
+              <button class="btn main_bt" type="submit">PUBLISH</button>
+              <a href="<?=App::config('url')?>news/index" style="margin-left:10px; background-color:firebrick" class="btn main_bt" type="submit">Back</a>
             </div>
-          </div>
-          <?php if($random !=null): ?>
-          <div class="side_bar_blog">
-          <h4><?=strtoupper($random->title)?></h4>
-            <p><?=$random->smalldesc?></p>
-            <a class="btn sqaure_bt" href="<?=App::config('url')?>services/service_detail?id=<?=$random->id?>">View Service</a></div>
-            <?php endif; ?>
-          <div class="side_bar_blog">
-            <h4>OUR SERVICE</h4>
-            <div class="categary">
-              <ul>
-              <?php foreach($sideService as $sideService): ?>
-                <li><a href="<?=App::config('url')?>services/service_detail?id=<?=$sideService->id?>"><i class="fa fa-angle-right"></i> <?=$sideService->title?></a></li>
-              <?php endforeach;?>
-              </ul>
             </div>
-          </div>
-          <div class="side_bar_blog">
-            <h4>RECENT NEWS</h4>
-            <div class="categary">
-              <ul>
-              <?php foreach($sideNews as $sideNews): ?>
-                <li><a href="<?=App::config('url')?>news/news_detail?id=<?=$sideNews->id?>"><i class="fa fa-angle-right"></i> <?=$sideNews->headline?></a></li>
-              <?php endforeach;?>
-              </ul>
-            </div>
-          </div>
-          <div class="side_bar_blog">
-            <h4>TAG</h4>
-            <div class="tags">
-              <ul>
-                <li><a href="#">HTML5</a></li>
-                <li><a href="#">PHP</a></li>
-                <li><a href="#">BOOTSTRAP</a></li>
-                <li><a href="#">SQL</a></li>
-                <li><a href="#">CSS</a></li>
-              </ul>
-            </div>
-          </div>
+            </fieldset>
+          </form>
         </div>
       </div>
     </div>

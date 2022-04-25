@@ -399,7 +399,7 @@ class ProductsController extends Controller
         $total = 0;
         return $total;
 }
-      return $total;
+      return $total + 5;
     }
 
     public function checkout()
@@ -433,6 +433,12 @@ class ProductsController extends Controller
     public function action ()
     {
         if(isset($_POST['applycoupon'])){
+            if(!isset($_SESSION['authorized'])){
+                $this->view->render($this->viewDir . 'cart',[
+                    'message'=>'You have to login before applying a coupon code.',
+                    'total'=>$this->total()
+                ]);
+            }
             if(empty($_POST['couponcode'])){
                 $this->view->render($this->viewDir . 'cart',[
                     'message'=>"Enter coupon code.",
