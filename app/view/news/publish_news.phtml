@@ -44,7 +44,7 @@
               <div class="col-md-12">
                 <div class="form-field">
                   <label>News Article <span class="red"></span></label>
-                  <textarea class="inputcheckout"  placeholder="Enter news here" name="news"></textarea>
+                  <input class="inputcheckout"  placeholder="Enter news here" name="text"></input>
                 </div>
               </div>
               <div class="col-md-6">
@@ -57,6 +57,7 @@
               <button class="btn main_bt" type="submit">PUBLISH</button>
               <a href="<?=App::config('url')?>news/index" style="margin-left:10px; background-color:firebrick" class="btn main_bt" type="submit">Back</a>
             </div>
+            <input type="hidden" name="author" value="<?=$_SESSION['authorized']->id;?>">
             </div>
             </fieldset>
           </form>

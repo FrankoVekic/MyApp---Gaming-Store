@@ -5,6 +5,16 @@ class NewsController Extends Controller
     private $viewDir = 'news' . DIRECTORY_SEPARATOR;
 
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->news = new stdClass();
+        $this->news->headline ="";
+        $this->news->text ="";
+        $this->news->image = "";
+        $this->news->author = "";
+    }
+
     public function index ()
     {
         if(!isset($_GET['page'])){
@@ -99,6 +109,38 @@ class NewsController Extends Controller
         $this->view->render($this->viewDir . 'publish_news',[
             'message'=>'Enter required information.'
         ]);
+    }
+
+    public function publish(){
+        if(!$_POST){
+            $this->publish_news();
+            return;
+        }
+
+            $this->news = (object)$_POST;
+
+            if($this->checkHeadline() && $this->checkText() && $this->checkImage()){
+                News::create((array)$this->news,'noimg.png');
+                $this->index();
+            }
+            else {
+                $this->view->render($this->viewDir . 'publish_news',[
+                    'message'=>'Enter required information.',
+                    'news'=>$this->news
+                ]);   
+            }
+    }
+
+    private function checkHeadline(){
+        return true;
+    }
+
+    private function checkText(){
+        return true;
+    }
+
+    private function checkImage(){
+        return true;
     }
 
     public function news_detail()

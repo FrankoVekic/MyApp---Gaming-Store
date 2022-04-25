@@ -81,8 +81,7 @@ create table news(
 id int not null primary key auto_increment,
 headline varchar(250) not null,
 `text` text not null,
-publishDate date not null default now(),
-state varchar(30),
+publishDate date default now(),
 image varchar(50) not null,
 author int not null
 );

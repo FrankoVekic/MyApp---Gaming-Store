@@ -133,4 +133,11 @@ class News
         $query->execute();
         return $query->fetchAll();
     }
+
+    public static function create($params,$img){
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        INSERT INTO news(headline,text,image,author) VALUES (:headline, :text, '$img', :author);");
+        $query->execute($params);
+    }
 }
