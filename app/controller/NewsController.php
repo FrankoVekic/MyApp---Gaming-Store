@@ -184,4 +184,23 @@ class NewsController Extends Controller
         }
         return $url;
     }
+
+    public function delete_news(){
+        if(!isset($_GET['id'])){
+            $this->index();
+            return;
+        }
+        else {
+
+            $id = $_GET['id'];
+            if(News::newsExists($id) == null){
+                $this->index();
+                return;
+            }
+            else {
+                News::delete($id);
+                $this->index();
+            }
+        }
+    }
 }

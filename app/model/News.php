@@ -126,6 +126,14 @@ class News
         }
     }
 
+    public static function delete($id){
+        $conn = DB::connect();
+        $query = $conn->prepare("
+        DELETE FROM news WHERE id ='$id';
+        ");
+        $query->execute();
+    }
+
     public static function sideBarNews()
     {
         $conn = DB::connect();
