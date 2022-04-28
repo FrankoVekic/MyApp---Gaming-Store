@@ -59,7 +59,7 @@
       <td> <?=$eq->smalldesc?></</td>
       <td> <?=$eq->description?></</td>
       <td class="center"> <?=$eq->quantity?></</td>
-      <td> <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit_equipment?product=<?=$eq->name?>">Edit</a><a onclick="return confirm('Are you sure you want to delete &#34;<?=$eq->name?>&#34; from the store?');" class="btn sqaure_bt" style="background-color:indianred" href="<?=App::config('url')?>manage/remove?product=<?=$eq->name?>">Remove</a> </div></td>
+      <td> <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit_equipment?product=<?=$eq->name?>">Edit</a><a onclick="return confirm('Are you sure you want to delete &#34;<?=$eq->name?>&#34; from the store?');" class="btn sqaure_bt" style="background-color:indianred" href="<?=App::config('url')?>manage/remove?product=<?=$eq->id?>">Remove</a> </div></td>
     </tr>
     <?php endforeach;?>
     <?php else: ?>

@@ -128,6 +128,21 @@ class Games
         return $gameExists;
     }
 
+    public static function gameExistsById($id)
+    {
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM game WHERE id = '$id';"
+        );
+        $query->execute();
+        $gameExists = $query->fetch();
+
+        if($gameExists==null){
+            return null;
+        }
+        return $gameExists;
+    }
+
     public static function checkNameForEdit($name,$id)
     {
         $conn = DB::connect();
@@ -154,11 +169,11 @@ class Games
         $query->execute($params);
     }
 
-    public static function delete($name)
+    public static function delete($id)
     {
         $conn = DB::connect();
         $query = $conn->prepare("
-        DELETE FROM game WHERE name ='$name';
+        DELETE FROM game WHERE id ='$id';
         ");
         $query->execute();
     }

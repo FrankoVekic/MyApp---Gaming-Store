@@ -157,6 +157,20 @@ class Equipment
         return $productExists;
     }
 
+    public static function equipmentExistsById($id){
+        $conn = DB::connect();
+        $query = $conn->prepare(
+            "SELECT * FROM equipment WHERE id = '$id';"
+        );
+        $query->execute();
+        $productExists = $query->fetch();
+
+        if($productExists==null){
+            return null;
+        }
+        return $productExists;
+    }
+
     public static function create($params)
     {
         $conn = DB::connect();
@@ -183,11 +197,11 @@ class Equipment
          $query->execute($params);
     }
 
-    public static function delete($name)
+    public static function delete($id)
     {
         $conn = DB::connect();
         $query = $conn->prepare("
-        DELETE FROM equipment WHERE name ='$name';
+        DELETE FROM equipment WHERE id ='$id';
         ");
         $query->execute();
     }

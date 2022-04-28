@@ -185,6 +185,33 @@ class NewsController Extends Controller
         return $url;
     }
 
+    public function change_news(){
+
+    }
+
+    public function edit_news(){
+        if(!isset($_GET['search'])){
+            $search='';
+        }else {
+            $search = $_GET['search'];
+        }
+
+        if(!isset($_GET['id'])){
+            $this->index();
+        }
+        $id = $_GET['id'];
+        $newsExists = News::newsExists($id);
+        if($newsExists == null){
+            $this->index();
+        }
+        else {
+            $this->view->render($this->viewDir . 'edit_news',[
+                'news'=>News::newsDetail($id),
+                'message'=>'Enter required information.'
+            ]);
+        }
+    }
+
     public function delete_news(){
         if(!isset($_GET['id'])){
             $this->index();

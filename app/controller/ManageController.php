@@ -303,12 +303,12 @@ class ManageController extends AdminController
             $this->games();
         }
         else {
-            $name = $_GET['game'];
-            if(Games::gameExistsByName($name) == null){
+            $id = $_GET['game'];
+            if(Games::gameExistsById($id) == null){
                 $this->games();
             }
             else {
-                Games::delete($name);
+                Games::delete($id);
                 $this->games();
             }
         }
@@ -850,12 +850,12 @@ class ManageController extends AdminController
             $this->equipment();
         }
         else {
-            $name = $_GET['product'];
-            if(Equipment::equipmentExistsByName($name) == null){
+            $id = $_GET['product'];
+            if(Equipment::equipmentExistsById($id) == null){
                 $this->equipment();
             }
             else {
-                Equipment::delete($name);
+                Equipment::delete($id);
                 $this->equipment();
             }
         }

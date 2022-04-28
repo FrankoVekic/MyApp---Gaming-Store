@@ -50,7 +50,7 @@
           <div class="service_cont">
             <h3 class="service_head"><?=$game->name?></h3>
             <p><?=$game->smalldesc?></p>
-            <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit_game?game=<?=$game->name?>">Edit</a><a onclick="return confirm('Are you sure you want to delete &#34;<?=$game->name?>&#34; from the store?');" class="btn sqaure_bt" style="background-color:indianred" href="<?=App::config('url')?>manage/delete?game=<?=$game->name?>">Delete</a> </div>
+            <div class="bt_cont"> <a style="margin-right:5px;" class="btn sqaure_bt" href="<?=App::config('url')?>manage/edit_game?game=<?=$game->name?>">Edit</a><a onclick="return confirm('Are you sure you want to delete &#34;<?=$game->name?>&#34; from the store?');" class="btn sqaure_bt" style="background-color:indianred" href="<?=App::config('url')?>manage/delete?game=<?=$game->id?>">Delete</a> </div>
           </div>
         </div>
       </div>
