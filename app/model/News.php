@@ -126,6 +126,18 @@ class News
         }
     }
 
+    public static function update($params,$img){
+        $conn = DB::connect();
+
+        $query = $conn->prepare("update news set
+         headline=:headline,
+         text=:text,
+         author=:author
+         image='$img'
+         where id=:id");
+         $query->execute($params);
+    }
+
     public static function delete($id){
         $conn = DB::connect();
         $query = $conn->prepare("
